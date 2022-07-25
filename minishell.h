@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ioriola <ioriola@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 12:56:28 by alsanche          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2022/07/24 16:41:46 by alsanche         ###   ########lyon.fr   */
-=======
-/*   Updated: 2022/07/23 11:10:30 by ioriola          ###   ########.fr       */
->>>>>>> 0d8a12dd9f5614f49175d4a199478bac45d38cb1
+/*   Updated: 2022/07/25 11:04:56 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +28,8 @@
 # include "libft/libft.h"
 
 # define MAGENTA "\033[1;35m"
-<<<<<<< HEAD
+
 # define RESET_C "\033[0m"
-=======
-# define RESET ">\033[0m" 
->>>>>>> 0d8a12dd9f5614f49175d4a199478bac45d38cb1
 
 typedef struct s_env
 {

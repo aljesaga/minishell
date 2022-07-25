@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ioriola <ioriola@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 14:50:39 by alsanche          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2022/07/24 13:44:01 by alsanche         ###   ########lyon.fr   */
-=======
-/*   Updated: 2022/07/23 10:32:33 by ioriola          ###   ########.fr       */
->>>>>>> 0d8a12dd9f5614f49175d4a199478bac45d38cb1
+/*   Updated: 2022/07/25 11:10:55 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,21 +35,8 @@ int	main(int arc, char **arv, char **env)
 		mini = init_mini(env);
 		while (1)
 		{
-<<<<<<< HEAD
 			line = readline(MAGENTA "IA_minishell > " RESET_C);
 			analyze_line(line, mini);
-=======
-			mini = init_mini(env);
-			line = readline(MAGENTA "IA_minishell " RESET);
-			if (!ft_strncmp(line, "echo", 5))
-				ft_echo(line, mini);
-			if (!ft_strncmp(line, "exit\0", 5))
-				exit (0);
-			if (!ft_strncmp(line, "env\0", 4))
-				print_env(mini);
-			if (line[0] == 'c' && line[1] == 'd')
-				ft_cd(line);
->>>>>>> 0d8a12dd9f5614f49175d4a199478bac45d38cb1
 			free(line);
 		}
 	}
