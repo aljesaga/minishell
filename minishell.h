@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 12:56:28 by alsanche          #+#    #+#             */
-/*   Updated: 2022/07/25 11:04:56 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/07/25 13:30:36 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <limits.h>
 # include <errno.h>
 # include <signal.h>
+# include <limits.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "libft/libft.h"
@@ -34,6 +35,7 @@
 typedef struct s_env
 {
 	char			*value;
+	int				change;
 	struct s_env	*next;
 }	t_env;
 
@@ -59,6 +61,7 @@ char	**env_2_str(t_mshell *mini);
 
 /* export.c */
 
+void	shlvlup(t_mshell *mini);
 int		export(char *str, t_mshell *mini);
 void	unset(char *str, t_mshell *mini);
 

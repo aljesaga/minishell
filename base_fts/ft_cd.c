@@ -3,24 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ioriola <ioriola@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 12:04:13 by alsanche          #+#    #+#             */
-/*   Updated: 2022/07/25 11:41:38 by ioriola          ###   ########.fr       */
+/*   Updated: 2022/07/19 12:43:10 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-/*
-cd ruta_absoluta
-cd [sin_argumentos] lleva a HOME
-~?????
-
-cd .. directorio inmediatamente anterior (superior) = cd ../
-cd . directorio en el que nos encontramos (directorio actual) = cd ./
-
-*/
 
 int	ft_cd(char *str)
 {

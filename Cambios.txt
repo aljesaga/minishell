@@ -1,0 +1,8 @@
+25/07/2022
+
+Alessandro:
+
+export y unset funcionan como deberia;
+pero dejan leaks si la variable fue modificada mas de una vez;
+
+agrergue funcion shlvl para aumentar el nivel de la maquina cuando se inicia la minishell :D
