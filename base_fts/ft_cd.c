@@ -3,15 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ioriola <ioriola@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 12:04:13 by alsanche          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/07/25 11:36:44 by ioriola          ###   ########.fr       */
+=======
+/*   Updated: 2022/07/19 12:43:10 by alsanche         ###   ########lyon.fr   */
+>>>>>>> 38e54f891ccb789c798909cd51c900f3cd4e0f0d
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
+<<<<<<< HEAD
 /*
 cd ruta_absoluta
 cd [sin_argumentos] lleva a HOME
@@ -22,6 +27,8 @@ cd . directorio en el que nos encontramos (directorio actual) = cd ./
 
 */
 
+=======
+>>>>>>> 38e54f891ccb789c798909cd51c900f3cd4e0f0d
 int	ft_cd(char *str)
 {
 	if (str[0] == '\0')
