@@ -35,7 +35,6 @@
 typedef struct s_env
 {
 	char			*value;
-	int				change;
 	struct s_env	*next;
 }	t_env;
 
@@ -61,6 +60,8 @@ char	**env_2_str(t_mshell *mini);
 
 /* export.c */
 
+int		ft_len2chr(const char *str, char c);
+void	export_sa(t_mshell *mini);
 void	shlvlup(t_mshell *mini);
 int		export(char *str, t_mshell *mini);
 void	unset(char *str, t_mshell *mini);

@@ -34,7 +34,7 @@ void	new_env(char *str, int num, t_mshell *mini)
 	newenv = malloc(sizeof(t_env));
 	if (!newenv)
 		exit (127);
-	newenv->value = str;
+	newenv->value = ft_strdup(str);
 	newenv->next = NULL;
 	mini->n_env++;
 	if (num == 0)

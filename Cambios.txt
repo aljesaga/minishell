@@ -1,3 +1,13 @@
+26/07/2022
+
+Alessandro:
+
+modifique la manera de guardar los punteros de los env para poder liberarlos mas facil.
+
+agregue la fucncion export_sa (todavia no funciona del todo) [para imprimir los env en orden alfabetico]
+
+aregregue la funcion ft_len2chr [cuenta los caracteres de un texto hasta cioncidir con el caracter enviado.
+
 25/07/2022
 
 Alessandro:

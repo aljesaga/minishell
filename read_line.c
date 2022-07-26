@@ -22,6 +22,8 @@ int	analyze_line(char *line, t_mshell *mini)
 	mini->fd_out = STDOUT_FILENO;
 	if (!ft_strncmp(str[0], "export\0", 7) && str[1])
 		mini->l_exit = export(ft_strup(str[1], ft_strlen(str[1])), mini);
+	if (!ft_strncmp(str[0], "export\0", 7) && str[1] == NULL)
+		export_sa(mini);
 	if (!ft_strncmp(str[0], "unset\0", 6) && str[1])
 		unset(str[1], mini);
 	if (!ft_strncmp(str[0], "echo\0", 5))

@@ -36,6 +36,7 @@ int	main(int arc, char **arv, char **env)
 		mini = init_mini(env);
 		while (1)
 		{
+			printf("-----------\n");
 			line = readline(MAGENTA "IA_minishell > " RESET_C);
 			analyze_line(line, mini);
 			free(line);

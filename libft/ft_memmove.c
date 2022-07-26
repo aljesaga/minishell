@@ -20,7 +20,7 @@ void	*ft_memmove(void *dest, const void *src, size_t n)
 
 	d = dest;
 	s = src;
-	if (s == '\0' && d == '\0')
+	if (s[0] == '\0' && d[0] == '\0')
 		return (NULL);
 	if (s < d)
 	{

@@ -21,7 +21,7 @@ void	*ft_memcpy(void *dest, const void *src, size_t n)
 	i = 0;
 	aux = dest;
 	ax = src;
-	if (aux == '\0' && ax == '\0')
+	if (aux[0] == '\0' && ax[0] == '\0')
 		return (NULL);
 	while (i < n)
 	{

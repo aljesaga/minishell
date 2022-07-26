@@ -33,16 +33,16 @@ char	*ft_strnstr(const char *s1, const char *s2, size_t n)
 	size_t		j;
 
 	len = ft_strlen(s2);
-	if (s1 == '\0')
+	if (s1[0] == '\0')
 		j = 2147483647 * s1[0];
 	if ((!s2 || len == 0) || (s1 == s2))
 		return ((char *)s1);
-	if ((n - 1 < 0) || (len > n))
+	if ((n - 1 <= 0) || (len > n))
 		return (NULL);
 	else
 	{
 		j = 0;
-		while (j < n && s1[j])
+		while (j <= n - 1 && s1[j])
 		{
 			if (s1[j] == s2[0])
 				if (check((char *)&s1[j], (char *)&s2[0], j, n) != 0)
