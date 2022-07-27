@@ -1,5 +1,5 @@
 __________
-26/07/2022
+27/07/2022
 
 Iván:
 	He añadido ft_pwd, que imprime por pantalla el nombre del directorio de trabajo actual.
