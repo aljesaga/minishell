@@ -9,6 +9,7 @@ Ejemplo:
 {
 	char *pwd;
 	pwd = get_env_value("PWD", mini);
+	// pwd = "/Users/alsanche/minishell/"
 }
 
 Sigo trabajando en ft_cd desde mi disco duro.
