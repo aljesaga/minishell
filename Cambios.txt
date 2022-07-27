@@ -1,5 +1,20 @@
 26/07/2022
 
+Iván:
+He añadido **ft_pwd**, que imprime por pantalla el nombre del directorio de trabajo actual.
+
+He creado la función **get_env_value** que busca en la lista de **t_env** y devuelve el valor de la variable que le pidas.
+Si no la encuentra devuelve *NULL*.
+
+Ejemplo:
+{
+	char *pwd;
+	pwd = get_env_value("PWD", mini);
+}
+
+
+26/07/2022
+
 Alessandro:
 
 modifique la manera de guardar los punteros de los env para poder liberarlos mas facil.
