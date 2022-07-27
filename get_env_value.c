@@ -20,6 +20,7 @@ Ejemplo:
 {
 	char *pwd;
 	pwd = get_env_value("PWD", mini);
+	// pwd = "/Users/alsanche/minishell/"
 }
 */
 
