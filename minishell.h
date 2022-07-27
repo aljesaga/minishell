@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: ioriola <ioriola@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 12:56:28 by alsanche          #+#    #+#             */
-/*   Updated: 2022/07/25 13:30:36 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/07/27 10:25:38 by ioriola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,9 @@ void	print_env(t_mshell *mini);
 
 char	**env_2_str(t_mshell *mini);
 
+/* get_env_value.c */
+char	*get_env_value(char *env_name,  t_mshell *mini);
+
 /* export.c */
 
 int		ft_len2chr(const char *str, char c);
@@ -78,11 +81,15 @@ int		analyze_line(char *line, t_mshell *mini);
 
 /* ft_cd.c */
 
-int		ft_cd(char *str);
+int		ft_cd(char *line, t_mshell *mini);
 
 /* ft_echo.c */
 
 int		ft_echo(char **str, t_mshell *mini);
+
+/* ft_pwd.c */
+
+int	ft_pwd(void);
 
 	/*------PIPE------*/
 
