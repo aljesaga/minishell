@@ -2,37 +2,40 @@ __________
 26/07/2022
 
 Iván:
-He añadido ft_pwd, que imprime por pantalla el nombre del directorio de trabajo actual.
+	He añadido ft_pwd, que imprime por pantalla el nombre del directorio de trabajo actual.
 
-He creado la función get_env_value que busca en la lista de t_env y devuelve el valor de la variable que le pidas. Si no la encuentra devuelve NULL.
-Ejemplo:
-{
-	char *pwd;
-	pwd = get_env_value("PWD", mini);
-	// pwd = "/Users/alsanche/minishell/"
-}
+	He creado la función get_env_value que busca en la lista de t_env
+	y devuelve el valor de la variable que le pidas. Si no la encuentra devuelve NULL.
+	Ejemplo:
+	{
+		char *pwd;
+		pwd = get_env_value("PWD", mini);
+		// pwd = "/Users/alsanche/minishell/"
+	}
 
-Los prototipos de lo anterior incluidos en el header.
+	Los prototipos de lo anterior incluidos en el header.
 
-Sigo trabajando en ft_cd desde mi disco duro.
+	Sigo trabajando en ft_cd desde mi disco duro.
 
 __________
 26/07/2022
 
 Alessandro:
 
-modifique la manera de guardar los punteros de los env para poder liberarlos mas facil.
+	modifique la manera de guardar los punteros de los env para poder liberarlos mas facil.
 
-agregue la fucncion export_sa (todavia no funciona del todo) [para imprimir los env en orden alfabetico]
+	agregue la fucncion export_sa (todavia no funciona del todo)
+	[para imprimir los env en orden alfabetico]
 
-aregregue la funcion ft_len2chr [cuenta los caracteres de un texto hasta cioncidir con el caracter enviado.
+	aregregue la funcion ft_len2chr
+	[cuenta los caracteres de un texto hasta cioncidir con el caracter enviado.
 
 __________
 25/07/2022
 
 Alessandro:
 
-export y unset funcionan como deberia;
-pero dejan leaks si la variable fue modificada mas de una vez;
+	export y unset funcionan como deberia;
+	pero dejan leaks si la variable fue modificada mas de una vez;
 
-agrergue funcion shlvl para aumentar el nivel de la maquina cuando se inicia la minishell :D
+	agrergue funcion shlvl para aumentar el nivel de la maquina cuando se inicia la minishell :D
