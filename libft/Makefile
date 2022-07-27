@@ -13,7 +13,7 @@ SRC	= ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c\
 	ft_lstsize_bonus.c ft_lstlast_bonus.c ft_lstadd_back_bonus.c\
 	ft_lstdelone_bonus.c ft_lstclear_bonus.c ft_lstiter_bonus.c\
     get_next_line/get_next_line.c get_next_line/get_next_line_utils.c\
-    ft_free_split.c
+    ft_free_split.c ft_len2chr.c
 
 
 OBJS = $(SRC:.c=.o)

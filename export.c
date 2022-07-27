@@ -6,68 +6,45 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/24 12:06:51 by alsanche          #+#    #+#             */
-/*   Updated: 2022/07/25 13:39:17 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/07/27 21:44:43 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	ft_len2chr(const char *str, char c)
-{
-	int	i;
-
-	i = 0;
-	while (str[i] || str[i] != c)
-	{
-		i++;
-	}	
-	return  (i);
-}
 
 void	export_sa(t_mshell *mini)
 {
 	char	**export;
 	char	*aux;
 	int		y;
-	int		x[2];
-	
+	int		x;
+
 	export = env_2_str(mini);
 	y = -1;
 	while (export[++y])
 	{
-		x[0] = y + 1;
-		while (export[x[0]])
+		x = y;
+		while (export[++x])
 		{
-			if (export[x[0]] <= export[y])
+			if (ft_strcmp(export[y], export[x]) > 0)
 			{
-				x[1] = 0;
-				while(x[1] <= ft_len2chr(export[y], '='))
-				{
-					if (export[x[0]][x[1]] < export[y][x[1]])
-					{
-						aux = export[y];
-						export[y] = export[x[0]];
-						export[x[0]] = aux;
-					}
-					x[1]++;
-				}
-				x[0]++;
+				aux = export[y];
+				export[y] = export[x];
+				export[x] = aux;
 			}
 		}
-
 	}
 	y = -1;
 	while (export[++y])
-	{
 		printf("---->%s\n", export[y]);
-	}
+	free_split(export);
 }
-
 
 void	shlvlup(t_mshell *mini)
 {
 	t_env	*aux;
 	char	*chg;
+	char	*temp;
 	char	*num;
 	int		i;
 
@@ -81,7 +58,9 @@ void	shlvlup(t_mshell *mini)
 				i++;
 			chg = ft_substr(aux->value, i + 1, INT_MAX);
 			num = ft_itoa(ft_atoi(chg) + 1);
-			export(ft_strjoin("SHLVL=", num), mini);
+			temp = ft_strjoin("SHLVL=", num);
+			export(temp, mini);
+			free(temp);
 			free(num);
 			free(chg);
 		}
@@ -89,28 +68,38 @@ void	shlvlup(t_mshell *mini)
 	}
 }
 
-int	export(char *str, t_mshell *mini)
+static int	check_name(t_mshell *mini, char *str)
 {
 	t_env	*aux;
 	char	**id;
-	int		check;
 
-	if (!str || str == NULL || ft_strchr(str, '=') == NULL)
-		return (0);
-	aux = mini->env;
 	id = ft_split(str, '=');
-	check = 0;
+	aux = mini->env;
 	while (aux)
 	{
-		if (!ft_strncmp(aux->value, id[0], ft_strlen(id[0])))
+		if (ft_strncmp(id[0], aux->value, ft_strlen(id[0])) < 0)
 		{
 			free(aux->value);
 			aux->value = ft_strdup(str);
-			check = 1;
+			free_split(id);
+			return (1);
 		}
 		aux = aux->next;
 	}
 	free_split(id);
+	return (0);
+}
+
+int	export(char *str, t_mshell *mini)
+{
+	int		check;
+
+	if (str[0] == '$' || str[0] == '*' || ft_isdigit(str[0]) == 1)
+	{
+		ft_puterror("export", str);
+		return (1);
+	}
+	check = check_name(mini, str);
 	if (check == 0)
 		new_env(str, 1, mini);
 	return (0);

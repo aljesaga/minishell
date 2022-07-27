@@ -17,6 +17,18 @@ Iván:
 
 	Sigo trabajando en ft_cd desde mi disco duro.
 
+Alessandro:
+	Ordene los env en una carpeta para tenerlo un poco mas ordenado.
+
+	corrijo algunos errores de mi codigo que daban leaks.
+
+	export y env ya funcionan como deberina a falta de seguir pobando 
+	los originales en bash.
+
+	[ agregue la funcion ft_puterror(char *funtion, char *str)
+	para imprimir el mensaje dde erorro correspodiente en caso de fallar. ]
+
+
 __________
 26/07/2022
 

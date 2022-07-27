@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_env_value.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ioriola <ioriola@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 10:23:14 by ioriola           #+#    #+#             */
-/*   Updated: 2022/07/27 10:25:08 by ioriola          ###   ########.fr       */
+/*   Updated: 2022/07/27 16:14:47 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 /*
 Busca en la lista de "t_env" y devuelve el valor de la variable que le pidas.
@@ -24,11 +24,11 @@ Ejemplo:
 }
 */
 
-char	*get_env_value(char *env_name,  t_mshell *mini)
+char	*get_env_value(char *env_name, t_mshell *mini)
 {
 	t_env	*temp_env;
 	char	*value;
-	int len;
+	int		len;
 
 	len = ft_strlen(env_name);
 	temp_env = mini->env;
@@ -38,11 +38,11 @@ char	*get_env_value(char *env_name,  t_mshell *mini)
 		if (value)
 		{
 			value += 1 + len;
-			printf("%s: %s\n",env_name, value);
+			printf("%s: %s\n", env_name, value);
 			return (value);
 		}
 		if (!temp_env->next)
-			break;
+			break ;
 		else
 			temp_env = temp_env->next;
 	}

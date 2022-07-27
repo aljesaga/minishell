@@ -1,27 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pwd.c                                           :+:      :+:    :+:   */
+/*   env_2_str.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/27 10:20:55 by ioriola           #+#    #+#             */
-/*   Updated: 2022/07/27 21:15:11 by alsanche         ###   ########lyon.fr   */
+/*   Created: 2022/07/24 11:18:06 by alsanche          #+#    #+#             */
+/*   Updated: 2022/07/27 21:25:09 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	ft_pwd(void)
+char	**env_2_str(t_mshell *mini)
 {
-	char	*cwd;
+	int		i;
+	t_env	*aux;
+	char	**str;
 
-	cwd = getcwd(NULL, 0);
-	if (cwd)
+	i = -1;
+	aux = mini->env;
+	str = malloc(sizeof(char *) * mini->n_env);
+	if (!str)
+		return (NULL);
+	while (aux && aux->next != NULL)
 	{
-		printf("%s\n", cwd);
-		free(cwd);
-		return (0);
+		str[++i] = ft_strdup(aux->value);
+		aux = aux->next;
 	}
-	return (1);
+	str[++i] = NULL;
+	return (str);
 }

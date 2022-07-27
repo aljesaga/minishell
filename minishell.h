@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ioriola <ioriola@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 12:56:28 by alsanche          #+#    #+#             */
-/*   Updated: 2022/07/27 10:25:38 by ioriola          ###   ########.fr       */
+/*   Updated: 2022/07/27 19:09:25 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,22 +48,38 @@ typedef struct s_mshell
 	t_env	*env;
 }	t_mshell;
 
-/* env.c */
+/*---------BASE_FTS--------*/
+
+	/* ft_cd.c */
+
+int		ft_cd(char *str);
+
+	/* ft_echo.c */
+
+int		ft_echo(char **str, t_mshell *mini);
+
+	/* ft_pwd.c */
+
+int		ft_pwd(void);
+
+/*---------ENV--------*/
+
+	/* env.c */
 
 int		env_collec(char **env, t_mshell *mini);
 void	new_env(char *str, int num, t_mshell *mini);
 void	print_env(t_mshell *mini);
 
-/* env_2_str.c */
+	/* env_2_str.c */
 
 char	**env_2_str(t_mshell *mini);
 
-/* get_env_value.c */
-char	*get_env_value(char *env_name,  t_mshell *mini);
+	/* get_env_value.c */
+
+char	*get_env_value(char *env_name, t_mshell *mini);
 
 /* export.c */
 
-int		ft_len2chr(const char *str, char c);
 void	export_sa(t_mshell *mini);
 void	shlvlup(t_mshell *mini);
 int		export(char *str, t_mshell *mini);
@@ -77,19 +93,9 @@ int		main(int arc, char **arv, char **env);
 
 int		analyze_line(char *line, t_mshell *mini);
 
-/*---------BASE_FTS--------*/
+/* ft_puterror.c */
 
-/* ft_cd.c */
-
-int		ft_cd(char *line, t_mshell *mini);
-
-/* ft_echo.c */
-
-int		ft_echo(char **str, t_mshell *mini);
-
-/* ft_pwd.c */
-
-int	ft_pwd(void);
+void	ft_puterror(char *funtion, char *str);
 
 	/*------PIPE------*/
 

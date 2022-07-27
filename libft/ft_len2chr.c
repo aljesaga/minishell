@@ -1,33 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_2_str.c                                        :+:      :+:    :+:   */
+/*   ft_len2chr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/24 11:18:06 by alsanche          #+#    #+#             */
-/*   Updated: 2022/07/24 12:58:18 by alsanche         ###   ########lyon.fr   */
+/*   Created: 2022/07/27 16:15:53 by alsanche          #+#    #+#             */
+/*   Updated: 2022/07/27 17:49:00 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-char	**env_2_str(t_mshell *mini)
+int	ft_len2chr(const char *str, char c)
 {
-	int		i;
-	t_env	*aux;
-	char	**str;
+	int	i;
 
-	i = -1;
-	aux = mini->env;
-	str = malloc(sizeof(char *) * mini->n_env);
-	if (!str)
-		return (NULL);
-	while (aux && aux->next != NULL)
+	i = 0;
+	while (str[i] || str[i] != c)
 	{
-		str[++i] = aux->value;
-		aux = aux->next;
+		i++;
 	}
-	str[++i] = NULL;
-	return (str);
+	return (i);
 }
