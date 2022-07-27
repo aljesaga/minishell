@@ -12,6 +12,8 @@ Ejemplo:
 	// pwd = "/Users/alsanche/minishell/"
 }
 
+Los prototipos de lo anterior incluidos en el header.
+
 Sigo trabajando en ft_cd desde mi disco duro.
 
 __________
