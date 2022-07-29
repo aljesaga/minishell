@@ -1,4 +1,11 @@
 __________
+29/07/2022
+
+Iván:
+	Primera versión de ft_cd. Es funcional pero falta mucho por hacer. Al actualizar los PWD y OLDPWD
+	con tu función "export" se duplican los contenidos. Hay que solucionarlo.
+	
+__________
 27/07/2022
 
 Iván:
