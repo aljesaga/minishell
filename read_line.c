@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_line.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: ioriola <ioriola@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 11:29:09 by alsanche          #+#    #+#             */
-/*   Updated: 2022/07/27 21:20:28 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/07/29 08:17:33 by ioriola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	analyze_line(char *line, t_mshell *mini)
 	else if (!ft_strncmp(str[0], "env\0", 4))
 		print_env(mini);
 	else if (!ft_strncmp(str[0], "cd\0", 3))
-		ft_cd(line);
+		ft_cd(line, mini);
 	else if (!ft_strncmp(str[0], "pwd\0", 4))
 		ft_pwd();
 	free_split(str);
