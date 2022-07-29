@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_env_value.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: ioriola <ioriola@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 10:23:14 by ioriola           #+#    #+#             */
-/*   Updated: 2022/07/27 16:14:47 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/07/29 09:26:58 by ioriola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ char	*get_env_value(char *env_name, t_mshell *mini)
 		if (value)
 		{
 			value += 1 + len;
-			printf("%s: %s\n", env_name, value);
 			return (value);
 		}
 		if (!temp_env->next)
