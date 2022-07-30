@@ -9,7 +9,11 @@ Iván:
 		-lib: con la librería libft.
 		-src: con todos los .c y con minishell.h.
 
+	MAKEFILE
 	He limpiado el Makefile para que esté más claro.
+	He añadido los INCLUDES para que podamos poner #include <minishell.h>
+	He correjido el Makefile de libft para que funcione como librería correctamente sin tener que hacer remake.
+
 
 	NOMBBRES CAMBIADOS (antiguo >> nuevo)
 		execv		>>		ft_execv
