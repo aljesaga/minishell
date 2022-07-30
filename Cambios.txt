@@ -15,7 +15,7 @@ Iván:
 	He correjido el Makefile de libft para que funcione como librería correctamente sin tener que hacer remake.
 
 
-	NOMBBRES CAMBIADOS (antiguo >> nuevo)
+	NOMBRES CAMBIADOS (antiguo >> nuevo)
 		execv		>>		ft_execv
 		read_line	>>		analyse_line
 		env			>>		ft_env
