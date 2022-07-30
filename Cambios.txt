@@ -1,0 +1,75 @@
+__________
+30/07/2022
+
+Iván:
+	He reestructurado TODO!
+
+	CARPETAS
+		-carpeta raiz: solo el Makefile (y este archivo txt).
+		-lib: con la librería libft.
+		-src: con todos los .c y con minishell.h.
+
+	He limpiado el Makefile para que esté más claro.
+
+	NOMBBRES CAMBIADOS (antiguo >> nuevo)
+		execv		>>		ft_execv
+		read_line	>>		analyse_line
+		env			>>		ft_env
+		exportsa	>>		ft_export_no_args
+		export		>>		ft_export
+	
+	En las funciones BUILTIN, he puesto la descripción y lo que piden en el subject.
+	Algunas funciones que estaban junto a otras en el mismo archivo las he separado en archivos independientes.
+__________
+27/07/2022
+
+Iván:
+	He añadido ft_pwd, que imprime por pantalla el nombre del directorio de trabajo actual.
+
+	He creado la función get_env_value que busca en la lista de t_env
+	y devuelve el valor de la variable que le pidas. Si no la encuentra devuelve NULL.
+	Ejemplo:
+	{
+		char *pwd;
+		pwd = get_env_value("PWD", mini);
+		// pwd = "/Users/alsanche/minishell/"
+	}
+
+	Los prototipos de lo anterior incluidos en el header.
+
+	Sigo trabajando en ft_cd desde mi disco duro.
+
+Alessandro:
+	Ordene los env en una carpeta para tenerlo un poco mas ordenado.
+
+	corrijo algunos errores de mi codigo que daban leaks.
+
+	export y env ya funcionan como deberina a falta de seguir pobando 
+	los originales en bash.
+
+	[ agregue la funcion ft_puterror(char *funtion, char *str)
+	para imprimir el mensaje dde erorro correspodiente en caso de fallar. ]
+
+
+__________
+26/07/2022
+
+Alessandro:
+
+	modifique la manera de guardar los punteros de los env para poder liberarlos mas facil.
+
+	agregue la fucncion ft_export_no_args (todavia no funciona del todo)
+	[para imprimir los env en orden alfabetico]
+
+	aregregue la funcion ft_len2chr
+	[cuenta los caracteres de un texto hasta cioncidir con el caracter enviado.
+
+__________
+25/07/2022
+
+Alessandro:
+
+	export y unset funcionan como deberia;
+	pero dejan leaks si la variable fue modificada mas de una vez;
+
+	agrergue funcion shlvl para aumentar el nivel de la maquina cuando se inicia la minishell :D
