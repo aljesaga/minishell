@@ -23,7 +23,7 @@ int	analyze_line(char *line, t_mshell *mini)
 	if (is_builtin(args[0]))
 		run_builtin(args, line, mini); 
 	else
-	//	run_binary(args, mini); << Todavía no existe. 
+	//	run_binary(); << Todavía no existe. 
 	free_split(args);
 	return (0);
 }
