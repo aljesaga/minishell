@@ -3,3 +3,6 @@
 
 # Carpeta de VSCode
 .vscode
+
+# Archivos del sistema Mac 
+.DS_store
