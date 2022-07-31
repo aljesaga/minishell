@@ -1,4 +1,16 @@
 __________
+31/07/2022
+
+Iván:
+	- Corrección de un par de errores en ft_cd y ft_pwd.
+	- Refactorización de analyze_line para separar procesos builtin de los externos.
+	  Verás que lo que tu pusiste lo he separado a otra funcion en bultin.c.
+	
+
+- Habría que hacer nuestro propio exit() para controlar la salida.
+- 
+	
+__________
 30/07/2022
 
 Iván:
@@ -16,11 +28,11 @@ Iván:
 
 
 	NOMBRES CAMBIADOS (antiguo >> nuevo)
-		execv		>>		ft_execv
-		read_line	>>		analyse_line
-		env			>>		ft_env
-		exportsa	>>		ft_export_no_args
-		export		>>		ft_export
+		execv		>>	ft_execv
+		read_line	>>	analyse_line
+		env		>>	ft_env
+		exportsa	>>	ft_export_no_args
+		export		>>	ft_export
 	
 	En las funciones BUILTIN, he puesto la descripción y lo que piden en el subject.
 	Algunas funciones que estaban junto a otras en el mismo archivo las he separado en archivos independientes.
