@@ -6,7 +6,7 @@
 #    By: ioriola <ioriola@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/18 15:07:42 by alsanche          #+#    #+#              #
-#    Updated: 2022/07/30 17:32:23 by ioriola          ###   ########.fr        #
+#    Updated: 2022/07/31 11:42:53 by ioriola          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,7 @@ NAME = minishell
 
 SRCDIR		= src
 SRCS = 	$(SRCDIR)/analyze_line.c \
+		$(SRCDIR)/builtin.c \
 		$(SRCDIR)/env_2_str.c \
 		$(SRCDIR)/ft_cd.c \
 		$(SRCDIR)/ft_echo.c \
