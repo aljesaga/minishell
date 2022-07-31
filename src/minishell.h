@@ -6,7 +6,7 @@
 /*   By: ioriola <ioriola@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 12:56:28 by alsanche          #+#    #+#             */
-/*   Updated: 2022/07/31 11:45:09 by ioriola          ###   ########.fr       */
+/*   Updated: 2022/07/31 17:53:59 by ioriola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,23 @@
 # include <readline/history.h>
 # include <libft.h>
 
-# define MAGENTA "\033[1;35m"
-
-# define RESET_C "\033[0m"
+# define RESET			"\033[0m"
+# define BG				"\033[40m"
+# define RED			"\033[0;31m"
+# define GREEN			"\033[0;32m"
+# define YELLOW			"\033[0;33m"
+# define BLUE			"\033[0;34m"
+# define PURPLE			"\033[0;35m"
+# define CYAN			"\033[0;36m"
+# define WHITE			"\033[0;37m"
+# define GRAY			"\033[1;30m"
+# define LIGHTRED		"\033[1;31m"
+# define LIGHTGREEN		"\033[1;32m"
+# define LIGHTYELLOW	"\033[1;33m"
+# define LIGHTBLUE		"\033[1;34m"
+# define LIGHTPURPLE	"\033[1;35m"
+# define LIGHTCYAN		"\033[1;36m"
+# define LIGHTWHITE		"\033[1;37m"
 
 typedef struct s_env
 {
