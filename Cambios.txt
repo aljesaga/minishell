@@ -8,8 +8,7 @@ Iván:
 	
 
 - Habría que hacer nuestro propio exit() para controlar la salida.
-- 
-	
+
 __________
 30/07/2022
 
