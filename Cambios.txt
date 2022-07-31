@@ -5,7 +5,8 @@ Iván:
 	- Corrección de un par de errores en ft_cd y ft_pwd.
 	- Refactorización de analyze_line para separar procesos builtin de los externos.
 	  Verás que lo que tu pusiste lo he separado a otra funcion en bultin.c.
-	
+	- He añadido el archivo .gitignore para que no sincronice los OBJS del compilador
+	  ni la carpeta del VSCode.
 
 - Habría que hacer nuestro propio exit() para controlar la salida.
 
