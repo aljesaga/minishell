@@ -6,7 +6,7 @@
 /*   By: ioriola <ioriola@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 12:56:28 by alsanche          #+#    #+#             */
-/*   Updated: 2022/07/31 10:54:26 by ioriola          ###   ########.fr       */
+/*   Updated: 2022/07/31 11:45:09 by ioriola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,10 @@ typedef struct s_mshell
 
 // analyze_line.c //
 int			analyze_line(char *line, t_mshell *mini);
+
+// builtin.c //
+int		is_builtin(char *str);
+void	run_builtin(char **args, char *line, t_mshell *mini);
 
 // env_2_str.c //
 char		**env_2_str(t_mshell *mini);
