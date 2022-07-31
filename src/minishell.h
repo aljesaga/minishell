@@ -6,7 +6,7 @@
 /*   By: ioriola <ioriola@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 12:56:28 by alsanche          #+#    #+#             */
-/*   Updated: 2022/07/30 17:30:58 by ioriola          ###   ########.fr       */
+/*   Updated: 2022/07/31 10:54:26 by ioriola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int			ft_export(char *str, t_mshell *mini);
 void		ft_puterror(char *funtion, char *str);
 
 // ft_pwd.c //
-int			ft_pwd(void);
+int			ft_pwd(t_mshell *mini);
 
 // ft_unset.c //
 void		ft_unset(char *str, t_mshell *mini);

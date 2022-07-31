@@ -6,7 +6,7 @@
 /*   By: ioriola <ioriola@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 10:20:55 by ioriola           #+#    #+#             */
-/*   Updated: 2022/07/30 16:29:46 by ioriola          ###   ########.fr       */
+/*   Updated: 2022/07/31 10:55:55 by ioriola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,15 @@
 		- With no options
 */
 
-int	ft_pwd(void)
+int	ft_pwd(t_mshell *mini)
 {
 	char	*cwd;
 
 	cwd = getcwd(NULL, 0);
 	if (cwd)
 	{
-		printf("%s\n", cwd);
+		ft_putstr_fd(cwd, mini->fd_out);
+		ft_putchar_fd('\n', mini->fd_out);
 		free(cwd);
 		return (0);
 	}
