@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ioriola <ioriola@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 12:56:28 by alsanche          #+#    #+#             */
-/*   Updated: 2022/07/31 17:53:59 by ioriola          ###   ########.fr       */
+/*   Updated: 2022/08/10 15:59:33 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@
 # define LIGHTPURPLE	"\033[1;35m"
 # define LIGHTCYAN		"\033[1;36m"
 # define LIGHTWHITE		"\033[1;37m"
+# define FD_R			0
+# define FD_W			1
 
 typedef struct s_env
 {
@@ -55,10 +57,14 @@ typedef struct s_env
 typedef struct s_mshell
 {
 	char	***command;
+	char	**path;
 	int		fd_in;
 	int		fd_out;
+	int		file_out;
 	int		n_env;
 	int		l_exit;
+	int		n_com;
+	pid_t	*childs;
 	t_env	*env;
 }	t_mshell;
 
@@ -66,8 +72,8 @@ typedef struct s_mshell
 int			analyze_line(char *line, t_mshell *mini);
 
 // builtin.c //
-int		is_builtin(char *str);
-void	run_builtin(char **args, char *line, t_mshell *mini);
+int			is_builtin(char *str);
+void		run_builtin(char **args, char *line, t_mshell *mini);
 
 // env_2_str.c //
 char		**env_2_str(t_mshell *mini);
@@ -82,6 +88,9 @@ int			ft_echo(char **str, t_mshell *mini);
 int			env_collec(char **env, t_mshell *mini);
 void		new_env(char *str, int num, t_mshell *mini);
 void		ft_env(t_mshell *mini);
+
+// ft_execv.c //
+void		ft_execv(t_mshell *mini, char **arv, int x);
 
 // ft_export_no_args.c //
 void		ft_export_no_args(t_mshell *mini);

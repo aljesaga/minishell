@@ -1,4 +1,13 @@
 __________
+10/08/2022
+
+Alessandro:
+
+	- Empiezo a trabajar en la fucion execv que es la encargada de ejecutar los comandos
+	- Comienzo a interpretar un poco mas lo que se envia en la linea de comando
+	  en caso de <, >, << y >>.
+
+__________
 31/07/2022
 
 Iván:
@@ -30,7 +39,7 @@ Iván:
 	NOMBRES CAMBIADOS (antiguo >> nuevo)
 		execv		>>	ft_execv
 		read_line	>>	analyse_line
-		env		>>	ft_env
+		env			>>	ft_env
 		exportsa	>>	ft_export_no_args
 		export		>>	ft_export
 	
