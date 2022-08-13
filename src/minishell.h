@@ -54,6 +54,15 @@ typedef struct s_env
 	struct s_env	*next;
 }	t_env;
 
+typedef struct s_line
+{
+	int		n_in;
+	int		n_out;
+	int		n_pipe;
+	int		n_cmd;
+}	t_line;
+
+
 typedef struct s_mshell
 {
 	char	***command;

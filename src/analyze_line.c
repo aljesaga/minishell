@@ -12,28 +12,39 @@
 
 #include <minishell.h>
 
-static void	n_comand(t_mshell *mini, char **arv)
+static t_line	*line_data(char **arv)
 {
-	int	i;
+	int		i;
+	t_line	data;
 
 	i = -1;
-	mini->n_com = 1;
+	data = malloc(sizeof(t_line));
+	data.n_cmd = 0;
+	data.n_in = 0;
+	data.n_out = 0;
+	data.n_pipe = 0;
 	while (arv[++i])
 	{
 		if (arv[i][0] == '<')
-			check_fd(mini, arv, i);
-		if (arv[i][0] == '|')
-			mini->n_com++;
+			data.n_in++;
+		else if (arv[i][0] == '>')
+			data.n_out++;
+		else if (arv[i][0] == '|')
+			data.n_pipe++;
+		else
+			data.n_cmd++;
 	}
 }
 
 int	analyze_line(char *line, t_mshell *mini)
 {
 	char	**args;
+	t_line	*data;
 
 	if (!line)
 		return (0);
 	args = ft_split(line, ' ');
+	data = line_data(arv);
 	mini->fd_out = STDOUT_FILENO;
 	if (is_builtin(args[0]))
 		run_builtin(args, line, mini);

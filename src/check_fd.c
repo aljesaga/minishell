@@ -53,5 +53,9 @@ void	check_fd(t_mshell *mini, char **arv, int i)
 			mini->fd_in = STDIN_FILENO;
 	}
 	else if (!ft_strncmp(arv[i], "<<\0", 3))
-		ft_here_doc(mini, char arv[i + 1]);
+		ft_here_doc(mini, arv[i + 1]);
+	else if (!ft_strncmp(arv[i], ">\0", 2))
+		mini->fd_out = open(mini->file_out, O_RDWR | O_CREAT | O_TRUNC, 0644);
+	else if (!ft_strncmp(arv[i], ">>\0", 3))
+		mini->fd_out = open(mini->file_out, O_RDWR | O_CREAT | O_APPEND, 0644);
 }

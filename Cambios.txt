@@ -1,4 +1,11 @@
 __________
+13/08/2022
+
+Alessandro:
+		-agrergue un archivo fuera de las carpetas que se llama segmentar_linea.c 
+		(lo estoy uasndo para porbar funciones para parsear la linea que nos envian)
+
+__________
 10/08/2022
 
 Alessandro:
