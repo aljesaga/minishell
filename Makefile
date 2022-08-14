@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ioriola <ioriola@student.42.fr>            +#+  +:+       +#+         #
+#    By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/18 15:07:42 by alsanche          #+#    #+#              #
-#    Updated: 2022/07/31 11:42:53 by ioriola          ###   ########.fr        #
+#    Updated: 2022/08/14 14:09:52 by alsanche         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,7 @@ LIBDIR		= lib
 LIBFTDIR	= $(LIBDIR)/libft
 LIBS		= -L$(LIBFTDIR) -lft -lreadline
 
-INCLUDE		= -I. -I$(LIBDIR) -I$(LIBFTDIR) -I$(SRCDIR) 
+INCLUDE		= -I. -I$(LIBDIR) -I$(LIBFTDIR) -I$(SRCDIR)
 
 $(NAME): $(OBJS)
 	$(GCC) -o $(NAME) $(OBJS) $(LIBS)

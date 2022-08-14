@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ioriola <ioriola@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/24 12:06:51 by alsanche          #+#    #+#             */
-/*   Updated: 2022/07/30 16:53:07 by ioriola          ###   ########.fr       */
+/*   Updated: 2022/08/14 15:18:05 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	check_name(t_mshell *mini, char *str)
 	aux = mini->env;
 	while (aux)
 	{
-		if (ft_strncmp(id[0], aux->value, ft_strlen(id[0])) < 0)
+		if (!ft_strncmp(id[0], aux->value, ft_strlen(id[0])))
 		{
 			free(aux->value);
 			aux->value = ft_strdup(str);
@@ -43,14 +43,27 @@ static int	check_name(t_mshell *mini, char *str)
 int	ft_export(char *str, t_mshell *mini)
 {
 	int		check;
+	int		i;
 
-	if (str[0] == '$' || str[0] == '*' || ft_isdigit(str[0]) == 1)
+	i = 0;
+	if (str[0] == 92)
+		i++;
+	if (str[i] == '$' || str[i] == '*' || ft_isdigit(str[i]) == 1)
 	{
-		ft_puterror("export", str);
+		ft_puterror("export", &str[i]);
 		return (1);
 	}
-	check = check_name(mini, str);
-	if (check == 0)
-		new_env(str, 1, mini);
+	if (i == 1)
+	{
+		check = check_name(mini, &str[1]);
+		if (check == 0)
+			new_env(&str[1], 1, mini);
+	}
+	else
+	{
+		check = check_name(mini, str);
+		if (check == 0)
+			new_env(str, 1, mini);
+	}
 	return (0);
 }

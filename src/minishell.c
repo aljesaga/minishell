@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ioriola <ioriola@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 14:50:39 by alsanche          #+#    #+#             */
-/*   Updated: 2022/07/31 17:59:04 by ioriola          ###   ########.fr       */
+/*   Updated: 2022/08/14 14:12:25 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ int	main(int arc, char **arv, char **env)
 		mini = init_mini(env);
 		while (1)
 		{
-			printf("-----------\n");
 			line = readline(LIGHTPURPLE "IA_minishell\% " RESET);
 			analyze_line(line, mini);
 			free(line);

@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 12:56:28 by alsanche          #+#    #+#             */
-/*   Updated: 2022/08/10 15:59:33 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/08/14 13:36:49 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,12 @@ typedef struct s_env
 
 typedef struct s_line
 {
-	int		n_in;
-	int		n_out;
+	int		f_in;
+	int		f_out;
 	int		n_pipe;
-	int		n_cmd;
+	int		*cmd;
+	int		*docs;
 }	t_line;
-
 
 typedef struct s_mshell
 {

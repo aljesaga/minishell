@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export_no_args.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ioriola <ioriola@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 16:52:50 by ioriola           #+#    #+#             */
-/*   Updated: 2022/07/30 16:53:07 by ioriola          ###   ########.fr       */
+/*   Updated: 2022/08/14 14:34:19 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	ft_export_no_args(t_mshell *mini)
 	}
 	y = -1;
 	while (export[++y])
-		printf("---->%s\n", export[y]);
+		if (export[y][0] != '\0')
+			printf("declare -x %s\n", export[y]);
 	free_split(export);
 }

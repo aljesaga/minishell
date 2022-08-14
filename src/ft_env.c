@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ioriola <ioriola@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 13:04:38 by alsanche          #+#    #+#             */
-/*   Updated: 2022/07/30 16:44:09 by ioriola          ###   ########.fr       */
+/*   Updated: 2022/08/14 14:29:52 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	env_collec(char **env, t_mshell *mini)
 		return (1);
 	mini->n_env = 0;
 	i = -1;
-	while (env[++i])
+	while (env[++i] != NULL)
 		new_env(env[i], i, mini);
 	return (0);
 }
@@ -78,5 +78,4 @@ void	ft_env(t_mshell *mini)
 		}
 		temp = temp->next;
 	}
-	ft_putstr_fd("_=/Users/alsanche/minishell/env\n", mini->fd_out);
 }

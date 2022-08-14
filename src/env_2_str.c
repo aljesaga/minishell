@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_2_str.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ioriola <ioriola@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/24 11:18:06 by alsanche          #+#    #+#             */
-/*   Updated: 2022/07/30 16:29:46 by ioriola          ###   ########.fr       */
+/*   Updated: 2022/08/14 14:31:29 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	**env_2_str(t_mshell *mini)
 	str = malloc(sizeof(char *) * mini->n_env);
 	if (!str)
 		return (NULL);
-	while (aux && aux->next != NULL)
+	while (aux && aux != NULL)
 	{
 		str[++i] = ft_strdup(aux->value);
 		aux = aux->next;
