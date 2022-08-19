@@ -122,8 +122,14 @@ Alessandro:
 	(lo estoy uasndo para porbar funciones para parsear la linea que nos envian)
 
 
+┌────────────┐
+│ 19/08/2022 │
+└────────────┘
 
-
+Iván:
+	- Reordenado este archivo para que esté ordenado cronológicamente.
+	- He visto que tenemos muchos LEAKS de memoria, he intentado encontrar de donde salen pero no doy
+	con ello, me rindo!! otro día los encontraré.
 
 
 
