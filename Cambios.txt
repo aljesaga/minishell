@@ -130,6 +130,12 @@ Iván:
 	- Reordenado este archivo para que esté ordenado cronológicamente.
 	- He visto que tenemos muchos LEAKS de memoria, he intentado encontrar de donde salen pero no doy
 	con ello, me rindo!! otro día los encontraré.
+	
+	!!! RECUERDA QUE ALGUNOS PUEDEN VENIR DE LA FUNCION READLINE !!!
+	
+Alessandro: 
+
+	- perdon por no haber podido ir tanto estos dias mis horarios estan ciendo un poco un horibles :(
 
 
 
