@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 12:56:28 by alsanche          #+#    #+#             */
-/*   Updated: 2022/08/24 18:39:52 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/08/24 18:56:24 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # include <limits.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-# include <libft.h>
+# include "../lib/libft/libft.h"
 
 # define RESET			"\033[0m"
 # define BG				"\033[40m"
@@ -129,5 +129,6 @@ int			main(int arc, char **arv, char **env);
 
 // shlvlup.c //
 void		shlvlup(t_mshell *mini);
+char		**ft_split_ignore(char const *s, char c);
 
 #endif
