@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split.c                                         :+:      :+:    :+:   */
+/*   ft_split_ignore.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsanche <alsanche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 16:59:59 by alsanche          #+#    #+#             */
-/*   Updated: 2021/08/31 15:33:05 by alsanche         ###   ########.fr       */
+/*   Updated: 2022/08/24 13:18:47 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static char	**ft_free(char **str, size_t space)
 	return (NULL);
 }
 
-char	**ft_split(char const *s, char c)
+char	**ft_split_ignore(char const *s, char c)
 {
 	char	**str;
 	size_t	i;

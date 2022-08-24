@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 12:56:28 by alsanche          #+#    #+#             */
-/*   Updated: 2022/08/14 13:36:49 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/08/24 18:39:52 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,27 +54,25 @@ typedef struct s_env
 	struct s_env	*next;
 }	t_env;
 
-typedef struct s_line
+typedef struct s_section
 {
-	int		f_in;
-	int		f_out;
-	int		n_pipe;
-	int		*cmd;
-	int		*docs;
-}	t_line;
+	char				*str;
+	int					type;
+	struct s_section	*next;
+}	t_section;
 
 typedef struct s_mshell
 {
-	char	***command;
-	char	**path;
-	int		fd_in;
-	int		fd_out;
-	int		file_out;
-	int		n_env;
-	int		l_exit;
-	int		n_com;
-	pid_t	*childs;
-	t_env	*env;
+	int			fd_in;
+	int			n_com;
+	int			n_env;
+	int			fd_out;
+	int			quotes;
+	int			l_exit;
+	char		**path;
+	t_env		*env;
+	pid_t		*childs;
+	t_section	*sections;
 }	t_mshell;
 
 // analyze_line.c //
@@ -121,6 +119,10 @@ char		*get_env_value(char *env_name, t_mshell *mini);
 
 // init_mini.c //
 t_mshell	*init_mini(char **env);
+
+//  line_treatment.c //
+int			check_quotes(char *line, t_mshell *mini);
+void		ft_line_treatment(char *line, t_mshell *mini);
 
 // minishell.c //
 int			main(int arc, char **arv, char **env);

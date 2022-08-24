@@ -6,7 +6,7 @@
 #    By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/18 15:07:42 by alsanche          #+#    #+#              #
-#    Updated: 2022/08/14 14:09:52 by alsanche         ###   ########lyon.fr    #
+#    Updated: 2022/08/24 18:31:52 by alsanche         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ SRCS = 	$(SRCDIR)/analyze_line.c \
 		$(SRCDIR)/ft_unset.c \
 		$(SRCDIR)/get_env_value.c \
 		$(SRCDIR)/init_mini.c \
+		$(SRCDIR)/line_treatment \
 		$(SRCDIR)/minishell.c \
 		$(SRCDIR)/shlvlup.c
 

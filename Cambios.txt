@@ -131,15 +131,26 @@ Iván:
 	- He visto que tenemos muchos LEAKS de memoria, he intentado encontrar de donde salen pero no doy
 	con ello, me rindo!! otro día los encontraré.
 	
-	!!! RECUERDA QUE ALGUNOS PUEDEN VENIR DE LA FUNCION READLINE !!!
 	
 Alessandro: 
+
+	!!! RECUERDA QUE ALGUNOS PUEDEN VENIR DE LA FUNCION READLINE !!!
 
 	- perdon por no haber podido ir tanto estos dias mis horarios estan ciendo un poco un horibles :(
 
 
 
+┌────────────┐
+│ 24/08/2022 │
+└────────────┘
 
+Alessandro:
 
+	- Estoy trabajando en el parceo de la linea de comandos, para seccionarla 
+	  en las distainta partes de la misma, sea redireccion  comando o pipe.
+	- Agregue el archivo line_treatment.c donde voy agregando las funciones a usar.
 
+		┌──────────────┐  ┌───────────────┐  ┌──────────────┐  ┌──────────────┐
+		│ comando  = 1 │  | argumento = 2 |  |  re-dir = 3  |  |  archivo = 4 |
+		└──────────────┘  └───────────────┘  └──────────────┘  └──────────────┘
 
