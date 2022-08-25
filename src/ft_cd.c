@@ -6,7 +6,7 @@
 /*   By: ioriola <ioriola@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 12:04:13 by alsanche          #+#    #+#             */
-/*   Updated: 2022/07/31 11:47:17 by ioriola          ###   ########.fr       */
+/*   Updated: 2022/08/23 15:41:14 by ioriola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,18 @@ void	print_error(char *line)
 
 int		ft_cd(char *line, t_mshell *mini)
 {
-	char *temp_pwd;
-	int chdir_;
+	char	*temp_pwd;
+	char	*temp_line;
+	int		chdir_;
 
-	line += 3;
-	line = ft_strtrim(line, " ");
+	temp_line = line + 3;
+	free (line);
+	temp_line = ft_strtrim(temp_line, " ");
 	temp_pwd = get_env_value("PWD", mini);
-	chdir_ = chdir(line);
+	chdir_ = chdir(temp_line);
 	if (chdir_ == -1)
 	{
-		print_error(line);
+		print_error(temp_line);
 		return (1);
 	}
 	ft_export(ft_strjoin("OLDPWD=", temp_pwd), mini);
