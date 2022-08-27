@@ -12,6 +12,20 @@
 
 #include <minishell.h>
 
+static int	word_width(const char *str)
+{
+	int	count;
+
+	count = 0;
+	while (str[count] != 0)
+	{
+		if (str[count] == ' ')
+			break ;
+		count++;
+	}
+	return (count);
+}
+
 int	check_quotes(char *line, t_mshell *mini)
 {
 	int	i;
@@ -60,38 +74,39 @@ static void	add_section(char *line, t_mshell *mini, int count)
 	aux->next = new;
 }
 
-static void	sections(char *line, t_mshell *mini)
+static int	ft_type(char *line, int limit)
 {
-	int	i;
-	int	j;
-	int	count;
-
-	j = -1;
-	while (line[++j] != '\0')
-	{
-		i = j;
-		count = 0;
-		while (line[++i] != '\0')
-		{
-			if (line[i] == 34 || line[i] == 39)
-				i += check_quotes(&line[i], mini);
-			if (mini->quotes == 0)
-				if (line[i] == ' ' || line[i] == '|'
-					|| line[i] == '<' || line[i] == '>')
-					break ;
-			count++;
-		}
-		add_section(&line[j], mini, count);
-		j = i;
-	}
+ 	if (!ft_strncmp(line, "<<", limit) == 0)
+		return (2);
+	else if (!ft_strncmp(line, ">>", limit) == 0)
+		return (4);
+	else if (!ft_strncmp(line, "<", limit) == 0)
+		return (1);
+	else if (!ft_strncmp(line, ">", limit) == 0)
+		return (3);
+	else if (!ft_strncmp(line, "|", limit) == 0)
+		return (5);
+	else
+		return (6);
+	
 }
 
 void	ft_line_treatment(char *line, t_mshell *mini)
 {
+	int	i;
+
+	i = 0;
 	if (check_quotes(line, mini) == -1)
 	{
 		printf("OPEN QUOTES");
 		exit(1);
 	}
-	sections(line, mini);
+	while (line[j] != 0)
+	{
+		if(line[j] == 34 || line[j] == 39)
+			j += check_quotes(&line[j]);
+		else
+			j += word_width(&line[j]);
+		if (ft_type(&line[j + 1], ) != 6)
+	}
 }

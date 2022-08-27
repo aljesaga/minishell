@@ -154,3 +154,11 @@ Alessandro:
 		│ comando  = 1 │  | argumento = 2 |  |  re-dir = 3  |  |  archivo = 4 |
 		└──────────────┘  └───────────────┘  └──────────────┘  └──────────────┘
 
+┌────────────┐
+│ 27/08/2022 │
+└────────────┘
+
+Alessandro:
+
+	- En Prueba_segmentar.c ya he logrado separar las linea un poco mejor pero falta
+	asicnarle a cada parte para que se utilizaria.
