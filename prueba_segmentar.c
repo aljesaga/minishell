@@ -1,44 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   prueba_segmentar.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/03 11:41:48 by alsanche          #+#    #+#             */
+/*   Updated: 2022/09/03 14:34:37 by alsanche         ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stdlib.h>
 #include <unistd.h>
 #include <stdio.h>
-
-static int	word_width(const char *str)
-{
-	int	count;
-
-	count = 0;
-    while (str[count] != '\0')
-	{
-		if (str[count] == ' ')
-			break ;
-        else if ((str[count] == '<' || str[count] == '>')
-            && (str[count + 1] == '>' || str[count + 1] == '<'))
-            {
-                count += 1;
-                break ;
-            }
-        else if ((str[count] == '<' || str[count] == '>'
-            || str[count] == '|') && (str[count + 1] != '>' || str[count + 1] != '<'))
-            {
-                count++;
-                break ;
-            }
-		count++;
-	}
-	return (count);
-}
-
-size_t	ft_strlen(const char *c)
-{
-	int	i;
-
-	i = 0;
-	while (c[i])
-	{
-		i++;
-	}
-	return (i);
-}
 
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
@@ -66,10 +40,52 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	return (0);
 }
 
+static int	word_width(const char *str)
+{
+	int	count;
+
+	count = 0;
+	if (!ft_strncmp(str, "<<", 2))
+		return (2);
+	else if (!ft_strncmp(str, ">>", 2))
+		return (2);
+	else if (!ft_strncmp(str, "<", 1))
+		return (1);
+	else if (!ft_strncmp(str, ">", 1))
+		return (1);
+	else if (!ft_strncmp(str, "|", 1))
+		return (1);
+	while (str[count] != '\0')
+	{
+		if (str[count] == ' ' || str[count] == '|')
+			break ;
+		else if (str[count] == '<' || str[count] == '>')
+		{
+			if (str[count + 1] != '<' && str[count + 1] != '>')
+				++count;
+			break ;
+		}
+		count++;
+	}
+	return (count);
+}
+
+size_t	ft_strlen(const char *c)
+{
+	int	i;
+
+	i = 0;
+	while (c[i])
+	{
+		i++;
+	}
+	return (i);
+}
+
 int	check_quotes(char *line)
 {
 	int	i;
-    int quotes;
+	int	quotes;
 
 	i = -1;
 	quotes = 0;
@@ -97,7 +113,7 @@ int	check_quotes(char *line)
 
 static int	ft_type(char *line)
 {
- 	if (!ft_strncmp(line, "<<", 2))
+	if (!ft_strncmp(line, "<<", 2))
 		return (2);
 	else if (!ft_strncmp(line, ">>", 2))
 		return (4);
@@ -109,7 +125,6 @@ static int	ft_type(char *line)
 		return (5);
 	else
 		return (6);
-	
 }
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
@@ -139,32 +154,35 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 
 void	ft_line_treatment(char *line)
 {
-	int	j;
-    char *aux;
-    int limit;
+	size_t	j;
+	char	*aux;
+	int		limit;
 
-	j = -1;
+	j = 0;
+	limit = 0;
 	if (check_quotes(line) == -1)
 	{
 		printf("OPEN QUOTES");
 		exit(1);
 	}
-	while (++j <= ft_strlen(line))
+	while (line[j] != '\0')
 	{
-		if(line[j] == 34 || line[j] == 39)
+		if (line[j] == 34 || line[j] == 39)
 			limit = check_quotes(&line[j]) + 1;
 		else
 			limit = word_width(&line[j]);
-        aux = ft_substr(line, j, limit);
+		aux = ft_substr(line, j, limit);
 		printf("%s----->type=%d\n", aux, ft_type(aux));
-        j += limit;
-        free(aux);
+		free(aux);
+		j += limit;
+		if (line[j] == ' ')
+			j++;
 	}
 }
 
-int main(int arc, char **line)
+int	main(int arc, char **line)
 {
-    (void)arc;
-    ft_line_treatment(line[1]);
-    return (0);
+	(void)arc;
+	ft_line_treatment(line[1]);
+	return (0);
 }

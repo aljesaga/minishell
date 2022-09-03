@@ -162,3 +162,14 @@ Alessandro:
 
 	- En Prueba_segmentar.c ya he logrado separar las linea un poco mejor pero falta
 	asicnarle a cada parte para que se utilizaria.
+
+┌────────────┐
+│ 03/09/2022 │
+└────────────┘
+
+Alessandro:
+
+	- El tratado de la linea ya funciona en bien la separacion de los distintas partes
+	voy a comensar con la parte de limpiar las comillas y expandir las partes de la misma,
+
+	- Tengo que ponerme para aseguararme que el tipo de cada dato que le envio sea el correcto.

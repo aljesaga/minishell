@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 14:50:39 by alsanche          #+#    #+#             */
-/*   Updated: 2022/08/14 14:12:25 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/09/03 19:33:00 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	main(int arc, char **arv, char **env)
 			line = readline(LIGHTPURPLE "IA_minishell\% " RESET);
 			analyze_line(line, mini);
 			free(line);
-			system("leaks -list -quiet minishell");
+			//system("leaks -list -quiet minishell");
 		}
 	}
 	else if (arv)

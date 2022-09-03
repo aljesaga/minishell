@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 12:56:28 by alsanche          #+#    #+#             */
-/*   Updated: 2022/08/24 18:56:24 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/09/03 19:47:35 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,9 @@ typedef struct s_mshell
 	t_section	*sections;
 }	t_mshell;
 
+// add_segtion.c //
+void		add_segtion(char *str, t_mshell *mini, int check);
+
 // analyze_line.c //
 int			analyze_line(char *line, t_mshell *mini);
 
@@ -121,6 +124,7 @@ char		*get_env_value(char *env_name, t_mshell *mini);
 t_mshell	*init_mini(char **env);
 
 //  line_treatment.c //
+int			word_width(char *str, t_mshell *mini);
 int			check_quotes(char *line, t_mshell *mini);
 void		ft_line_treatment(char *line, t_mshell *mini);
 
