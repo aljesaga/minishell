@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 11:29:09 by alsanche          #+#    #+#             */
-/*   Updated: 2022/09/03 19:49:36 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/09/04 18:38:01 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	analyze_line(char *line, t_mshell *mini)
 	aux = mini->sections;
 	while (aux)
 	{
-		printf("str == %s ----- type ==  %d\n", aux->str, aux->type);
+		printf("str == %s ----- type == %d ----- bilding == %d\n", aux->str, aux->type, aux->building);
 		aux = aux->next;
 	}
 	free_sections(mini);

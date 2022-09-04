@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_env_value.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ioriola <ioriola@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 10:23:14 by ioriola           #+#    #+#             */
-/*   Updated: 2022/07/30 16:54:49 by ioriola          ###   ########.fr       */
+/*   Updated: 2022/09/04 14:53:25 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,9 @@ char	*get_env_value(char *env_name, t_mshell *mini)
 	temp_env = mini->env;
 	while (temp_env->value)
 	{
-		value = ft_strnstr(temp_env->value, env_name, len);
-		if (value)
+		if (!ft_strncmp(temp_env->value, env_name, len))
 		{
-			value += 1 + len;
+			value = ft_strdup(ft_strchr(temp_env->value, '=') + 1);
 			return (value);
 		}
 		if (!temp_env->next)

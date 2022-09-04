@@ -173,3 +173,11 @@ Alessandro:
 	voy a comensar con la parte de limpiar las comillas y expandir las partes de la misma,
 
 	- Tengo que ponerme para aseguararme que el tipo de cada dato que le envio sea el correcto.
+
+┌────────────┐
+│ 04/09/2022 │
+└────────────┘
+
+Alessandro:
+
+	- La segmentacion ya elimina las comillas y expande o no en casso de ser necesario

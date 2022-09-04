@@ -6,63 +6,81 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/03 15:35:08 by alsanche          #+#    #+#             */
-/*   Updated: 2022/09/03 19:48:47 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/09/04 18:32:32 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-static int	ft_type(char *str)
-{
-	if (!ft_strncmp(str, "<<", 2))
-		return (2);
-	else if (!ft_strncmp(str, ">>", 2))
-		return (4);
-	else if (!ft_strncmp(str, "<", 1))
-		return (1);
-	else if (!ft_strncmp(str, ">", 1))
-		return (3);
-	else if (!ft_strncmp(str, "|", 1))
-		return (5);
-	else
-		return (6);
-}
-
-/*char	*clean(char *str)
+static char	*clean(char *str, t_mshell *mini)
 {
 	char	*aux;
-	int		quotes;
+	int		j;
 	int		i;
 
-	aux = malloc(sizeof(char) * (ft_strlen(str) + 1));
-	quotes = 0;
+	aux = malloc(sizeof(char) * ((ft_strlen(str) - 2) + 1));
+	i = -1;
+	j = -1;
 	while (str[++i] != '\0')
 	{
-		if (str[i] == 39 && quotes == 0)
-			quotes = 1;
-		else if (str[i] == 39 && quotes == 1)
-			quotes = 0;
-		else if (str[i] == 34 && quotes == 0)
-			quotes = 2;
-		else if (str[i] == 34 && quotes == 2)
-			quotes = 0;
+		if (str[i] == 39 && mini->quotes == 0)
+			mini->quotes = 1;
+		else if (str[i] == 39 && mini->quotes == 1)
+			mini->quotes = 0;
+		else if (str[i] == 34 && mini->quotes == 0)
+			mini->quotes = 2;
+		else if (str[i] == 34 && mini->quotes == 2)
+			mini->quotes = 0;
 		else
-			aux[i] == str[i];
+			aux[++j] = str[i];
 	}
-	aux[i] = '\0';
+	aux[++j] = '\0';
 	return (aux);
 }
 
-char	*clean_expand(char *str)
+static int	shr_quotes(char *str)
+{
+	int	i;
+	int	quotes;
+
+	i = -1;
+	quotes = 0;
+	while (str[++i] && quotes == 0)
+	{
+		if (str[i] == 34)
+			quotes = 2;
+		else if (str[i] == 39)
+			quotes = 1;
+	}
+	return (quotes);
+}
+
+static char	*clean_expand(char *str, t_mshell *mini)
 {
 	char	*aux;
 	char	*end;
+	int		quotes;
 
-	aux = str_expand(str);
-	end = clean(aux);
-	free(aux);
-	return (end);
-}*/
+	quotes = shr_quotes(str);
+	if (quotes == 0 || quotes == 2)
+	{
+		aux = str_expand(str, mini);
+		if (quotes == 0)
+			return (aux);
+		else
+		{
+			end = clean(aux, mini);
+			free(aux);
+			return (end);
+		}
+	}
+	else if (quotes != 0)
+	{
+		end = clean(str, mini);
+		return (end);
+	}
+	return (str);
+}
 
 void	add_segtion(char *str, t_mshell *mini, int check)
 {
@@ -72,8 +90,7 @@ void	add_segtion(char *str, t_mshell *mini, int check)
 	new = malloc(sizeof(t_section));
 	if (!new)
 		printf("Memory Error");
-	new->str = ft_strdup(str);
-	new->type = ft_type(str);
+	new->str = clean_expand(str, mini);
 	new->next = NULL;
 	if (check == 0)
 		mini->sections = new;
@@ -84,4 +101,5 @@ void	add_segtion(char *str, t_mshell *mini, int check)
 			aux = aux->next;
 		aux->next = new;
 	}
+	assign_type(mini);
 }

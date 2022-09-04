@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 12:56:28 by alsanche          #+#    #+#             */
-/*   Updated: 2022/09/03 19:47:35 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/09/04 18:25:51 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ typedef struct s_section
 {
 	char				*str;
 	int					type;
+	int					building;
 	struct s_section	*next;
 }	t_section;
 
@@ -102,6 +103,9 @@ void		ft_env(t_mshell *mini);
 // ft_execv.c //
 void		ft_execv(t_mshell *mini, char **arv, int x);
 
+// ft_expand.c //
+char		*str_expand(char *str, t_mshell *mini);
+
 // ft_export_no_args.c //
 void		ft_export_no_args(t_mshell *mini);
 
@@ -113,6 +117,9 @@ void		ft_puterror(char *funtion, char *str);
 
 // ft_pwd.c //
 int			ft_pwd(t_mshell *mini);
+
+// ft_type.c //
+void		assign_type(t_mshell *mini);
 
 // ft_unset.c //
 void		ft_unset(char *str, t_mshell *mini);

@@ -6,34 +6,74 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/03 17:47:51 by alsanche          #+#    #+#             */
-/*   Updated: 2022/09/03 18:24:05 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/09/04 15:40:07 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-char	*expand_chr(char *str, t_mshell *mini)
+static int	expand_name(char *str)
 {
-	char	*aux;
-	char	*end;
-	char	*temp;
-	int		s;
-	int		i;
+	int	count;
 
-	while (str[++i])
+	count = 0;
+	while (str[++count] != '\0')
 	{
-		if (str[i] == '$' && ft_isalpha(str[i + 1]) == 1)
+		if (str[count + 1] == '?')
 		{
-			s = word_width(&str[++i]);
-			aux = ft_substr(&str[i], 0, s);
-			temp = ft_str;
+			count++;
+			break ;
 		}
-		else
-			end[i] = str[i];
+		else if (str[count + 1] == 34 || str[count + 1] == 39
+			|| str[count + 1] == '$')
+			break ;
+		else if (str[count + 1] == ' ' || str[count + 1] == '|'
+			|| str[count + 1] == '<' || str[count + 1] == '>')
+			break ;
 	}
+	return (count);
 }
 
-char	*str_expand(char *str)
+static char	*ft_strjoinchr(char const *s1, char s2)
+{
+	char	*new;
+	int		i;
+
+	if (!s1 || !s2)
+		return (NULL);
+	new = (char *)malloc(sizeof(char) * ft_strlen(s1) + 2);
+	if (!new)
+		return (NULL);
+	i = 0;
+	while (s1[i] != '\0')
+	{
+		new[i] = s1[i];
+		i++;
+	}
+	new[i++] = s2;
+	new[i++] = '\0';
+	return (new);
+}
+
+static char	*expand_chr(char *str, char *end, int s, t_mshell *mini)
+{
+	char	*aux;
+	char	*temp;
+
+	aux = ft_substr(str, 0, s);
+	temp = get_env_value(aux, mini);
+	free(aux);
+	if (temp != NULL)
+	{
+		aux = end;
+		end = ft_strjoin(aux, temp);
+		free(temp);
+		free(aux);
+	}
+	return (end);
+}
+
+char	*str_expand(char *str, t_mshell *mini)
 {
 	char	*end;
 	char	*aux;
@@ -41,15 +81,22 @@ char	*str_expand(char *str)
 	int		i;
 
 	i = -1;
-	s = 0;
+	end = ft_strdup("");
 	while (str[++i] != '\0')
 	{
-		if (str[i] == '$')
-			s++;
+		s = 0;
+		if (str[i] == '$' && (ft_isalpha(str[i + 1]) == 1 || str[i + 1] == '?'))
+		{
+			s = expand_name(&str[++i]);
+			end = expand_chr(&str[i], end, s, mini);
+			i += s;
+		}
+		else
+		{
+			aux = end;
+			end = ft_strjoinchr(aux, str[i]);
+			free(aux);
+		}
 	}
-	if (s == 0)
-		return (ft_strdup(str));
-	end = malloc(sizeof(char) * i + 1);
-	i = -1;
-	
+	return (end);
 }
