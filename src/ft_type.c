@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 17:09:40 by alsanche          #+#    #+#             */
-/*   Updated: 2022/09/04 18:35:31 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/09/07 13:05:40 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	type_plus(t_section *atl, t_mshell *mini, int check)
 	if (check == 0)
 	{
 		atl->type = 6;
-		atl->building = is_builtin(atl->str);
+		atl->builtin = is_builtin(atl->str);
 	}
 	else
 	{
@@ -29,7 +29,7 @@ static void	type_plus(t_section *atl, t_mshell *mini, int check)
 		if (aux->type == 5)
 		{
 			atl->type = 6;
-			atl->building = is_builtin(atl->str);
+			atl->builtin = is_builtin(atl->str);
 		}
 		else
 			atl->type = 7;
@@ -38,7 +38,7 @@ static void	type_plus(t_section *atl, t_mshell *mini, int check)
 
 static void	ft_type(t_section *atl, t_mshell *mini, int check)
 {
-	atl->building = 0;
+	atl->builtin = 0;
 	if (!ft_strncmp(atl->str, "<<", 2))
 		atl->type = 2;
 	else if (!ft_strncmp(atl->str, ">>", 2))

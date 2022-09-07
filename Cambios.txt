@@ -180,4 +180,17 @@ Alessandro:
 
 Alessandro:
 
-	- La segmentacion ya elimina las comillas y expande o no en casso de ser necesario
+	- La segmentacion ya elimina las comillas y expande o no en caso de ser necesario
+
+
+┌────────────┐
+│ 07/09/2022 │
+└────────────┘
+
+Alessandro:
+
+	- Comienzo con ejecucion de comandos.
+
+	- Agregue una nueva estructura para preparar cada comando con sus argumentos
+	y ejecutralos mas facilmente, sigue en porceso de creacion lo que asigna cada
+	parte de la estructura.

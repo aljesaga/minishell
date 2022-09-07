@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 11:33:43 by ioriola           #+#    #+#             */
-/*   Updated: 2022/08/10 14:13:44 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/09/07 12:59:43 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,18 @@
 
 int	is_builtin(char *str)
 {
-	if (!ft_strcmp(str, "cd"))
+	if (!ft_strcmp(str, "cd") || !ft_strcmp(str, "echo"))
 		return (1);
-	if (!ft_strcmp(str, "echo"))
+	if (!ft_strcmp(str, "env") || !ft_strcmp(str, "exit"))
 		return (1);
-	if (!ft_strcmp(str, "env"))
-		return (1);
-	if (!ft_strcmp(str, "exit"))
-		return (1);
-	if (!ft_strcmp(str, "export"))
-		return (1);
-	if (!ft_strcmp(str, "pwd"))
+	if (!ft_strcmp(str, "export") || !ft_strcmp(str, "pwd"))
 		return (1);
 	if (!ft_strcmp(str, "unset"))
 		return (1);
 	return (0);
 }
 
-void	run_builtin(char **args, char *line, t_mshell *mini)
+void	run_builtin(char **args, t_mshell *mini)
 {
 	if (!ft_strncmp(args[0], "export\0", 7) && args[1])
 		mini->l_exit = ft_export(args[1], mini);
@@ -46,7 +40,7 @@ void	run_builtin(char **args, char *line, t_mshell *mini)
 	else if (!ft_strncmp(args[0], "env\0", 4))
 		ft_env(mini);
 	else if (!ft_strncmp(args[0], "cd\0", 3))
-		ft_cd(line, mini);
+		ft_cd(args[1], mini);
 	else if (!ft_strncmp(args[0], "pwd\0", 4))
 		ft_pwd(mini);
 }

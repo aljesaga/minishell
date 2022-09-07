@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 12:56:28 by alsanche          #+#    #+#             */
-/*   Updated: 2022/09/04 18:25:51 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/09/07 17:27:23 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,17 @@ typedef struct s_section
 {
 	char				*str;
 	int					type;
-	int					building;
+	int					builtin;
 	struct s_section	*next;
 }	t_section;
+
+typedef struct s_comand
+{
+	char		**comand;
+	int			builtin;
+	int			fd_in;
+	int			fd_out;
+}	t_comand;
 
 typedef struct s_mshell
 {
@@ -73,6 +81,7 @@ typedef struct s_mshell
 	char		**path;
 	t_env		*env;
 	pid_t		*childs;
+	t_comand	*comands;
 	t_section	*sections;
 }	t_mshell;
 
@@ -84,13 +93,16 @@ int			analyze_line(char *line, t_mshell *mini);
 
 // builtin.c //
 int			is_builtin(char *str);
-void		run_builtin(char **args, char *line, t_mshell *mini);
+void		run_builtin(char **args, t_mshell *mini);
 
 // env_2_str.c //
 char		**env_2_str(t_mshell *mini);
 
 // ft_cd.c //
 int			ft_cd(char *line, t_mshell *mini);
+
+//ft_count_exe.c //
+void		set_up_comand(t_mshell *mini);
 
 // ft_echo.c //
 int			ft_echo(char **str, t_mshell *mini);
