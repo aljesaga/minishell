@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ioriola <ioriola@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 10:20:55 by ioriola           #+#    #+#             */
-/*   Updated: 2022/07/31 10:55:55 by ioriola          ###   ########.fr       */
+/*   Updated: 2022/09/09 17:07:54 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,15 @@
 		- With no options
 */
 
-int	ft_pwd(t_mshell *mini)
+int	ft_pwd(t_comand *com)
 {
 	char	*cwd;
 
 	cwd = getcwd(NULL, 0);
 	if (cwd)
 	{
-		ft_putstr_fd(cwd, mini->fd_out);
-		ft_putchar_fd('\n', mini->fd_out);
+		ft_putstr_fd(cwd, com->fd_out);
+		ft_putchar_fd('\n', com->fd_out);
 		free(cwd);
 		return (0);
 	}

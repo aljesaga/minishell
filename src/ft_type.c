@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 17:09:40 by alsanche          #+#    #+#             */
-/*   Updated: 2022/09/07 13:05:40 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/09/09 16:57:43 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ static void	type_plus(t_section *atl, t_mshell *mini, int check)
 		{
 			atl->type = 6;
 			atl->builtin = is_builtin(atl->str);
+			mini->builts += atl->builtin;
 		}
 		else
 			atl->type = 7;

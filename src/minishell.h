@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 12:56:28 by alsanche          #+#    #+#             */
-/*   Updated: 2022/09/09 12:21:29 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/09/09 17:08:10 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,11 +74,13 @@ typedef struct s_mshell
 {
 	int			fd_in;
 	int			n_com;
+	int			builts;
 	int			n_env;
 	int			fd_out;
 	int			quotes;
 	int			l_exit;
 	char		**path;
+	char		**envs;
 	t_env		*env;
 	pid_t		*childs;
 	t_comand	*comands;
@@ -93,19 +95,23 @@ int			analyze_line(char *line, t_mshell *mini);
 
 // builtin.c //
 int			is_builtin(char *str);
-void		run_builtin(char **args, t_mshell *mini);
+int			run_builtin(t_comand *com, t_mshell *mini);
 
-// check_fd.c //
+// ft_set_fd.c //
+void		ft_take_msn(char *std, t_mshell *mini);
+int			ft_here_doc(t_mshell *mini, char *arv);
 void		build_tunnel(t_mshell *mini, t_comand *new);
 void		check_fd(t_mshell *mini, t_comand *new, t_section *now);
 
 // env_2_str.c //
+char		**find_path(char **enpv);
 char		**env_2_str(t_mshell *mini);
 
 // ft_cd.c //
 int			ft_cd(char *line, t_mshell *mini);
 
 //ft_count_exe.c //
+void		add_part(t_comand *new, t_mshell *mini, t_section *now, int args);
 void		set_up_comand(t_mshell *mini);
 
 // ft_echo.c //
@@ -117,7 +123,7 @@ void		new_env(char *str, int num, t_mshell *mini);
 void		ft_env(t_mshell *mini);
 
 // ft_execv.c //
-void		ft_execv(t_mshell *mini, char **arv, int x);
+void		ft_execv(t_mshell *mini);
 
 // ft_expand.c //
 char		*str_expand(char *str, t_mshell *mini);
@@ -129,10 +135,11 @@ void		ft_export_no_args(t_mshell *mini);
 int			ft_export(char *str, t_mshell *mini);
 
 // ft_puterror.c //
+void		send_error(int n, char *str);
 void		ft_puterror(char *funtion, char *str);
 
 // ft_pwd.c //
-int			ft_pwd(t_mshell *mini);
+int			ft_pwd(t_comand *com);
 
 // ft_type.c //
 void		assign_type(t_mshell *mini);

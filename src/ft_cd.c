@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ioriola <ioriola@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 12:04:13 by alsanche          #+#    #+#             */
-/*   Updated: 2022/08/23 15:41:14 by ioriola          ###   ########.fr       */
+/*   Updated: 2022/09/09 12:32:28 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	print_error(char *line)
 	ft_putchar_fd('\n', 2);
 }
 
-int		ft_cd(char *line, t_mshell *mini)
+int	ft_cd(char *line, t_mshell *mini)
 {
 	char	*temp_pwd;
 	char	*temp_line;

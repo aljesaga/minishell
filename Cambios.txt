@@ -194,3 +194,13 @@ Alessandro:
 	- Agregue una nueva estructura para preparar cada comando con sus argumentos
 	y ejecutralos mas facilmente, sigue en porceso de creacion lo que asigna cada
 	parte de la estructura.
+
+┌────────────┐
+│ 09/09/2022 │
+└────────────┘
+
+Alessandro:
+
+	- La etructura de comando se crea bien y se puede ejecutar los builtin.
+
+	- falta ejecutar los comandos extarnos y que hacer si solo es un here_doc.

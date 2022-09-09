@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_fd.c                                         :+:      :+:    :+:   */
+/*   ft_set_fd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/10 16:50:42 by alsanche          #+#    #+#             */
-/*   Updated: 2022/09/09 12:29:26 by alsanche         ###   ########lyon.fr   */
+/*   Created: 2022/09/09 12:48:26 by alsanche          #+#    #+#             */
+/*   Updated: 2022/09/09 14:06:56 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-static void	ft_take_msn(char *std, t_mshell *mini)
+void	ft_take_msn(char *std, t_mshell *mini)
 {
 	char	*temp;
 	size_t	len;
 
 	len = ft_strlen(std);
-	close (mini->fd_out);
+	close(mini->fd_out);
 	while (1)
 	{
 		ft_putstr_fd("IA_minishell->heredoc: ", 1);
@@ -39,7 +39,7 @@ static void	ft_take_msn(char *std, t_mshell *mini)
 	}
 }
 
-static int	ft_here_doc(t_mshell *mini, char *arv)
+int	ft_here_doc(t_mshell *mini, char *arv)
 {	
 	int		here[2];
 	pid_t	child;
@@ -58,8 +58,8 @@ static int	ft_here_doc(t_mshell *mini, char *arv)
 	{
 		waitpid(child, NULL, 0);
 		close(here[FD_W]);
-		return (here[FD_R]);
 	}
+	return (here[FD_R]);
 }
 
 void	build_tunnel(t_mshell *mini, t_comand *new)
