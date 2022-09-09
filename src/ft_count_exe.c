@@ -6,61 +6,11 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 11:13:31 by alsanche          #+#    #+#             */
-/*   Updated: 2022/09/07 17:29:48 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/09/09 12:23:04 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-
-static void	ft_take_msn(char *std, t_mshell *mini)
-{
-	char	*temp;
-	size_t	len;
-
-	len = ft_strlen(std);
-	close (mini->fd_out);
-	while (1)
-	{
-		ft_putstr_fd("IA_minishell->heredoc> ", 1);
-		temp = get_next_line(STDIN_FILENO);
-		if (!temp)
-		{
-			close (mini->fd_in);
-			exit (1);
-		}
-		if (!ft_strncmp(temp, std, len) && temp[len] == '\n')
-		{
-			close (mini->fd_in);
-			free(temp);
-			exit (0);
-		}
-		ft_putstr_fd(temp, mini->fd_in);
-		free(temp);
-	}
-}
-
-static int	ft_here_doc(t_mshell *mini, char *arv)
-{	
-	int		here[2];
-	pid_t	child;
-
-	pipe(here);
-	child = fork();
-	if (child < 0 || here[FD_R] < 0)
-		ft_putstr_fd("here_doc failed", 1);
-	mini->fd_in = here[FD_W];
-	mini->fd_out = here[FD_R];
-	if (child == 0)
-	{
-		ft_take_msn(arv, mini);
-	}
-	else
-	{
-		waitpid(child, NULL, 0);
-		close(here[FD_W]);
-		return (here[FD_R]);
-	}
-}
 
 static int	count_com(t_mshell *mini)
 {
@@ -88,6 +38,8 @@ static t_comand	*add_part_comand(t_mshell *mini, t_section *now, int args)
 	new = malloc(sizeof(t_comand));
 	new->comand = ft_calloc(args + 2, sizeof(char *));
 	new->builtin = now->builtin;
+	new->fd_in = mini->fd_in;
+	new->fd_out = STDOUT_FILENO;
 	i = 0;
 	new->comand[i] = new->str;
 	while (++i < args)
@@ -97,8 +49,14 @@ static t_comand	*add_part_comand(t_mshell *mini, t_section *now, int args)
 	}
 	while (aux)
 	{
-		if (aux->type == 2)
-			new->fd_in = here_doc(mini, aux->next->str);
+		if (aux->type == 1 || aux->type == 2
+			|| aux->type == 3 || aux->type == 4)
+			check_fd(mini, new, aux);
+		else if (aux->type == 5)
+			build_tunnel(mini, new);
+		if (aux->type == 3 || aux->type == 4 || aux->type == 5)
+			break ;
+		aux = aux->next;
 	}
 }
 

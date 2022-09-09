@@ -6,7 +6,7 @@
 #    By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/18 15:07:42 by alsanche          #+#    #+#              #
-#    Updated: 2022/09/07 12:33:10 by alsanche         ###   ########lyon.fr    #
+#    Updated: 2022/09/09 12:22:28 by alsanche         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ SRCDIR		= src
 SRCS = 	$(SRCDIR)/analyze_line.c \
 		$(SRCDIR)/add_segtion.c \
 		$(SRCDIR)/builtin.c \
+		$(SRCDIR)/check_fd \
 		$(SRCDIR)/env_2_str.c \
 		$(SRCDIR)/ft_cd.c \
 		$(SRCDIR)/ft_count_exe.c \

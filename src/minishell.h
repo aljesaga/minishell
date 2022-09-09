@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 12:56:28 by alsanche          #+#    #+#             */
-/*   Updated: 2022/09/07 17:27:23 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/09/09 12:21:29 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,10 @@ int			analyze_line(char *line, t_mshell *mini);
 // builtin.c //
 int			is_builtin(char *str);
 void		run_builtin(char **args, t_mshell *mini);
+
+// check_fd.c //
+void		build_tunnel(t_mshell *mini, t_comand *new);
+void		check_fd(t_mshell *mini, t_comand *new, t_section *now);
 
 // env_2_str.c //
 char		**env_2_str(t_mshell *mini);

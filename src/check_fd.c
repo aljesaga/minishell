@@ -6,12 +6,11 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 16:50:42 by alsanche          #+#    #+#             */
-/*   Updated: 2022/09/07 17:36:12 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/09/09 12:29:26 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-#include "../lib/libft/libft.h"
+#include <minishell.h>
 
 static void	ft_take_msn(char *std, t_mshell *mini)
 {
@@ -22,7 +21,7 @@ static void	ft_take_msn(char *std, t_mshell *mini)
 	close (mini->fd_out);
 	while (1)
 	{
-		ft_putstr_fd("IA_minishell->heredoc> ", 1);
+		ft_putstr_fd("IA_minishell->heredoc: ", 1);
 		temp = get_next_line(STDIN_FILENO);
 		if (!temp)
 		{
@@ -40,7 +39,7 @@ static void	ft_take_msn(char *std, t_mshell *mini)
 	}
 }
 
-void	ft_here_doc(t_mshell *mini, char *arv)
+static int	ft_here_doc(t_mshell *mini, char *arv)
 {	
 	int		here[2];
 	pid_t	child;
@@ -59,31 +58,40 @@ void	ft_here_doc(t_mshell *mini, char *arv)
 	{
 		waitpid(child, NULL, 0);
 		close(here[FD_W]);
-		mini->fd_in = here[FD_R];
+		return (here[FD_R]);
 	}
 }
 
-void	check_fd(t_mshell *mini, char **arv, int i)
+void	build_tunnel(t_mshell *mini, t_comand *new)
+{
+	int	fd[2];
+
+	pipe(fd);
+	mini->fd_in = fd[FD_R];
+	new->fd_out = fd[FD_W];
+}
+
+void	check_fd(t_mshell *mini, t_comand *new, t_section *now)
 {
 	char	*temp;
 
-	if (!ft_strncmp(arv[i], "<\0", 2))
+	if (now->type == 1)
 	{
-		if (arv[i][0] != '/')
-			temp = ft_strjoin("./", arv[1]);
+		if (now->next->str[0] != '/')
+			temp = ft_strjoin("./", now->next->str);
 		if (access(temp, F_OK))
 		{
-			send_error(3, arv[i]);
+			printf("%s: no encontrado\n", now->next->str);
 			free(temp);
 		}
-		mini->fd_in = open(arv[1], O_RDONLY, 0644);
-		if (mini->fd_in < 0)
-			mini->fd_in = STDIN_FILENO;
+		new->fd_in = open(now->next->str, O_RDONLY, 0644);
+		if (new->fd_in < 0)
+			new->fd_in = STDIN_FILENO;
 	}
-	else if (!ft_strncmp(arv[i], "<<\0", 3))
-		ft_here_doc(mini, arv[i + 1]);
-	else if (!ft_strncmp(arv[i], ">\0", 2))
-		mini->fd_out = open(mini->f_out, O_RDWR | O_CREAT | O_TRUNC, 0644);
-	else if (!ft_strncmp(arv[i], ">>\0", 3))
-		mini->fd_out = open(mini->file_out, O_RDWR | O_CREAT | O_APPEND, 0644);
+	else if (now->type == 2)
+		new->fd_in = ft_here_doc(mini, now->next->str);
+	else if (now->type == 3)
+		new->fd_out = open(now->next->str, O_RDWR | O_CREAT | O_TRUNC, 0644);
+	else if (now->type == 4)
+		new->fd_out = open(now->next->str, O_RDWR | O_CREAT | O_APPEND, 0644);
 }

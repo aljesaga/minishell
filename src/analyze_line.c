@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 11:29:09 by alsanche          #+#    #+#             */
-/*   Updated: 2022/09/07 11:15:19 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/09/09 12:24:42 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	free_sections(t_mshell *mini)
 int	analyze_line(char *line, t_mshell *mini)
 {
 	char		*str;
-	t_section	*aux;
 
 	if (!line)
 		return (0);
@@ -37,9 +36,9 @@ int	analyze_line(char *line, t_mshell *mini)
 	if (check_quotes(line, mini) == 1)
 		printf("final quotes not found");
 	ft_line_treatment(line, mini);
+	mini->fd_in = STDIN_FILENO;
 	mini->fd_out = STDOUT_FILENO;
-	aux = mini->sections;
-	ft_count_exe(mini);
+	set_up_comand(mini);
 	free_sections(mini);
 	return (0);
 }
