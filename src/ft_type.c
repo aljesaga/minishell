@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 17:09:40 by alsanche          #+#    #+#             */
-/*   Updated: 2022/09/09 16:57:43 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/09/11 16:45:58 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,12 @@ void	assign_type(t_mshell *mini)
 	{
 		ft_type(aux, mini, i);
 		i++;
+		if ((aux->type == 1 || aux->type == 2 || aux->type == 3
+				|| aux->type == 4) && (aux->next == NULL))
+		{
+			printf("minishell: syntax error near unexpected token `newline'\n");
+			mini->a_error = 258;
+		}
 		aux = aux->next;
 	}
 }

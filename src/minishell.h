@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 12:56:28 by alsanche          #+#    #+#             */
-/*   Updated: 2022/09/09 17:08:10 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/09/11 16:44:01 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ typedef struct s_section
 	char				*str;
 	int					type;
 	int					builtin;
+	int					here_expand;
 	struct s_section	*next;
 }	t_section;
 
@@ -78,6 +79,7 @@ typedef struct s_mshell
 	int			n_env;
 	int			fd_out;
 	int			quotes;
+	int			a_error;
 	int			l_exit;
 	char		**path;
 	char		**envs;
@@ -98,10 +100,11 @@ int			is_builtin(char *str);
 int			run_builtin(t_comand *com, t_mshell *mini);
 
 // ft_set_fd.c //
-void		ft_take_msn(char *std, t_mshell *mini);
-int			ft_here_doc(t_mshell *mini, char *arv);
-void		build_tunnel(t_mshell *mini, t_comand *new);
+void		ft_take_msn(char *std, t_mshell *mini, int check);
+int			ft_here_doc(t_mshell *mini, char *arv, int check);
+int			build_tunnel(t_mshell *mini);
 void		check_fd(t_mshell *mini, t_comand *new, t_section *now);
+void		not_comand(t_mshell *mini, t_section *now);
 
 // env_2_str.c //
 char		**find_path(char **enpv);
@@ -111,7 +114,8 @@ char		**env_2_str(t_mshell *mini);
 int			ft_cd(char *line, t_mshell *mini);
 
 //ft_count_exe.c //
-void		add_part(t_comand *new, t_mshell *mini, t_section *now, int args);
+t_section	*add_part(t_comand *new, t_mshell *mini, t_section *now, int args);
+t_section	*add_comand(t_mshell *mini, t_section *aux, int coms);
 void		set_up_comand(t_mshell *mini);
 
 // ft_echo.c //

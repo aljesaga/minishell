@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/03 15:35:08 by alsanche          #+#    #+#             */
-/*   Updated: 2022/09/07 14:09:16 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/09/11 16:42:55 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,17 +55,16 @@ static int	shr_quotes(char *str)
 	return (quotes);
 }
 
-static char	*clean_expand(char *str, t_mshell *mini)
+static char	*clean_expand(char *str, t_mshell *mini, t_section *new)
 {
 	char	*aux;
 	char	*end;
-	int		quotes;
 
-	quotes = shr_quotes(str);
-	if (quotes == 0 || quotes == 2)
+	new->here_expand = shr_quotes(str);
+	if (new->here_expand == 0 || new->here_expand == 2)
 	{
 		aux = str_expand(str, mini);
-		if (quotes == 0)
+		if (new->here_expand == 0)
 			return (aux);
 		else
 		{
@@ -74,7 +73,7 @@ static char	*clean_expand(char *str, t_mshell *mini)
 			return (end);
 		}
 	}
-	else if (quotes != 0)
+	else if (new->here_expand != 0)
 	{
 		end = clean(str, mini);
 		return (end);
@@ -90,7 +89,7 @@ void	add_segtion(char *str, t_mshell *mini, int check)
 	new = malloc(sizeof(t_section));
 	if (!new)
 		printf("Memory Error");
-	new->str = clean_expand(str, mini);
+	new->str = clean_expand(str, mini, new);
 	new->next = NULL;
 	if (check == 0)
 		mini->sections = new;
@@ -101,5 +100,4 @@ void	add_segtion(char *str, t_mshell *mini, int check)
 			aux = aux->next;
 		aux->next = new;
 	}
-	assign_type(mini);
 }

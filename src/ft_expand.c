@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/03 17:47:51 by alsanche          #+#    #+#             */
-/*   Updated: 2022/09/04 15:40:07 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/09/11 16:57:39 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int	expand_name(char *str)
 			break ;
 		}
 		else if (str[count + 1] == 34 || str[count + 1] == 39
-			|| str[count + 1] == '$')
+			|| str[count + 1] == '$' || str[count + 1] == '\n')
 			break ;
 		else if (str[count + 1] == ' ' || str[count + 1] == '|'
 			|| str[count + 1] == '<' || str[count + 1] == '>')

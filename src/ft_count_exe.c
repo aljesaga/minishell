@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 11:13:31 by alsanche          #+#    #+#             */
-/*   Updated: 2022/09/09 16:58:13 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/09/11 14:40:35 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,14 @@ static int	count_com(t_mshell *mini)
 	aux = mini->sections;
 	while (aux)
 	{
-		if (aux->type == 6 || aux->type == 2)
+		if (aux->type == 6)
 			count++;
 		aux = aux->next;
 	}
 	return (count);
 }
 
-void	add_part_comand(t_comand *new, t_mshell *mini, t_section *now, int args)
+t_section	*add_part(t_comand *new, t_mshell *mini, t_section *now, int args)
 {
 	t_section	*aux;
 	int			i;
@@ -62,21 +62,37 @@ void	add_part_comand(t_comand *new, t_mshell *mini, t_section *now, int args)
 	while (aux)
 	{
 		if (aux->type == 1 || aux->type == 2
-			|| aux->type == 3 || aux->type == 4)
+			|| aux->type == 3 || aux->type == 4 || aux->type == 5)
 			check_fd(mini, new, aux);
-		else if (aux->type == 5)
-			build_tunnel(mini, new);
 		if (aux->type == 3 || aux->type == 4 || aux->type == 5)
 			break ;
 		aux = aux->next;
 	}
+	return (aux);
+}
+
+t_section	*add_comand(t_mshell *mini, t_section *aux, int coms)
+{
+	t_section	*temp;
+	int			args;
+
+	if (aux->next)
+		temp = aux->next;
+	else
+		temp = NULL;
+	args = 0;
+	while (temp && temp->type == 7)
+	{
+		args++;
+		temp = temp->next;
+	}
+	temp = add_part(&mini->comands[coms], mini, aux, args);
+	return (temp);
 }
 
 void	set_up_comand(t_mshell *mini)
 {
 	t_section	*aux;
-	t_section	*temp;
-	int			args;
 	int			coms;
 
 	aux = mini->sections;
@@ -86,17 +102,12 @@ void	set_up_comand(t_mshell *mini)
 	coms = -1;
 	while (aux != NULL && coms < mini->n_com)
 	{
-		args = 0;
-		if (aux->type == 6)
+		if (aux->type != 6)
 		{
-			temp = aux->next;
-			while (temp && temp->type == 7)
-			{
-				args++;
-				temp = temp->next;
-			}
-			add_part_comand(&mini->comands[++coms], mini, aux, args);
+			not_comand(mini, aux);
+			aux = aux->next;
 		}
-		aux = aux->next;
+		else if (aux->type == 6)
+			aux = add_comand(mini, aux, ++coms);
 	}
 }

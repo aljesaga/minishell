@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 11:29:09 by alsanche          #+#    #+#             */
-/*   Updated: 2022/09/09 16:23:14 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/09/11 16:16:45 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,22 @@ int	analyze_line(char *line, t_mshell *mini)
 	if (!line)
 		return (0);
 	str = line;
+	mini->a_error = 0;
 	if (check_quotes(line, mini) == 1)
+	{
 		printf("final quotes not found");
+		return (258);
+	}
 	ft_line_treatment(line, mini);
-	mini->fd_in = STDIN_FILENO;
-	mini->fd_out = STDOUT_FILENO;
-	set_up_comand(mini);
-	ft_execv(mini);
-	//free_comand(mini);
-	free_sections(mini);
-	return (0);
+	if (mini->a_error != 258)
+	{
+		mini->fd_in = STDIN_FILENO;
+		mini->fd_out = STDOUT_FILENO;
+		set_up_comand(mini);
+		if (mini->n_com > 0)
+			ft_execv(mini);
+		//free_comand(mini);
+		free_sections(mini);
+	}
+	return (mini->a_error);
 }

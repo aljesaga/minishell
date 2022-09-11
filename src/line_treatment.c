@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 13:23:09 by alsanche          #+#    #+#             */
-/*   Updated: 2022/09/03 19:48:55 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/09/11 16:02:31 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,4 +92,5 @@ void	ft_line_treatment(char *line, t_mshell *mini)
 		if (line[j] == ' ')
 			j++;
 	}
+	assign_type(mini);
 }
