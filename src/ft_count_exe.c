@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 11:13:31 by alsanche          #+#    #+#             */
-/*   Updated: 2022/09/11 14:40:35 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/09/17 16:08:53 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ t_section	*add_part(t_comand *new, t_mshell *mini, t_section *now, int args)
 	new->fd_out = STDOUT_FILENO;
 	i = 0;
 	new->comand[i] = now->str;
-	while (++i < args)
+	while (++i <= args)
 	{
 		new->comand[i] = aux->str;
 		aux = aux->next;

@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/03 17:47:51 by alsanche          #+#    #+#             */
-/*   Updated: 2022/09/11 16:57:39 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/09/17 18:42:09 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,11 @@ static char	*expand_chr(char *str, char *end, int s, t_mshell *mini)
 	char	*aux;
 	char	*temp;
 
+	if (str[0] == '?' && str[1] == '\0')
+	{
+		end = ft_itoa(mini->l_exit);
+		return (end);
+	}
 	aux = ft_substr(str, 0, s);
 	temp = get_env_value(aux, mini);
 	free(aux);

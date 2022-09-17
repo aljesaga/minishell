@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 15:25:37 by alsanche          #+#    #+#             */
-/*   Updated: 2022/09/09 17:03:19 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/09/17 17:39:09 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,10 @@ static void	init_childs(t_mshell *mini, t_comand *com, int i)
 		send_error(2, "fork");
 	else
 		ft_run(com, mini);
-	close(com->fd_out);
-	close(com->fd_in);
+	if (com->fd_in != 0)
+		close (com->fd_in);
+	if (com->fd_out != 1)
+		close (com->fd_out);
 }
 
 void	ft_execv(t_mshell *mini)
@@ -60,8 +62,8 @@ void	ft_execv(t_mshell *mini)
 	int	i;
 	int	status;
 
-	//mini->envs = env_2_str(mini);
-	//mini->path = find_path(mini->envs);
+	mini->envs = env_2_str(mini);
+	mini->path = find_path(mini->envs);
 	mini->childs = malloc(sizeof(pid_t *) * mini->n_com - mini->builts);
 	if (!mini->childs)
 		printf("children not found");
@@ -78,4 +80,5 @@ void	ft_execv(t_mshell *mini)
 		waitpid(mini->childs[i], &status, 0);
 	if (WIFEXITED(status))
 		mini->l_exit = WEXITSTATUS(status);
+	mini->fd_out = STDOUT_FILENO;
 }

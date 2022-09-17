@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ioriola <ioriola@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 17:29:04 by alsanche          #+#    #+#             */
-/*   Updated: 2022/07/30 16:29:46 by ioriola          ###   ########.fr       */
+/*   Updated: 2022/09/17 18:44:35 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,22 +18,17 @@
 		- With option -n (Do not append a newline)
 */
 
-int	ft_echo(char **str, t_mshell *mini)
+int	ft_echo(t_comand *com)
 {
 	int	i;
 
 	i = 1;
-	while (str[i])
+	while (com->comand[i])
 	{
-		if (str[i][0] == '$' && str[i][1] == '?')
-		{
-			ft_putnbr_fd(mini->l_exit, mini->fd_out);
-			ft_putchar_fd('\n', mini->fd_out);
-			return (0);
-		}
-		ft_putstr_fd(str[i], mini->fd_out);
-		ft_putchar_fd(' ', mini->fd_out);
+		ft_putstr_fd(com->comand[i], com->fd_out);
+		ft_putchar_fd(' ', com->fd_out);
 		i++;
 	}
+	ft_putchar_fd('\n', com->fd_out);
 	return (0);
 }

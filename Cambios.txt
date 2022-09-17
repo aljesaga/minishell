@@ -204,3 +204,13 @@ Alessandro:
 	- La etructura de comando se crea bien y se puede ejecutar los builtin.
 
 	- falta ejecutar los comandos extarnos y que hacer si solo es un here_doc.
+
+┌────────────┐
+│ 17/09/2022 │
+└────────────┘
+
+Alessandro:
+
+	-  Ya se pueden ejecutar los comandos con sus distintas redireccione de entrada y salidas
+
+	

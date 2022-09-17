@@ -6,7 +6,7 @@
 #    By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/18 15:07:42 by alsanche          #+#    #+#              #
-#    Updated: 2022/09/09 15:08:44 by alsanche         ###   ########lyon.fr    #
+#    Updated: 2022/09/17 18:11:49 by alsanche         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ SRCS = 	$(SRCDIR)/analyze_line.c \
 		$(SRCDIR)/ft_expand.c \
 		$(SRCDIR)/ft_export_no_args.c \
 		$(SRCDIR)/ft_export.c \
+		$(SRCDIR)/ft_here_doc.c \
 		$(SRCDIR)/ft_puterror.c \
 		$(SRCDIR)/ft_pwd.c \
 		$(SRCDIR)/ft_set_fd.c \

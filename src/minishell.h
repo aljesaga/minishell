@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 12:56:28 by alsanche          #+#    #+#             */
-/*   Updated: 2022/09/11 16:44:01 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/09/17 18:42:56 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,6 @@ int			is_builtin(char *str);
 int			run_builtin(t_comand *com, t_mshell *mini);
 
 // ft_set_fd.c //
-void		ft_take_msn(char *std, t_mshell *mini, int check);
-int			ft_here_doc(t_mshell *mini, char *arv, int check);
 int			build_tunnel(t_mshell *mini);
 void		check_fd(t_mshell *mini, t_comand *new, t_section *now);
 void		not_comand(t_mshell *mini, t_section *now);
@@ -119,7 +117,7 @@ t_section	*add_comand(t_mshell *mini, t_section *aux, int coms);
 void		set_up_comand(t_mshell *mini);
 
 // ft_echo.c //
-int			ft_echo(char **str, t_mshell *mini);
+int			ft_echo(t_comand *com);
 
 // ft_env.c //
 int			env_collec(char **env, t_mshell *mini);
@@ -137,6 +135,9 @@ void		ft_export_no_args(t_mshell *mini);
 
 // ft_export.c //
 int			ft_export(char *str, t_mshell *mini);
+
+// ft_here_doc.c //
+int			ft_here_doc(t_mshell *mini, char *arv, int check);
 
 // ft_puterror.c //
 void		send_error(int n, char *str);

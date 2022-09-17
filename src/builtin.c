@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 11:33:43 by ioriola           #+#    #+#             */
-/*   Updated: 2022/09/09 17:08:20 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/09/17 18:42:45 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	run_builtin(t_comand *com, t_mshell *mini)
 	else if (!ft_strncmp(com->comand[0], "unset\0", 6) && com->comand[1])
 		ft_unset(com->comand[1], mini);
 	else if (!ft_strncmp(com->comand[0], "echo\0", 5))
-		ft_echo(com->comand, mini);
+		ft_echo(com);
 	else if (!ft_strncmp(com->comand[0], "exit\0", 5) && com->comand[1] == NULL)
 		exit (0);
 	else if (!ft_strncmp(com->comand[0], "env\0", 4))
