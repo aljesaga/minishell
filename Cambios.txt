@@ -213,4 +213,11 @@ Alessandro:
 
 	-  Ya se pueden ejecutar los comandos con sus distintas redireccione de entrada y salidas
 
-	
+
+┌────────────┐
+│ 18/09/2022 │
+└────────────┘
+
+Alessandro:
+
+	-  El comando CD funciona con la ruta que le envies, menos si se envia sin argumentos	

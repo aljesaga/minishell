@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shlvlup.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ioriola <ioriola@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 16:45:55 by ioriola           #+#    #+#             */
-/*   Updated: 2022/07/30 17:26:06 by ioriola          ###   ########.fr       */
+/*   Updated: 2022/09/18 13:15:25 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	shlvlup(t_mshell *mini)
 			chg = ft_substr(aux->value, i + 1, INT_MAX);
 			num = ft_itoa(ft_atoi(chg) + 1);
 			temp = ft_strjoin("SHLVL=", num);
-			ft_export(temp, mini);
+			check_name(mini, temp);
 			free(temp);
 			free(num);
 			free(chg);

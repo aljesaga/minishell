@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ioriola <ioriola@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 16:34:11 by ioriola           #+#    #+#             */
-/*   Updated: 2022/07/30 16:34:50 by ioriola          ###   ########.fr       */
+/*   Updated: 2022/09/18 13:47:12 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,29 @@ unset
 	Unset values and attributes of shell variables and functions.
 		- With no options
 */
+
+void	unset_mini(t_mshell *mini)
+{
+	t_env	*aux;
+	t_env	*temp;
+
+	aux = mini->env;
+	while (aux)
+	{
+		if (aux->next->value[0] == '_' && aux->next->value[1] == '=')
+		{
+			temp = aux->next;
+			if (temp->next == NULL)
+				aux->next = NULL;
+			else
+				aux->next = temp->next;
+			free(temp);
+			mini->n_env--;
+			break ;
+		}
+		aux = aux->next;
+	}
+}
 
 void	ft_unset(char *str, t_mshell *mini)
 {

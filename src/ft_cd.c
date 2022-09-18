@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 12:04:13 by alsanche          #+#    #+#             */
-/*   Updated: 2022/09/09 12:32:28 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/09/18 14:50:15 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,21 +29,22 @@ void	print_error(char *line)
 
 int	ft_cd(char *line, t_mshell *mini)
 {
-	char	*temp_pwd;
+	char	**temp_pwd;
 	char	*temp_line;
 	int		chdir_;
 
-	temp_line = line + 3;
-	free (line);
-	temp_line = ft_strtrim(temp_line, " ");
-	temp_pwd = get_env_value("PWD", mini);
+	temp_line = ft_strtrim(line, " ");
+	temp_pwd = ft_calloc(sizeof(char *), 4);
+	temp_pwd[0] = get_env_value("PWD", mini);
 	chdir_ = chdir(temp_line);
 	if (chdir_ == -1)
 	{
 		print_error(temp_line);
 		return (1);
 	}
-	ft_export(ft_strjoin("OLDPWD=", temp_pwd), mini);
-	ft_export(ft_strjoin("PWD=", getcwd(NULL, 0)), mini);
+	temp_pwd[1] = ft_strjoin("OLDPWD=", temp_pwd[0]);
+	temp_pwd[2] = ft_strjoin("PWD=", getcwd(NULL, 0));
+	ft_export(temp_pwd, mini);
+	free_split(temp_pwd);
 	return (0);
 }

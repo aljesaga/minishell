@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 18:06:28 by alsanche          #+#    #+#             */
-/*   Updated: 2022/09/17 18:15:33 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/09/18 12:31:56 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void	ft_take_msn(char *std, t_mshell *mini, int check)
 	close(mini->fd_out);
 	while (1)
 	{
-		ft_putstr_fd("IA_minishell->heredoc: ", 1);
+		ft_putstr_fd("IA_minishell-> ", 1);
 		temp = get_next_line(STDIN_FILENO);
 		if (!temp)
 		{

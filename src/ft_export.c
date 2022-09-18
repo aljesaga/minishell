@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/24 12:06:51 by alsanche          #+#    #+#             */
-/*   Updated: 2022/08/14 15:18:05 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/09/18 14:21:19 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 		- With no options
 */
 
-static int	check_name(t_mshell *mini, char *str)
+int	check_name(t_mshell *mini, char *str)
 {
 	t_env	*aux;
 	char	**id;
@@ -40,30 +40,28 @@ static int	check_name(t_mshell *mini, char *str)
 	return (0);
 }
 
-int	ft_export(char *str, t_mshell *mini)
+int	ft_export(char **comand, t_mshell *mini)
 {
 	int		check;
+	char	*str;
 	int		i;
+	int		x;
 
 	i = 0;
-	if (str[0] == 92)
-		i++;
-	if (str[i] == '$' || str[i] == '*' || ft_isdigit(str[i]) == 1)
+	while (comand[++i])
 	{
-		ft_puterror("export", &str[i]);
-		return (1);
-	}
-	if (i == 1)
-	{
-		check = check_name(mini, &str[1]);
+		str = comand[i];
+		x = 0;
+		if (str[0] == 92)
+			x++;
+		if (str[x] == '$' || str[x] == '*' || ft_isdigit(str[x]) == 1)
+		{
+			ft_puterror("export", &str[x]);
+			return (1);
+		}
+		check = check_name(mini, &str[x]);
 		if (check == 0)
-			new_env(&str[1], 1, mini);
-	}
-	else
-	{
-		check = check_name(mini, str);
-		if (check == 0)
-			new_env(str, 1, mini);
+			new_env(&str[x], 1, mini);
 	}
 	return (0);
 }

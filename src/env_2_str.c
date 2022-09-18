@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/24 11:18:06 by alsanche          #+#    #+#             */
-/*   Updated: 2022/09/09 15:40:55 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/09/18 13:33:37 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ char	**env_2_str(t_mshell *mini)
 	str = malloc(sizeof(char *) * mini->n_env + 1);
 	if (!str)
 		return (NULL);
-	while (aux && aux->next != NULL)
+	while (aux)
 	{
 		str[++i] = ft_strdup(aux->value);
 		aux = aux->next;

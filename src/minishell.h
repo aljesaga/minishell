@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 12:56:28 by alsanche          #+#    #+#             */
-/*   Updated: 2022/09/17 18:42:56 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/09/18 14:22:06 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,13 +128,14 @@ void		ft_env(t_mshell *mini);
 void		ft_execv(t_mshell *mini);
 
 // ft_expand.c //
+int			check_name(t_mshell *mini, char *str);
 char		*str_expand(char *str, t_mshell *mini);
 
 // ft_export_no_args.c //
 void		ft_export_no_args(t_mshell *mini);
 
 // ft_export.c //
-int			ft_export(char *str, t_mshell *mini);
+int			ft_export(char **comand, t_mshell *mini);
 
 // ft_here_doc.c //
 int			ft_here_doc(t_mshell *mini, char *arv, int check);
@@ -150,6 +151,7 @@ int			ft_pwd(t_comand *com);
 void		assign_type(t_mshell *mini);
 
 // ft_unset.c //
+void		unset_mini(t_mshell *mini);
 void		ft_unset(char *str, t_mshell *mini);
 
 // get_env_value.c //
