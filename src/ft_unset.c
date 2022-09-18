@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 16:34:11 by ioriola           #+#    #+#             */
-/*   Updated: 2022/09/18 13:47:12 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/09/18 15:44:03 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	unset_mini(t_mshell *mini)
 				aux->next = NULL;
 			else
 				aux->next = temp->next;
+			free(temp->value);
 			free(temp);
 			mini->n_env--;
 			break ;
@@ -58,6 +59,7 @@ void	ft_unset(char *str, t_mshell *mini)
 				aux->next = NULL;
 			else
 				aux->next = temp->next;
+			free(temp->value);
 			free(temp);
 			mini->n_env--;
 			break ;

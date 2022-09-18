@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 11:29:09 by alsanche          #+#    #+#             */
-/*   Updated: 2022/09/11 16:16:45 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/09/18 18:31:36 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,35 +16,23 @@ void	free_sections(t_mshell *mini)
 {
 	t_section	*aux;
 
-	while (mini->sections != NULL)
+	while (mini->sections)
 	{
 		aux = mini->sections->next;
 		free(mini->sections->str);
 		free(mini->sections);
+		mini->sections->next = NULL;
 		mini->sections = aux;
 	}
-	mini->sections = NULL;
-}
-
-void	free_comand(t_mshell *mini)
-{
-	int	i;
-
-	i = mini->n_com;
-	while (--i > -1)
-	{
-		free_split(mini->comands[i].comand);
-	}
-	free(mini->comands);
+	free(mini->sections);
 }
 
 int	analyze_line(char *line, t_mshell *mini)
 {
-	char		*str;
+	t_section	*aux;
 
-	if (!line)
+	if (!line || line[0] == '\0')
 		return (0);
-	str = line;
 	mini->a_error = 0;
 	if (check_quotes(line, mini) == 1)
 	{
@@ -56,10 +44,15 @@ int	analyze_line(char *line, t_mshell *mini)
 	{
 		mini->fd_in = STDIN_FILENO;
 		mini->fd_out = STDOUT_FILENO;
+		aux = mini->sections;
+		while (aux)
+		{
+			printf("-->%p----->%s---->%p\n\n\n\n", aux->str, aux->str, aux->next);
+			aux = aux->next;
+		}
 		set_up_comand(mini);
 		if (mini->n_com > 0)
 			ft_execv(mini);
-		//free_comand(mini);
 		free_sections(mini);
 	}
 	return (mini->a_error);

@@ -6,7 +6,7 @@
 #    By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/18 15:07:42 by alsanche          #+#    #+#              #
-#    Updated: 2022/09/17 18:11:49 by alsanche         ###   ########lyon.fr    #
+#    Updated: 2022/09/18 15:32:26 by alsanche         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,7 @@ LIBS		= -L$(LIBFTDIR) -lft -lreadline
 INCLUDE		= -I. -I$(LIBDIR) -I$(LIBFTDIR) -I$(SRCDIR)
 
 $(NAME): $(OBJS)
-	$(GCC) -o $(NAME) $(OBJS) $(LIBS) $(DEBUG)
+	$(GCC) -o $(NAME) $(OBJS) $(LIBS)
 
 .PHONY: all re clean fclean
 

@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 19:03:35 by alsanche          #+#    #+#             */
-/*   Updated: 2022/09/09 15:06:33 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/09/18 17:51:30 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	send_error(int n, char *str)
 	{	
 		temp = ft_strjoin(str, ": permission denied\n");
 		ft_putstr_fd(temp, 1);
-		exit (1);
 	}
 	else if (n == 1)
 	{

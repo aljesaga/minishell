@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 11:13:31 by alsanche          #+#    #+#             */
-/*   Updated: 2022/09/18 12:32:36 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/09/18 18:17:35 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ t_section	*add_part(t_comand *new, t_mshell *mini, t_section *now, int args)
 	int			i;
 
 	aux = now->next;
-	new->comand = ft_calloc(args + 2, sizeof(char *));
+	new->comand = ft_calloc(args + 1, sizeof(char *));
 	new->builtin = now->builtin;
 	new->fd_in = mini->fd_in;
 	new->fd_out = STDOUT_FILENO;
@@ -96,11 +96,10 @@ void	set_up_comand(t_mshell *mini)
 	int			coms;
 
 	aux = mini->sections;
-	coms = count_com(mini);
-	mini->n_com = coms;
-	mini->comands = ft_calloc(coms, sizeof(t_comand));
+	mini->n_com = count_com(mini);
+	mini->comands = ft_calloc(mini->n_com, sizeof(t_comand));
 	coms = -1;
-	while (aux != NULL && coms < mini->n_com)
+	while (aux && coms < mini->n_com)
 	{
 		if (aux->type != 6)
 		{

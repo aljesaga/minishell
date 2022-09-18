@@ -220,4 +220,7 @@ Alessandro:
 
 Alessandro:
 
-	-  El comando CD funciona con la ruta que le envies, menos si se envia sin argumentos	
+	-  El comando CD funciona con la ruta que le envies, menos si se envia sin argumentos
+
+	-	Tenemos 2 leaks que no consigo en que momento se generan.
+	
