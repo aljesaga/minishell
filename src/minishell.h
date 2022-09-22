@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 12:56:28 by alsanche          #+#    #+#             */
-/*   Updated: 2022/09/18 14:22:06 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/09/22 16:19:16 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,10 @@ typedef struct s_section
 
 typedef struct s_comand
 {
-	char		**comand;
-	int			builtin;
-	int			fd_in;
-	int			fd_out;
+	char			**comand;
+	int				builtin;
+	int				fd_in;
+	int				fd_out;
 }	t_comand;
 
 typedef struct s_mshell

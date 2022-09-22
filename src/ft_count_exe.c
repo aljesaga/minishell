@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 11:13:31 by alsanche          #+#    #+#             */
-/*   Updated: 2022/09/18 18:17:35 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/09/22 16:57:35 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,13 @@ t_section	*add_part(t_comand *new, t_mshell *mini, t_section *now, int args)
 	int			i;
 
 	aux = now->next;
-	new->comand = ft_calloc(args + 1, sizeof(char *));
+	new->comand = malloc(sizeof(char *) * args + 2);
 	new->builtin = now->builtin;
 	new->fd_in = mini->fd_in;
 	new->fd_out = STDOUT_FILENO;
 	i = 0;
 	new->comand[i] = now->str;
-	while (++i <= args)
+	while (aux != NULL && ++i < args)
 	{
 		new->comand[i] = aux->str;
 		aux = aux->next;
@@ -97,7 +97,7 @@ void	set_up_comand(t_mshell *mini)
 
 	aux = mini->sections;
 	mini->n_com = count_com(mini);
-	mini->comands = ft_calloc(mini->n_com, sizeof(t_comand));
+	mini->comands = malloc(sizeof(t_comand) * mini->n_com + 1);
 	coms = -1;
 	while (aux && coms < mini->n_com)
 	{
@@ -106,7 +106,7 @@ void	set_up_comand(t_mshell *mini)
 			not_comand(mini, aux);
 			aux = aux->next;
 		}
-		else if (aux->type == 6)
+		else if (aux->type == 6 && coms < mini->n_com)
 			aux = add_comand(mini, aux, ++coms);
 	}
 }

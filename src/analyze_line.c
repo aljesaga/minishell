@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 11:29:09 by alsanche          #+#    #+#             */
-/*   Updated: 2022/09/18 18:31:36 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/09/22 16:56:57 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,10 @@ void	free_sections(t_mshell *mini)
 		mini->sections->next = NULL;
 		mini->sections = aux;
 	}
-	free(mini->sections);
 }
 
 int	analyze_line(char *line, t_mshell *mini)
 {
-	t_section	*aux;
-
 	if (!line || line[0] == '\0')
 		return (0);
 	mini->a_error = 0;
@@ -44,12 +41,6 @@ int	analyze_line(char *line, t_mshell *mini)
 	{
 		mini->fd_in = STDIN_FILENO;
 		mini->fd_out = STDOUT_FILENO;
-		aux = mini->sections;
-		while (aux)
-		{
-			printf("-->%p----->%s---->%p\n\n\n\n", aux->str, aux->str, aux->next);
-			aux = aux->next;
-		}
 		set_up_comand(mini);
 		if (mini->n_com > 0)
 			ft_execv(mini);

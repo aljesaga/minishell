@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 15:25:37 by alsanche          #+#    #+#             */
-/*   Updated: 2022/09/18 17:59:33 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/09/22 16:20:13 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,6 @@ static void	init_childs(t_mshell *mini, t_comand *com, int i)
 		close (com->fd_in);
 	if (com->fd_out != 1)
 		close (com->fd_out);
-	free(com->comand);
-	com->builtin = 0;
-	com->fd_in = 0;
-	com->fd_out = 0;
 }
 
 void	ft_execv(t_mshell *mini)
