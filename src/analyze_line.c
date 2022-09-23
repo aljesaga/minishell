@@ -6,11 +6,25 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 11:29:09 by alsanche          #+#    #+#             */
-/*   Updated: 2022/09/22 16:56:57 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/09/23 19:54:54 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
+
+void	free_comand(t_mshell *mini)
+{
+	t_comand	*aux;
+
+	while (mini->comands)
+	{
+		aux = mini->comands->next;
+		free_split(mini->comands->comand);
+		free(mini->comands);
+		mini->comands->next = NULL;
+		mini->comands = aux;
+	}
+}
 
 void	free_sections(t_mshell *mini)
 {
@@ -28,23 +42,26 @@ void	free_sections(t_mshell *mini)
 
 int	analyze_line(char *line, t_mshell *mini)
 {
+	char		*str;
+
 	if (!line || line[0] == '\0')
 		return (0);
 	mini->a_error = 0;
 	if (check_quotes(line, mini) == 1)
 	{
 		printf("final quotes not found");
-		return (258);
+		mini->a_error = 258;
 	}
-	ft_line_treatment(line, mini);
 	if (mini->a_error != 258)
 	{
-		mini->fd_in = STDIN_FILENO;
-		mini->fd_out = STDOUT_FILENO;
+		str = ft_strtrim(line, " ");
+		ft_line_treatment(str, mini);
 		set_up_comand(mini);
 		if (mini->n_com > 0)
-			ft_execv(mini);
+			mini->a_error = ft_execv(mini);
+		free_comand(mini);
 		free_sections(mini);
+		free(str);
 	}
 	return (mini->a_error);
 }

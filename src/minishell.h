@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 12:56:28 by alsanche          #+#    #+#             */
-/*   Updated: 2022/09/22 16:19:16 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/09/23 19:55:06 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,10 @@ typedef struct s_comand
 {
 	char			**comand;
 	int				builtin;
+	int				n_arg;
 	int				fd_in;
 	int				fd_out;
+	struct s_comand	*next;
 }	t_comand;
 
 typedef struct s_mshell
@@ -93,6 +95,8 @@ typedef struct s_mshell
 void		add_segtion(char *str, t_mshell *mini, int check);
 
 // analyze_line.c //
+void		free_comand(t_mshell *mini);
+void		free_sections(t_mshell *mini);
 int			analyze_line(char *line, t_mshell *mini);
 
 // builtin.c //
@@ -112,8 +116,8 @@ char		**env_2_str(t_mshell *mini);
 int			ft_cd(char *line, t_mshell *mini);
 
 //ft_count_exe.c //
-t_section	*add_part(t_comand *new, t_mshell *mini, t_section *now, int args);
-t_section	*add_comand(t_mshell *mini, t_section *aux, int coms);
+t_section	*add_part(t_comand *new, t_mshell *mini, t_section *now);
+t_section	*add_comand(t_mshell *mini, t_section *aux, t_comand *new);
 void		set_up_comand(t_mshell *mini);
 
 // ft_echo.c //
@@ -125,7 +129,7 @@ void		new_env(char *str, int num, t_mshell *mini);
 void		ft_env(t_mshell *mini);
 
 // ft_execv.c //
-void		ft_execv(t_mshell *mini);
+int			ft_execv(t_mshell *mini);
 
 // ft_expand.c //
 int			check_name(t_mshell *mini, char *str);

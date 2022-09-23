@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 13:23:09 by alsanche          #+#    #+#             */
-/*   Updated: 2022/09/11 16:02:31 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/09/23 18:43:48 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ void	ft_line_treatment(char *line, t_mshell *mini)
 	}
 	while (line[j] != '\0')
 	{
+		while (line[j] == ' ')
+			j++;
 		if (line[j] == 34 || line[j] == 39)
 			limit = check_quotes(&line[j], mini) + 1;
 		else
@@ -89,8 +91,6 @@ void	ft_line_treatment(char *line, t_mshell *mini)
 		add_segtion(aux, mini, j);
 		free(aux);
 		j += limit;
-		if (line[j] == ' ')
-			j++;
 	}
 	assign_type(mini);
 }

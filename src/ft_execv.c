@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 15:25:37 by alsanche          #+#    #+#             */
-/*   Updated: 2022/09/22 16:20:13 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/09/23 19:55:58 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,32 @@ static void	init_childs(t_mshell *mini, t_comand *com, int i)
 		close (com->fd_out);
 }
 
-void	ft_execv(t_mshell *mini)
+static int	built_or_exec(t_mshell *mini)
 {
-	int	i;
+	int			i;
+	int			status;
+	t_comand	*aux;
+
+	aux = mini->comands;
+	i = -1;
+	while (++i < mini->n_com)
+	{
+		if (aux->builtin == 1)
+			mini->l_exit = run_builtin(aux, mini);
+		else
+			init_childs(mini, aux, i);
+		aux = aux->next;
+	}
+	i = -1;
+	while (++i < mini->n_com)
+		waitpid(mini->childs[i], &status, 0);
+	if (WIFEXITED(status))
+		return (WEXITSTATUS(status));
+	return (0);
+}
+
+int	ft_execv(t_mshell *mini)
+{
 	int	status;
 
 	mini->envs = env_2_str(mini);
@@ -67,20 +90,10 @@ void	ft_execv(t_mshell *mini)
 	mini->childs = malloc(sizeof(pid_t *) * mini->n_com - mini->builts);
 	if (!mini->childs)
 		printf("children not found");
-	i = -1;
-	while (++i < mini->n_com)
-	{
-		if (mini->comands[i].builtin == 1)
-			mini->l_exit = run_builtin(&mini->comands[i], mini);
-		else
-			init_childs(mini, &mini->comands[i], i);
-	}
-	i = -1;
-	while (++i < mini->n_com)
-		waitpid(mini->childs[i], &status, 0);
-	if (WIFEXITED(status))
-		mini->l_exit = WEXITSTATUS(status);
+	status = built_or_exec(mini);
+	free(mini->childs);
 	free_split(mini->envs);
 	free_split(mini->path);
 	mini->fd_out = STDOUT_FILENO;
+	return (status);
 }

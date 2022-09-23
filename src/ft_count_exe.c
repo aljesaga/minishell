@@ -6,21 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 11:13:31 by alsanche          #+#    #+#             */
-/*   Updated: 2022/09/22 16:57:35 by alsanche         ###   ########lyon.fr   */
-/*                                                                            */
-/* ************************************************************************** */
-
-#include <minishell.h>
-
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_set_fd.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/09 12:48:26 by alsanche          #+#    #+#             */
-/*   Updated: 2022/09/09 12:49:37 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/09/23 19:58:00 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,21 +28,20 @@ static int	count_com(t_mshell *mini)
 	return (count);
 }
 
-t_section	*add_part(t_comand *new, t_mshell *mini, t_section *now, int args)
+t_section	*add_part(t_comand *new, t_mshell *mini, t_section *now)
 {
 	t_section	*aux;
 	int			i;
 
-	aux = now->next;
-	new->comand = malloc(sizeof(char *) * args + 2);
+	aux = now;
+	new->comand = ft_calloc(new->n_arg + 1, sizeof(char *));
 	new->builtin = now->builtin;
 	new->fd_in = mini->fd_in;
 	new->fd_out = STDOUT_FILENO;
-	i = 0;
-	new->comand[i] = now->str;
-	while (aux != NULL && ++i < args)
+	i = -1;
+	while (aux && aux->str != NULL && ++i < new->n_arg)
 	{
-		new->comand[i] = aux->str;
+		new->comand[i] = ft_strdup(aux->str);
 		aux = aux->next;
 	}
 	while (aux)
@@ -71,7 +56,7 @@ t_section	*add_part(t_comand *new, t_mshell *mini, t_section *now, int args)
 	return (aux);
 }
 
-t_section	*add_comand(t_mshell *mini, t_section *aux, int coms)
+t_section	*add_comand(t_mshell *mini, t_section *aux, t_comand *new)
 {
 	t_section	*temp;
 	int			args;
@@ -86,18 +71,37 @@ t_section	*add_comand(t_mshell *mini, t_section *aux, int coms)
 		args++;
 		temp = temp->next;
 	}
-	temp = add_part(&mini->comands[coms], mini, aux, args);
+	new->n_arg = args + 1;
+	temp = add_part(new, mini, aux);
 	return (temp);
+}
+
+static t_comand	*create_add(t_mshell *mini, int coms)
+{
+	t_comand	*new;
+	t_comand	*aux;
+
+	new = ft_calloc(1, sizeof(t_comand));
+	if (coms == 0)
+		mini->comands = new;
+	else
+	{
+		aux = mini->comands;
+		while (aux->next != NULL)
+			aux = aux->next;
+		aux->next = new;
+	}
+	return (new);
 }
 
 void	set_up_comand(t_mshell *mini)
 {
 	t_section	*aux;
+	t_comand	*new;
 	int			coms;
 
 	aux = mini->sections;
 	mini->n_com = count_com(mini);
-	mini->comands = malloc(sizeof(t_comand) * mini->n_com + 1);
 	coms = -1;
 	while (aux && coms < mini->n_com)
 	{
@@ -107,6 +111,9 @@ void	set_up_comand(t_mshell *mini)
 			aux = aux->next;
 		}
 		else if (aux->type == 6 && coms < mini->n_com)
-			aux = add_comand(mini, aux, ++coms);
+		{
+			new = create_add(mini, ++coms);
+			aux = add_comand(mini, aux, new);
+		}
 	}
 }
