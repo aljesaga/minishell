@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/03 17:47:51 by alsanche          #+#    #+#             */
-/*   Updated: 2022/09/17 18:42:09 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/09/24 15:01:43 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,11 @@ static char	*expand_chr(char *str, char *end, int s, t_mshell *mini)
 	char	*aux;
 	char	*temp;
 
-	if (str[0] == '?' && str[1] == '\0')
-	{
-		end = ft_itoa(mini->l_exit);
-		return (end);
-	}
 	aux = ft_substr(str, 0, s);
-	temp = get_env_value(aux, mini);
+	if (str[0] == '?' && str[1] == '\0')
+		temp = ft_itoa(mini->l_exit);
+	else
+		temp = get_env_value(aux, mini);
 	free(aux);
 	if (temp != NULL)
 	{
@@ -87,14 +85,15 @@ char	*str_expand(char *str, t_mshell *mini)
 
 	i = -1;
 	end = ft_strdup("");
-	while (str[++i] != '\0')
+	while (str[++i])
 	{
-		s = 0;
 		if (str[i] == '$' && (ft_isalpha(str[i + 1]) == 1 || str[i + 1] == '?'))
 		{
 			s = expand_name(&str[++i]);
 			end = expand_chr(&str[i], end, s, mini);
 			i += s;
+			if (str[i] == '\0')
+				break ;
 		}
 		else
 		{

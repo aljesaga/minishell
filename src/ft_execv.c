@@ -6,16 +6,25 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 15:25:37 by alsanche          #+#    #+#             */
-/*   Updated: 2022/09/23 19:55:58 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/09/24 20:10:36 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-static void	ft_test(int fd, char *path, char **comand, char **enpv)
+void	close_fd(t_mshell *mini)
 {
-	dup2(fd, STDOUT_FILENO);
-	execve(path, comand, enpv);
+	int	i;
+
+	i = -1;
+	while (mini->pipex[++i])
+	{
+		if (mini->fd_in != 0)
+			close(mini->pipex[i][0]);
+		if (mini->fd_out != 1)
+			close(mini->pipex[i][1]);
+	}
+	free(mini->pipex);
 }
 
 static void	ft_run(t_comand *com, t_mshell *mini)
@@ -23,20 +32,27 @@ static void	ft_run(t_comand *com, t_mshell *mini)
 	char	*gps;
 	int		i;
 
-	dup2(com->fd_in, STDIN_FILENO);
-	close(com->fd_in);
+	if (com->fd_in != 0)
+		dup2(com->fd_in, STDIN_FILENO);
 	i = -1;
 	if (!access(com->comand[0], X_OK))
-		ft_test(com->fd_out, com->comand[0], com->comand, mini->envs);
+	{
+		dup2(com->fd_out, STDOUT_FILENO);
+		close_fd(mini);
+		execve(com->comand[0], com->comand, mini->envs);
+	}
 	while (mini->path != NULL && mini->path[++i])
 	{
 		gps = ft_strjoin(mini->path[i], com->comand[0]);
 		if (!access(gps, X_OK))
-			ft_test(com->fd_out, gps, com->comand, mini->envs);
+		{
+			dup2(com->fd_out, STDOUT_FILENO);
+			close_fd(mini);
+			execve(gps, com->comand, mini->envs);
+		}
 		free(gps);
 	}
 	send_error(1, com->comand[0]);
-	close(com->fd_out);
 	exit (127);
 }
 
@@ -50,11 +66,14 @@ static void	init_childs(t_mshell *mini, t_comand *com, int i)
 	else if (pid == -1)
 		send_error(2, "fork");
 	else
+	{
+		printf("---->%d--->%d---->%s\n", com->fd_in, com->fd_out, com->comand[0]);
 		ft_run(com, mini);
+	}
 	if (com->fd_in != 0)
-		close (com->fd_in);
+		close(com->fd_in);
 	if (com->fd_out != 1)
-		close (com->fd_out);
+		close(com->fd_out);
 }
 
 static int	built_or_exec(t_mshell *mini)
@@ -64,9 +83,16 @@ static int	built_or_exec(t_mshell *mini)
 	t_comand	*aux;
 
 	aux = mini->comands;
+	mini->pipex = ft_calloc(mini->n_com - 1, sizeof(int *));
 	i = -1;
 	while (++i < mini->n_com)
 	{
+		if (aux->pipe == 1)
+		{
+			mini->pipex[i] = build_tunnel(aux, aux->next);
+			printf("*******%d*******%d\n", mini->pipex[i][0], i);
+			printf("*******%d*******%d\n", mini->pipex[i][1], i);
+		}
 		if (aux->builtin == 1)
 			mini->l_exit = run_builtin(aux, mini);
 		else
@@ -94,6 +120,6 @@ int	ft_execv(t_mshell *mini)
 	free(mini->childs);
 	free_split(mini->envs);
 	free_split(mini->path);
-	mini->fd_out = STDOUT_FILENO;
+	mini->fd_in = STDIN_FILENO;
 	return (status);
 }

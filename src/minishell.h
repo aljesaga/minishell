@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 12:56:28 by alsanche          #+#    #+#             */
-/*   Updated: 2022/09/23 19:55:06 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/09/24 19:48:17 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ typedef struct s_comand
 {
 	char			**comand;
 	int				builtin;
+	int				pipe;
 	int				n_arg;
 	int				fd_in;
 	int				fd_out;
@@ -77,10 +78,11 @@ typedef struct s_mshell
 {
 	int			fd_in;
 	int			n_com;
-	int			builts;
 	int			n_env;
 	int			fd_out;
+	int			builts;
 	int			quotes;
+	int			**pipex;
 	int			a_error;
 	int			l_exit;
 	char		**path;
@@ -104,7 +106,7 @@ int			is_builtin(char *str);
 int			run_builtin(t_comand *com, t_mshell *mini);
 
 // ft_set_fd.c //
-int			build_tunnel(t_mshell *mini);
+int			*build_tunnel(t_comand *com, t_comand *aux);
 void		check_fd(t_mshell *mini, t_comand *new, t_section *now);
 void		not_comand(t_mshell *mini, t_section *now);
 

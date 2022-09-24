@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsanche <alsanche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/13 16:37:32 by alsanche          #+#    #+#             */
-/*   Updated: 2021/08/24 13:17:24 by alsanche         ###   ########.fr       */
+/*   Updated: 2022/09/24 13:58:39 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ char	*ft_itoa(int n)
 
 	str = (char *)malloc(sizeof(char) * (count(n) + 1));
 	if (!str)
-		return (NULL);
+		return (0);
 	exp = ft_exp(n);
 	j = 0;
 	if (n < 0)

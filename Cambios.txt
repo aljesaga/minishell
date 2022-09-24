@@ -225,7 +225,7 @@ Alessandro:
 	-	Tenemos 2 leaks que no consigo en que momento se generan.
 	
 ┌────────────┐
-│ 18/09/2022 │
+│ 23/09/2022 │
 └────────────┘
 
 Alessandro:
@@ -233,3 +233,13 @@ Alessandro:
 	-	Corregidos los leaks;
 
 	-	Nuevo leaks al hacer echo $?, que tengo que revisar.
+
+┌────────────┐
+│ 24/09/2022 │
+└────────────┘
+
+Alessandro:
+
+	-	Corregido el leaks de $?
+
+	-	Problema con el funcionaminto de " cat | cat | ls "

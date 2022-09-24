@@ -6,19 +6,22 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 12:48:26 by alsanche          #+#    #+#             */
-/*   Updated: 2022/09/17 18:06:03 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/09/24 19:51:29 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-int	build_tunnel(t_mshell *mini)
+int	*build_tunnel(t_comand *com, t_comand *aux)
 {
-	int	fd[2];
+	int	*fd;
 
+	fd = malloc(sizeof(int) * 2);
 	pipe(fd);
-	mini->fd_in = fd[FD_R];
-	return (fd[FD_W]);
+	aux->fd_in = fd[FD_R];
+	if (com->fd_out == 1)
+		com->fd_out = fd[FD_W];
+	return (fd);
 }
 
 void	check_fd(t_mshell *mini, t_comand *new, t_section *now)
@@ -45,7 +48,7 @@ void	check_fd(t_mshell *mini, t_comand *new, t_section *now)
 	else if (now->type == 4)
 		new->fd_out = open(now->next->str, O_RDWR | O_CREAT | O_APPEND, 0644);
 	else if (now->type == 5)
-		new->fd_out = build_tunnel(mini);
+		new->pipe = 1;
 }
 
 void	not_comand(t_mshell *mini, t_section *now)

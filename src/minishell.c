@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 14:50:39 by alsanche          #+#    #+#             */
-/*   Updated: 2022/09/22 16:23:05 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/09/24 16:14:01 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	main(int arc, char **arv, char **env)
 			add_history(line);
 			mini->l_exit = analyze_line(line, mini);
 			free(line);
-			system("leaks -list -quiet minishell");
+			//system("leaks -list -quiet minishell");
 		}
 	}
 	else if (arv)
