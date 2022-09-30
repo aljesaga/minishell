@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 12:56:28 by alsanche          #+#    #+#             */
-/*   Updated: 2022/09/24 19:48:17 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/09/30 18:40:55 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ typedef struct s_comand
 {
 	char			**comand;
 	int				builtin;
-	int				pipe;
+	int				n_comand;
 	int				n_arg;
 	int				fd_in;
 	int				fd_out;
@@ -106,7 +106,7 @@ int			is_builtin(char *str);
 int			run_builtin(t_comand *com, t_mshell *mini);
 
 // ft_set_fd.c //
-int			*build_tunnel(t_comand *com, t_comand *aux);
+int			*build_tunnel(t_comand *com, t_mshell *mini);
 void		check_fd(t_mshell *mini, t_comand *new, t_section *now);
 void		not_comand(t_mshell *mini, t_section *now);
 

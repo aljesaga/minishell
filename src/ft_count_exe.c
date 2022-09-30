@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 11:13:31 by alsanche          #+#    #+#             */
-/*   Updated: 2022/09/24 19:16:40 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/09/30 18:40:31 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_section	*add_part(t_comand *new, t_mshell *mini, t_section *now)
 	aux = now;
 	new->comand = ft_calloc(new->n_arg + 1, sizeof(char *));
 	new->builtin = now->builtin;
-	new->pipe = 0;
+	new->fd_in = mini->fd_in;
 	new->fd_out = STDOUT_FILENO;
 	i = -1;
 	while (aux && aux->str != NULL && ++i < new->n_arg)
@@ -82,6 +82,7 @@ static t_comand	*create_add(t_mshell *mini, int coms)
 	t_comand	*aux;
 
 	new = ft_calloc(1, sizeof(t_comand));
+	new->n_comand = coms;
 	if (coms == 0)
 		mini->comands = new;
 	else
@@ -102,6 +103,7 @@ void	set_up_comand(t_mshell *mini)
 
 	aux = mini->sections;
 	mini->n_com = count_com(mini);
+	mini->pipex = ft_calloc(mini->n_com, sizeof(int *));
 	coms = -1;
 	while (aux && coms < mini->n_com)
 	{
@@ -116,4 +118,5 @@ void	set_up_comand(t_mshell *mini)
 			aux = add_comand(mini, aux, new);
 		}
 	}
+	mini->fd_in = STDIN_FILENO;
 }

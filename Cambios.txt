@@ -243,3 +243,15 @@ Alessandro:
 	-	Corregido el leaks de $?
 
 	-	Problema con el funcionaminto de " cat | cat | ls "
+
+┌────────────┐
+│ 30/09/2022 │
+└────────────┘
+
+Alessandro:
+
+	-	Cambiando forma de almacenar los pipe abiertos para poder cerrarlos en los hijos 
+
+	-	Cerrar todos los pipe abiertos que no se usan en cada hijo
+
+	-	Revisar porque al enviar un bilting ejecuta un comando de mas 
