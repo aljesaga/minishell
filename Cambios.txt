@@ -150,9 +150,9 @@ Alessandro:
 	  en las distainta partes de la misma, sea redireccion  comando o pipe.
 	- Agregue el archivo line_treatment.c donde voy agregando las funciones a usar.
 
-		┌──────────────┐  ┌───────────────┐  ┌──────────────┐  ┌──────────────┐
-		│ comando  = 1 │  | argumento = 2 |  |  re-dir = 3  |  |  archivo = 4 |
-		└──────────────┘  └───────────────┘  └──────────────┘  └──────────────┘
+		┌──────────────┐  ┌───────────────┐  ┌────────────-------──┐  ┌──────────────┐
+		│ comando  = 6 │  | argumento = 7 |  |  re-dir =1-2-3-4-5  |  |  archivo = 7 |
+		└──────────────┘  └───────────────┘  └──────────────-------┘  └──────────────┘
 
 ┌────────────┐
 │ 27/08/2022 │
@@ -255,3 +255,14 @@ Alessandro:
 	-	Cerrar todos los pipe abiertos que no se usan en cada hijo
 
 	-	Revisar porque al enviar un bilting ejecuta un comando de mas 
+
+
+┌────────────┐
+│ 05/10/2022 │
+└────────────┘
+
+Alessandro:
+
+	-	Fd se abren y cierran perfectamente.
+
+	

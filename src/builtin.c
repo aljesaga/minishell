@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 11:33:43 by ioriola           #+#    #+#             */
-/*   Updated: 2022/09/18 14:52:15 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/10/05 15:21:29 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 int	is_builtin(char *str)
 {
-	if (!ft_strcmp(str, "cd") || !ft_strcmp(str, "echo"))
+	if (!ft_strncmp(str, "cd\0", 3) || !ft_strncmp(str, "echo\0", 5))
 		return (1);
-	if (!ft_strcmp(str, "env") || !ft_strcmp(str, "exit"))
+	if (!ft_strncmp(str, "env\0", 4) || !ft_strncmp(str, "exit\0", 5))
 		return (1);
-	if (!ft_strcmp(str, "export") || !ft_strcmp(str, "pwd"))
+	if (!ft_strncmp(str, "export\0", 7) || !ft_strncmp(str, "pwd\0", 4))
 		return (1);
-	if (!ft_strcmp(str, "unset"))
+	if (!ft_strncmp(str, "unset\0", 6))
 		return (1);
 	return (0);
 }
@@ -35,7 +35,7 @@ int	run_builtin(t_comand *com, t_mshell *mini)
 		ft_unset(com->comand[1], mini);
 	else if (!ft_strncmp(com->comand[0], "echo\0", 5))
 		mini->l_exit = ft_echo(com);
-	else if (!ft_strncmp(com->comand[0], "exit\0", 5) && com->comand[1] == NULL)
+	else if (!ft_strncmp(com->comand[0], "exit\0", 5))
 		exit (0);
 	else if (!ft_strncmp(com->comand[0], "env\0", 4))
 		ft_env(mini);

@@ -6,11 +6,19 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 15:25:37 by alsanche          #+#    #+#             */
-/*   Updated: 2022/09/30 18:43:37 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/10/05 17:22:10 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
+
+static void	ft_exe(char *gps, t_comand *com, t_mshell *mini)
+{
+	if (com->fd_out != STDOUT_FILENO)
+		dup2(com->fd_out, STDOUT_FILENO);
+	ft_close_fd(com->fd_in, mini);
+	execve(gps, com->comand, mini->envs);
+}
 
 static void	ft_run(t_comand *com, t_mshell *mini)
 {
@@ -20,26 +28,17 @@ static void	ft_run(t_comand *com, t_mshell *mini)
 	if (com->fd_in != STDIN_FILENO)
 		dup2(com->fd_in, STDIN_FILENO);
 	if (!access(com->comand[0], X_OK))
-	{
-		dup2(com->fd_out, STDOUT_FILENO);
-		close(com->fd_out);
-		execve(com->comand[0], com->comand, mini->envs);
-	}
+		ft_exe(com->comand[0], com, mini);
 	i = -1;
 	while (mini->path != NULL && mini->path[++i])
 	{
 		gps = ft_strjoin(mini->path[i], com->comand[0]);
 		if (!access(gps, X_OK))
-		{
-			 //printf("--->  %s\n", gps);
-			dup2(com->fd_out, STDOUT_FILENO);
-			if (com->fd_out != 1)
-				close(com->fd_out);
-			execve(gps, com->comand, mini->envs);
-		}
+			ft_exe(gps, com, mini);
 		free(gps);
 	}
 	send_error(1, com->comand[0]);
+	ft_close_fd(com->fd_in, mini);
 	exit (127);
 }
 
@@ -54,7 +53,7 @@ static void	init_childs(t_mshell *mini, t_comand *com, int i)
 		send_error(2, "fork");
 	else
 	{
-		printf("---->%d--->%d---->%s\n", com->fd_in, com->fd_out, com->comand[0]);
+		//  HIJO  (ver signals) //
 		if (com->builtin == 1)
 			mini->l_exit = run_builtin(com, mini);
 		else
@@ -79,6 +78,7 @@ static int	built_or_exec(t_mshell *mini)
 		init_childs(mini, aux, i);
 		aux = aux->next;
 	}
+	ft_close_fd(0, mini);
 	i = -1;
 	while (++i < mini->n_com)
 		waitpid(mini->childs[i], &status, 0);
@@ -93,15 +93,21 @@ int	ft_execv(t_mshell *mini)
 
 	mini->envs = env_2_str(mini);
 	mini->path = find_path(mini->envs);
-	mini->childs = malloc(sizeof(pid_t *) * mini->n_com);
-	if (!mini->childs)
-		printf("children not found");
-	else{
+	if (mini->n_com == 1 && mini->comands->builtin == 1)
+			mini->l_exit = run_builtin(mini->comands, mini);
+	else
+	{
+		mini->childs = malloc(sizeof(pid_t *) * mini->n_com);
+		if (!mini->childs)
+			printf("children not found");
 		status = built_or_exec(mini);
 		free(mini->childs);
-		free_split(mini->envs);
-		free_split(mini->path);
-		mini->fd_in = STDIN_FILENO;
 	}
+	if (mini->envs != NULL)
+		free_split(mini->envs);
+	if (mini->path != NULL)
+		free_split(mini->path);
+	mini->fd_in = STDIN_FILENO;
+	mini->fd_out = STDOUT_FILENO;
 	return (0);
 }

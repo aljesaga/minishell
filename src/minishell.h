@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 12:56:28 by alsanche          #+#    #+#             */
-/*   Updated: 2022/09/30 18:40:55 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/10/05 14:33:14 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,12 @@ typedef struct s_env
 	struct s_env	*next;
 }	t_env;
 
+typedef struct s_pipe
+{
+	int				fd;
+	struct s_pipe	*next;
+}	t_pipe;
+
 typedef struct s_section
 {
 	char				*str;
@@ -82,7 +88,7 @@ typedef struct s_mshell
 	int			fd_out;
 	int			builts;
 	int			quotes;
-	int			**pipex;
+	int			*pipex;
 	int			a_error;
 	int			l_exit;
 	char		**path;
@@ -104,6 +110,9 @@ int			analyze_line(char *line, t_mshell *mini);
 // builtin.c //
 int			is_builtin(char *str);
 int			run_builtin(t_comand *com, t_mshell *mini);
+
+// close_fd.c //
+void		ft_close_fd(int fd_in, t_mshell *mini);
 
 // ft_set_fd.c //
 int			*build_tunnel(t_comand *com, t_mshell *mini);

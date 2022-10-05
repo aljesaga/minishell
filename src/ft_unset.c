@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 16:34:11 by ioriola           #+#    #+#             */
-/*   Updated: 2022/09/18 15:44:03 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/10/05 16:45:05 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	unset_mini(t_mshell *mini)
 	t_env	*temp;
 
 	aux = mini->env;
-	while (aux)
+	while (aux && aux->next)
 	{
 		if (aux->next->value[0] == '_' && aux->next->value[1] == '=')
 		{
@@ -50,7 +50,7 @@ void	ft_unset(char *str, t_mshell *mini)
 
 	aux = mini->env;
 	id = ft_strjoin(str, "=");
-	while (aux)
+	while (aux && aux->next)
 	{
 		if (!ft_strncmp(aux->next->value, id, ft_strlen(id)))
 		{

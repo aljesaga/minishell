@@ -1,36 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_mini.c                                        :+:      :+:    :+:   */
+/*   close_fd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/30 17:03:58 by ioriola           #+#    #+#             */
-/*   Updated: 2022/10/05 16:42:07 by alsanche         ###   ########lyon.fr   */
+/*   Created: 2022/10/05 11:49:49 by alsanche          #+#    #+#             */
+/*   Updated: 2022/10/05 14:39:02 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-t_mshell	*init_mini(char **env)
+void	ft_close_fd(int fd_in, t_mshell *mini)
 {
-	t_mshell	*mini;
+	int	i;
 
-	mini = malloc(sizeof(t_mshell));
-	if (!mini)
-		exit (127);
-	mini->fd_out = STDOUT_FILENO;
-	mini->l_exit = 0;
-	mini->n_env = 0;
-	if (!env || env[0] == NULL)
+	i = -1;
+	while (++i < mini->n_com - 1)
 	{
-		env = ft_split("PWD=/Users/alsanche/minishell:SHLVL=1:OLDPWD", ':');
-		env_collec(env, mini);
-		free(env);
+		if (mini->pipex[i] != 0 && mini->pipex[i] != fd_in)
+			close(mini->pipex[i]);
+		if (mini->pipex[i] != 1)
+			close(mini->pipex[i]);
 	}
-	else
-		env_collec(env, mini);
-	unset_mini(mini);
-	shlvlup(mini);
-	return (mini);
 }
