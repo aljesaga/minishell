@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 12:48:26 by alsanche          #+#    #+#             */
-/*   Updated: 2022/10/05 14:51:00 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/10/12 21:06:56 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ void	another_type(t_mshell *mini, t_comand *new, t_section *now)
 	}
 	else if (now->type == 5)
 		mini->pipex[new->n_comand] = *build_tunnel(new, mini);
+	else if (now->type == 8)
+		ft_reset_main_fd(mini);
 }
 
 void	check_fd(t_mshell *mini, t_comand *new, t_section *now)

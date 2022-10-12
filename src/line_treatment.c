@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 13:23:09 by alsanche          #+#    #+#             */
-/*   Updated: 2022/09/23 18:43:48 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/10/12 20:30:52 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,14 @@ int	word_width(char *str, t_mshell *mini)
 		return (1);
 	else if (!ft_strncmp(str, "|", 1))
 		return (1);
+	else if (!ft_strncmp(str, ";", 1))
+		return (1);
 	while (str[++count] != '\0')
 	{
 		if (str[count] == 34 || str[count] == 39)
 			count += check_quotes(&str[count], mini);
 		else if (str[count] == ' ' || str[count] == '|'
-			|| str[count] == '<' || str[count] == '>')
+			|| str[count] == '<' || str[count] == '>' || str[count] == ';')
 			break ;
 	}
 	return (count);

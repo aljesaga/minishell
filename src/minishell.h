@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 12:56:28 by alsanche          #+#    #+#             */
-/*   Updated: 2022/10/05 14:33:14 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/10/12 20:49:13 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ int			is_builtin(char *str);
 int			run_builtin(t_comand *com, t_mshell *mini);
 
 // close_fd.c //
+void		ft_reset_main_fd(t_mshell *mini);
 void		ft_close_fd(int fd_in, t_mshell *mini);
 
 // ft_set_fd.c //
@@ -122,6 +123,9 @@ void		not_comand(t_mshell *mini, t_section *now);
 // env_2_str.c //
 char		**find_path(char **enpv);
 char		**env_2_str(t_mshell *mini);
+
+// exit.c //
+void		ft_exit(t_comand *com, t_mshell *mini);
 
 // ft_cd.c //
 int			ft_cd(char *line, t_mshell *mini);

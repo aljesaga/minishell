@@ -6,11 +6,17 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 11:49:49 by alsanche          #+#    #+#             */
-/*   Updated: 2022/10/05 14:39:02 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/10/12 21:15:53 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
+
+void	ft_reset_main_fd(t_mshell *mini)
+{
+	mini->fd_in = STDIN_FILENO;
+	mini->fd_out = STDOUT_FILENO;
+}
 
 void	ft_close_fd(int fd_in, t_mshell *mini)
 {
@@ -21,7 +27,7 @@ void	ft_close_fd(int fd_in, t_mshell *mini)
 	{
 		if (mini->pipex[i] != 0 && mini->pipex[i] != fd_in)
 			close(mini->pipex[i]);
-		if (mini->pipex[i] != 1)
+		if (mini->pipex[i] != STDOUT_FILENO)
 			close(mini->pipex[i]);
 	}
 }

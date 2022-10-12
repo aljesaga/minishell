@@ -265,4 +265,21 @@ Alessandro:
 
 	-	Fd se abren y cierran perfectamente.
 
+
+┌────────────┐
+│ 12/10/2022 │
+└────────────┘
+
+Alessandro:
+
+	-	Creada funcion para gestionar el comando exit y que permita argumentos numericos
+
+	-	Modificada la funcion echo para que admita flag -n 
+
+	- Comienzo a trabajar en que la linea de comando pueda gestionar el ';'
+	  {
+		funciona para ejecutar otro comando pero sin redireccionar la salida del anterior.
+	  }
+	
+
 	

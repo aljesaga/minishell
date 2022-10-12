@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 11:29:09 by alsanche          #+#    #+#             */
-/*   Updated: 2022/09/23 19:54:54 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/10/12 21:36:19 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,12 @@ int	analyze_line(char *line, t_mshell *mini)
 	{
 		str = ft_strtrim(line, " ");
 		ft_line_treatment(str, mini);
-		set_up_comand(mini);
-		if (mini->n_com > 0)
-			mini->a_error = ft_execv(mini);
+		if (mini->a_error != 258)
+		{
+			set_up_comand(mini);
+			if (mini->n_com > 0)
+				mini->a_error = ft_execv(mini);
+		}
 		free_comand(mini);
 		free_sections(mini);
 		free(str);

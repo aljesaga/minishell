@@ -6,7 +6,7 @@
 #    By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/18 15:07:42 by alsanche          #+#    #+#              #
-#    Updated: 2022/10/05 12:12:09 by alsanche         ###   ########lyon.fr    #
+#    Updated: 2022/10/12 16:02:40 by alsanche         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ SRCS = 	$(SRCDIR)/analyze_line.c \
 		$(SRCDIR)/builtin.c \
 		$(SRCDIR)/close_fd.c \
 		$(SRCDIR)/env_2_str.c \
+		$(SRCDIR)/exit.c \
 		$(SRCDIR)/ft_cd.c \
 		$(SRCDIR)/ft_count_exe.c \
 		$(SRCDIR)/ft_echo.c \

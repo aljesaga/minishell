@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 15:25:37 by alsanche          #+#    #+#             */
-/*   Updated: 2022/10/05 17:22:10 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/10/12 21:14:44 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,12 @@ static int	built_or_exec(t_mshell *mini)
 	while (++i < mini->n_com && aux)
 	{
 		init_childs(mini, aux, i);
+		printf("%s-comando\n%d->fd_in\n%d->fd_out\n%d->built\n", aux->comand[0], aux->fd_in, aux->fd_out, aux->builtin);
 		aux = aux->next;
 	}
 	ft_close_fd(0, mini);
+	ft_reset_main_fd(mini);
+	sleep(5);
 	i = -1;
 	while (++i < mini->n_com)
 		waitpid(mini->childs[i], &status, 0);
@@ -93,8 +96,9 @@ int	ft_execv(t_mshell *mini)
 
 	mini->envs = env_2_str(mini);
 	mini->path = find_path(mini->envs);
+	status = 0;
 	if (mini->n_com == 1 && mini->comands->builtin == 1)
-			mini->l_exit = run_builtin(mini->comands, mini);
+			status = run_builtin(mini->comands, mini);
 	else
 	{
 		mini->childs = malloc(sizeof(pid_t *) * mini->n_com);
@@ -107,7 +111,5 @@ int	ft_execv(t_mshell *mini)
 		free_split(mini->envs);
 	if (mini->path != NULL)
 		free_split(mini->path);
-	mini->fd_in = STDIN_FILENO;
-	mini->fd_out = STDOUT_FILENO;
-	return (0);
+	return (status);
 }

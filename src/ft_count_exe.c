@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 11:13:31 by alsanche          #+#    #+#             */
-/*   Updated: 2022/10/05 14:16:51 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/10/12 20:33:02 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ t_section	*add_part(t_comand *new, t_mshell *mini, t_section *now)
 		if (aux->type == 1 || aux->type == 2
 			|| aux->type == 3 || aux->type == 4 || aux->type == 5)
 			check_fd(mini, new, aux);
-		if (aux->type == 5)
+		if (aux->type == 5 || aux->type == 8)
 			break ;
 		aux = aux->next;
 	}
