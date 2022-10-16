@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 11:13:31 by alsanche          #+#    #+#             */
-/*   Updated: 2022/10/12 20:33:02 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/10/16 17:30:24 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ t_section	*add_part(t_comand *new, t_mshell *mini, t_section *now)
 	aux = now;
 	new->comand = ft_calloc(new->n_arg + 1, sizeof(char *));
 	new->builtin = now->builtin;
+	new->wait = 0;
 	new->fd_in = mini->fd_in;
 	new->fd_out = STDOUT_FILENO;
 	i = -1;
@@ -46,7 +47,7 @@ t_section	*add_part(t_comand *new, t_mshell *mini, t_section *now)
 	}
 	while (aux)
 	{
-		if (aux->type == 1 || aux->type == 2
+		if (aux->type == 1 || aux->type == 2 || aux->type == 8
 			|| aux->type == 3 || aux->type == 4 || aux->type == 5)
 			check_fd(mini, new, aux);
 		if (aux->type == 5 || aux->type == 8)

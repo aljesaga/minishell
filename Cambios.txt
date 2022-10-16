@@ -282,4 +282,15 @@ Alessandro:
 	  }
 	
 
-	
+┌────────────┐
+│ 16/10/2022 │
+└────────────┘
+
+Alessandro:
+
+	-	A falta de mas pruebas funcioona ;
+
+	-	debo corregir la salidas de env y export al fd correcto
+
+	-	corregido el error que ejecutaba mas de un comando cuando se ejecutaba junto a
+		un builtin. :D

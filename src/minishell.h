@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 12:56:28 by alsanche          #+#    #+#             */
-/*   Updated: 2022/10/12 20:49:13 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/10/16 17:29:56 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ typedef struct s_comand
 	int				n_arg;
 	int				fd_in;
 	int				fd_out;
+	int				wait;
 	struct s_comand	*next;
 }	t_comand;
 

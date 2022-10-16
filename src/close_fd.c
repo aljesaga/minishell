@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 11:49:49 by alsanche          #+#    #+#             */
-/*   Updated: 2022/10/12 21:15:53 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/10/16 17:03:23 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	ft_close_fd(int fd_in, t_mshell *mini)
 	{
 		if (mini->pipex[i] != 0 && mini->pipex[i] != fd_in)
 			close(mini->pipex[i]);
-		if (mini->pipex[i] != STDOUT_FILENO)
+		if (mini->pipex[i] != 1)
 			close(mini->pipex[i]);
 	}
 }
