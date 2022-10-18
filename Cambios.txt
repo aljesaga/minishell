@@ -294,3 +294,11 @@ Alessandro:
 
 	-	corregido el error que ejecutaba mas de un comando cuando se ejecutaba junto a
 		un builtin. :D
+		
+┌────────────┐
+│ 18/10/2022 │
+└────────────┘
+
+Iván:
+	- Estoy estudiando la libreria signal.h para recoger las señales externas. (Las que se usaban en minitalk) en los próximos días empezaré a implementarlo en la minishell.
+		
