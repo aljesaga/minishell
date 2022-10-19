@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 12:56:28 by alsanche          #+#    #+#             */
-/*   Updated: 2022/10/16 17:29:56 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/10/19 18:51:07 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,6 @@ typedef struct s_env
 	struct s_env	*next;
 }	t_env;
 
-typedef struct s_pipe
-{
-	int				fd;
-	struct s_pipe	*next;
-}	t_pipe;
-
 typedef struct s_section
 {
 	char				*str;
@@ -89,7 +83,7 @@ typedef struct s_mshell
 	int			fd_out;
 	int			builts;
 	int			quotes;
-	int			*pipex;
+	int			**pipex;
 	int			a_error;
 	int			l_exit;
 	char		**path;
@@ -115,6 +109,7 @@ int			run_builtin(t_comand *com, t_mshell *mini);
 // close_fd.c //
 void		ft_reset_main_fd(t_mshell *mini);
 void		ft_close_fd(int fd_in, t_mshell *mini);
+void		ft_free_fd(t_mshell *mini);
 
 // ft_set_fd.c //
 int			*build_tunnel(t_comand *com, t_mshell *mini);
@@ -142,7 +137,7 @@ int			ft_echo(t_comand *com);
 // ft_env.c //
 int			env_collec(char **env, t_mshell *mini);
 void		new_env(char *str, int num, t_mshell *mini);
-void		ft_env(t_mshell *mini);
+int			ft_env(t_comand *com, t_mshell *mini);
 
 // ft_execv.c //
 int			ft_execv(t_mshell *mini);
@@ -152,7 +147,7 @@ int			check_name(t_mshell *mini, char *str);
 char		*str_expand(char *str, t_mshell *mini);
 
 // ft_export_no_args.c //
-void		ft_export_no_args(t_mshell *mini);
+int			ft_export_no_args(t_comand *com, t_mshell *mini);
 
 // ft_export.c //
 int			ft_export(char **comand, t_mshell *mini);
@@ -172,7 +167,7 @@ void		assign_type(t_mshell *mini);
 
 // ft_unset.c //
 void		unset_mini(t_mshell *mini);
-void		ft_unset(char *str, t_mshell *mini);
+int			ft_unset(char *str, t_mshell *mini);
 
 // get_env_value.c //
 char		*get_env_value(char *env_name, t_mshell *mini);

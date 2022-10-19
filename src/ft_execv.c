@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 15:25:37 by alsanche          #+#    #+#             */
-/*   Updated: 2022/10/16 20:45:24 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/10/19 16:15:00 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,14 +75,13 @@ static int	built_or_exec(t_mshell *mini)
 
 	aux = mini->comands;
 	i = -1;
-	printf("=====>%d<=====\n", mini->n_com);
 	while (++i < mini->n_com)
 	{
 		init_childs(mini, aux, i);
-		printf("++++>%d<++++>%s<++++>%d\n", i, aux->comand[0], mini->childs[i]);
 		aux = aux->next;
 	}
 	ft_reset_main_fd(mini);
+	ft_free_fd(mini);
 	i = -1;
 	while (++i < mini->n_com)
 		waitpid(mini->childs[i], &status, 0);
@@ -98,7 +97,6 @@ int	ft_execv(t_mshell *mini)
 	mini->envs = env_2_str(mini);
 	mini->path = find_path(mini->envs);
 	status = 0;
-	printf("----->%d<-----\n", mini->n_com);
 	if (mini->n_com == 1 && mini->comands->builtin == 1)
 			status = run_builtin(mini->comands, mini);
 	else

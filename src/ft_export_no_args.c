@@ -6,13 +6,36 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 16:52:50 by ioriola           #+#    #+#             */
-/*   Updated: 2022/08/14 14:34:19 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/10/19 18:22:24 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void	ft_export_no_args(t_mshell *mini)
+static void	export_print(t_comand *com, char **export)
+{
+	int		y;
+	int		x;
+
+	y = -1;
+	while (export[++y])
+	{
+		if (export[y][0] != '\0')
+		{
+			dprintf(com->fd_out, "declare -x ");
+			x = -1;
+			while (export[y][++x] != '\0')
+			{
+				ft_putchar_fd(export[y][x], com->fd_out);
+				if (export[y][x] == '=' || export[y][x + 1] == '\0')
+					ft_putchar_fd('"', com->fd_out);
+			}
+			ft_putchar_fd('\n', com->fd_out);
+		}
+	}
+}
+
+int	ft_export_no_args(t_comand *com, t_mshell *mini)
 {
 	char	**export;
 	char	*aux;
@@ -20,6 +43,8 @@ void	ft_export_no_args(t_mshell *mini)
 	int		x;
 
 	export = env_2_str(mini);
+	if (!export)
+		return (1);
 	y = -1;
 	while (export[++y])
 	{
@@ -34,9 +59,7 @@ void	ft_export_no_args(t_mshell *mini)
 			}
 		}
 	}
-	y = -1;
-	while (export[++y])
-		if (export[y][0] != '\0')
-			printf("declare -x %s\n", export[y]);
+	export_print(com, export);
 	free_split(export);
+	return (0);
 }

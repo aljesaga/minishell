@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 13:04:38 by alsanche          #+#    #+#             */
-/*   Updated: 2022/08/14 14:29:52 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/10/19 18:33:45 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,20 +62,23 @@ int	env_collec(char **env, t_mshell *mini)
 	return (0);
 }
 
-void	ft_env(t_mshell *mini)
+int	ft_env(t_comand *com, t_mshell *mini)
 {
 	t_env	*temp;
 	char	*aux;
 
 	temp = mini->env;
+	if (!temp)
+		return (1);
 	while (temp != NULL)
 	{
 		aux = ft_strchr(temp->value, '=');
 		if (aux != NULL)
 		{
-			ft_putstr_fd(temp->value, mini->fd_out);
-			ft_putchar_fd('\n', mini->fd_out);
+			ft_putstr_fd(temp->value, com->fd_out);
+			ft_putchar_fd('\n', com->fd_out);
 		}
 		temp = temp->next;
 	}
+	return (0);
 }

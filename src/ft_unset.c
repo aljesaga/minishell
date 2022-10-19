@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 16:34:11 by ioriola           #+#    #+#             */
-/*   Updated: 2022/10/05 16:45:05 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/10/19 18:52:39 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	unset_mini(t_mshell *mini)
 	}
 }
 
-void	ft_unset(char *str, t_mshell *mini)
+int	ft_unset(char *str, t_mshell *mini)
 {
 	t_env	*aux;
 	t_env	*temp;
@@ -62,9 +62,11 @@ void	ft_unset(char *str, t_mshell *mini)
 			free(temp->value);
 			free(temp);
 			mini->n_env--;
-			break ;
+			free(id);
+			return (0);
 		}
 		aux = aux->next;
 	}
 	free(id);
+	return (1);
 }

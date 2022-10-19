@@ -302,3 +302,12 @@ Alessandro:
 Iván:
 	- Estoy estudiando la libreria signal.h para recoger las señales externas. (Las que se usaban en minitalk) en los próximos días empezaré a implementarlo en la minishell.
 		
+┌────────────┐
+│ 19/10/2022 │
+└────────────┘
+
+Alessandro:
+
+	- todo funciona correctamente tenemos un leak que creo que se debe al readline
+
+	- voy a intentar hacer una naimacion para el inicio de la minishell
