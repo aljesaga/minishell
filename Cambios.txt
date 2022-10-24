@@ -310,4 +310,4 @@ Alessandro:
 
 	- todo funciona correctamente tenemos un leak que creo que se debe al readline
 
-	- voy a intentar hacer una naimacion para el inicio de la minishell
+	- voy a intentar hacer una anaimacion para el inicio de la minishell
