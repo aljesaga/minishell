@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 15:25:37 by alsanche          #+#    #+#             */
-/*   Updated: 2022/10/19 16:15:00 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/10/25 18:50:59 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	ft_exe(char *gps, t_comand *com, t_mshell *mini)
 	execve(gps, com->comand, mini->envs);
 }
 
-static void	ft_run(t_comand *com, t_mshell *mini)
+void	ft_run(t_comand *com, t_mshell *mini)
 {
 	char	*gps;
 	int		i;
@@ -97,8 +97,8 @@ int	ft_execv(t_mshell *mini)
 	mini->envs = env_2_str(mini);
 	mini->path = find_path(mini->envs);
 	status = 0;
-	if (mini->n_com == 1 && mini->comands->builtin == 1)
-			status = run_builtin(mini->comands, mini);
+	if (mini->n_com == 1 && !ft_strncmp(mini->comands->comand[0], "exit\0", 5))
+		ft_exit(mini->comands, mini);
 	else
 	{
 		mini->childs = ft_calloc(mini->n_com - 1, sizeof(pid_t *));

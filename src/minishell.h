@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 12:56:28 by alsanche          #+#    #+#             */
-/*   Updated: 2022/10/19 18:51:07 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/10/25 18:51:24 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,7 @@ void		new_env(char *str, int num, t_mshell *mini);
 int			ft_env(t_comand *com, t_mshell *mini);
 
 // ft_execv.c //
+void		ft_run(t_comand *com, t_mshell *mini);
 int			ft_execv(t_mshell *mini);
 
 // ft_expand.c //
