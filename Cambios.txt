@@ -311,3 +311,10 @@ Alessandro:
 	- todo funciona correctamente tenemos un leak que creo que se debe al readline
 
 	- voy a intentar hacer una anaimacion para el inicio de la minishell
+	
+┌────────────┐
+│ 25/10/2022 │
+└────────────┘
+
+Iván:
+	- Ultimamente estoy teniendo mucho lio por problemas familiares. Intentaré volver a buen ritmo a lo largo de esta semana.
