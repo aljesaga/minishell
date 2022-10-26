@@ -6,15 +6,41 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 17:09:40 by alsanche          #+#    #+#             */
-/*   Updated: 2022/10/12 21:27:51 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/10/26 19:09:02 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
+static int	its_comand(t_mshell *mini, int check)
+{
+	t_section	*aux;
+	int			prev;
+	int			i;
+
+	prev = 0;
+	i = -1;
+	aux = mini->sections;
+	while (++i < check - 2)
+	{
+		if (aux->type == 6)
+			prev = 1;
+		if (aux->type == 5 || aux->type == 8)
+			prev = 0;
+		aux = aux->next;
+		printf("--->%d----%s\n", aux->type, aux->str);
+	}
+	if (prev == 1)
+		return (0);
+	if ((aux->type >= 1 && aux->type <= 4) && aux->next->type == 7)
+		return (1);
+	return (0);
+}
+
 static void	type_plus(t_section *atl, t_mshell *mini, int check)
 {
 	t_section	*aux;
+	int			i;
 
 	if (check == 0)
 	{
@@ -23,10 +49,11 @@ static void	type_plus(t_section *atl, t_mshell *mini, int check)
 	}
 	else
 	{
+		i = check;
 		aux = mini->sections;
 		while (--check > 0)
 			aux = aux->next;
-		if (aux->type == 5 || aux->type == 8)
+		if (aux->type == 5 || aux->type == 8 || its_comand(mini, i) == 1)
 		{
 			atl->type = 6;
 			atl->builtin = is_builtin(atl->str);

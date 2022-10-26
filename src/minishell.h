@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 12:56:28 by alsanche          #+#    #+#             */
-/*   Updated: 2022/10/25 18:51:24 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/10/26 16:57:18 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,9 @@ void		ft_free_fd(t_mshell *mini);
 int			*build_tunnel(t_comand *com, t_mshell *mini);
 void		check_fd(t_mshell *mini, t_comand *new, t_section *now);
 void		not_comand(t_mshell *mini, t_section *now);
+
+// ft_set_mini_fd.c //
+void		mini_check_fd(t_mshell *mini, t_section *now);
 
 // env_2_str.c //
 char		**find_path(char **enpv);

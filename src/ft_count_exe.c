@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 11:13:31 by alsanche          #+#    #+#             */
-/*   Updated: 2022/10/19 15:28:10 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/10/26 16:55:26 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_section	*add_part(t_comand *new, t_mshell *mini, t_section *now)
 	new->builtin = now->builtin;
 	new->wait = 0;
 	new->fd_in = mini->fd_in;
-	new->fd_out = STDOUT_FILENO;
+	new->fd_out = mini->fd_out;
 	i = -1;
 	while (aux && aux->str != NULL && ++i < new->n_arg)
 	{
@@ -110,7 +110,7 @@ void	set_up_comand(t_mshell *mini)
 	{
 		if (aux->type != 6)
 		{
-			not_comand(mini, aux);
+			mini_check_fd(mini, aux);
 			aux = aux->next;
 		}
 		else if (aux->type == 6 && coms < mini->n_com)

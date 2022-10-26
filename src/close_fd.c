@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 11:49:49 by alsanche          #+#    #+#             */
-/*   Updated: 2022/10/19 16:01:08 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/10/26 18:56:51 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,11 @@
 
 void	ft_reset_main_fd(t_mshell *mini)
 {
+	if (mini->fd_in != STDIN_FILENO)
+		close(mini->fd_in);
 	mini->fd_in = STDIN_FILENO;
+	if (mini->fd_out != STDOUT_FILENO)
+		close(mini->fd_out);
 	mini->fd_out = STDOUT_FILENO;
 }
 
