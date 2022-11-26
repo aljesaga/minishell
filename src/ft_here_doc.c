@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 18:06:28 by alsanche          #+#    #+#             */
-/*   Updated: 2022/10/24 18:23:25 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/11/26 19:17:21 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,48 +27,82 @@ static void	check_put(char *temp, t_mshell *mini, int check, int *here)
 	free(temp);
 }
 
-static void	ft_take_msn(char *std, t_mshell *mini, int check, int *here)
-{
-	char	*temp;
+int	ft_here_doc(t_mshell *mini, char *arv, int check)
+{	
+	int		here[2];
 	size_t	len;
+	char	*temp;
 
-	len = ft_strlen(std);
-	close(here[FD_R]);
+	pipe(here);
+	len = ft_strlen(arv);
 	while (1)
 	{
 		temp = readline("-> ");
 		if (!temp)
+			break ;
+		if (!ft_strncmp(temp, arv, len))
 		{
-			close (here[FD_W]);
-			exit (1);
-		}
-		if (!ft_strncmp(temp, std, len))
-		{
-			close (here[FD_W]);
 			free(temp);
-			exit (0);
+			break ;
 		}
 		check_put(temp, mini, check, here);
 	}
-}
-
-int	ft_here_doc(t_mshell *mini, char *arv, int check)
-{	
-	int		here[2];
-	pid_t	child;
-	int		status;
-
-	pipe(here);
-	child = fork();
-	if (child < 0)
-		ft_putstr_fd("here_doc failed", 1);
-	else if (child == 0)
-	{
-		ft_take_msn(arv, mini, check, here);
-	}
-	waitpid(child, &status, 0);
-	if (WIFEXITED(status))
-		mini->l_exit = WEXITSTATUS(status);
 	close(here[FD_W]);
 	return (here[FD_R]);
+}
+
+static void	mini_type_3_4(t_mshell *mini, t_section *now)
+{
+	char	*temp;
+
+	if (now->type == 3 || now->type == 4)
+	{
+		if (now->next->str[0] != '/')
+			temp = ft_strjoin("./", now->next->str);
+		if (access(temp, F_OK))
+		{
+			printf("minishell: %s: Permission denied\n", now->next->str);
+			free(temp);
+		}
+		else
+		{
+			if (mini->fd_out != STDOUT_FILENO)
+				close(mini->fd_out);
+			if (now->type == 3)
+				mini->fd_out = open(now->next->str, O_RDWR | O_CREAT
+						| O_TRUNC, 0644);
+			else if (now->type == 4)
+				mini->fd_out = open(now->next->str, O_RDWR | O_CREAT
+						| O_APPEND, 0644);
+		}
+	}
+}
+
+void	mini_check_fd(t_mshell *mini, t_section *now)
+{
+	char	*temp;
+
+	if (now->type == 1)
+	{
+		if (now->next->str[0] != '/')
+			temp = ft_strjoin("./", now->next->str);
+		if (access(temp, F_OK))
+		{
+			printf("%s: No such file or directory\n", now->next->str);
+			free(temp);
+		}
+		if (mini->fd_in != STDIN_FILENO)
+			close(mini->fd_in);
+		mini->fd_in = open(now->next->str, O_RDONLY, 0644);
+		if (mini->fd_in < 0)
+			mini->fd_in = STDIN_FILENO;
+	}
+	else if (now->type == 2)
+	{
+		if (mini->fd_in != STDIN_FILENO)
+			close(mini->fd_in);
+		mini->fd_in = ft_here_doc(mini, now->next->str, now->next->here_expand);
+	}
+	else
+		mini_type_3_4(mini, now);
 }

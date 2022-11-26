@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 17:09:40 by alsanche          #+#    #+#             */
-/*   Updated: 2022/10/26 19:09:02 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/11/26 19:30:28 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ static int	its_comand(t_mshell *mini, int check)
 		if (aux->type == 5 || aux->type == 8)
 			prev = 0;
 		aux = aux->next;
-		printf("--->%d----%s\n", aux->type, aux->str);
 	}
 	if (prev == 1)
 		return (0);
