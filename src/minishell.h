@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 12:56:28 by alsanche          #+#    #+#             */
-/*   Updated: 2022/10/26 16:57:18 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/11/26 20:23:13 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,13 @@
 # define CYAN			"\033[0;36m"
 # define WHITE			"\033[0;37m"
 # define GRAY			"\033[1;30m"
-# define LIGHTRED		"\033[1;31m"
-# define LIGHTGREEN		"\033[1;32m"
-# define LIGHTYELLOW	"\033[1;33m"
-# define LIGHTBLUE		"\033[1;34m"
-# define LIGHTPURPLE	"\033[1;35m"
-# define LIGHTCYAN		"\033[1;36m"
-# define LIGHTWHITE		"\033[1;37m"
+# define LRED		"\033[1;31m"
+# define LGREEN		"\033[1;32m"
+# define LYELLOW	"\033[1;33m"
+# define LBLUE		"\033[1;34m"
+# define LPURPLE	"\033[1;35m"
+# define LCYAN		"\033[1;36m"
+# define LWHITE		"\033[1;37m"
 # define FD_R			0
 # define FD_W			1
 

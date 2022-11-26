@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 14:50:39 by alsanche          #+#    #+#             */
-/*   Updated: 2022/10/24 15:49:35 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/11/26 20:31:53 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	main(int arc, char **arv, char **env)
 		while (1)
 		{
 			ft_reset_main_fd(mini);
-			line = readline(LIGHTPURPLE "IA_minishell\% " RESET);
+			line = readline(LPURPLE "IA_minishell\% " RESET);
 			add_history(line);
 			mini->l_exit = analyze_line(line, mini);
 			free(line);
