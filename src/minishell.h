@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: ioriola <ioriola@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 12:56:28 by alsanche          #+#    #+#             */
-/*   Updated: 2022/11/26 20:23:13 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/12/06 09:06:30 by ioriola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,5 +190,11 @@ int			main(int arc, char **arv, char **env);
 // shlvlup.c //
 void		shlvlup(t_mshell *mini);
 char		**ft_split_ignore(char const *s, char c);
+
+// signal_tools.c //
+void		signal_interrupt(int sig);
+void		signal_quit(int sig);
+int			signal_initialize(void);
+
 
 #endif

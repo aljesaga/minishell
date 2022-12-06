@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+         #
+#    By: ioriola <ioriola@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/18 15:07:42 by alsanche          #+#    #+#              #
-#    Updated: 2022/10/26 17:16:36 by alsanche         ###   ########lyon.fr    #
+#    Updated: 2022/12/06 09:07:36 by ioriola          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,7 @@ SRCS = 	$(SRCDIR)/analyze_line.c \
 		$(SRCDIR)/init_mini.c \
 		$(SRCDIR)/line_treatment.c \
 		$(SRCDIR)/minishell.c \
+		$(SRCDIR)/signal_tools.c \
 		$(SRCDIR)/shlvlup.c
 
 OBJS = $(SRCS:.c=.o)
