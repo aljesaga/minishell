@@ -318,3 +318,10 @@ Alessandro:
 
 Iván:
 	- Ultimamente estoy teniendo mucho lio por problemas familiares. Intentaré volver a buen ritmo a lo largo de esta semana.
+
+┌────────────┐
+│ 06/12/2022 │
+└────────────┘
+
+Iván:
+	- He añadido "signal_tools.c". Donde se detectan las señales INTERRUPT y QUIT, pero todavía no se paran los procesos, tan solo se imprime por la consola que se ha detectado a señal.
