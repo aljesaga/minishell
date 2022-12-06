@@ -6,7 +6,7 @@
 /*   By: ioriola <ioriola@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 09:04:01 by ioriola           #+#    #+#             */
-/*   Updated: 2022/12/06 09:06:51 by ioriola          ###   ########.fr       */
+/*   Updated: 2022/12/06 09:25:29 by ioriola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,14 @@
 void	signal_interrupt(int sig)
 {
 	signal(SIGINT, SIG_IGN);
-	printf("Signal Interrupt\n");
+	printf("Signal Interrupt (%i)\n", sig);
 	signal(SIGINT, &signal_interrupt);
 }
 
 void	signal_quit(int sig)
 {
 	signal(SIGQUIT, SIG_IGN);
-	printf("Signal Quit\n");
+	printf("Signal Quit (%i)\n", sig);
 	signal(SIGQUIT, &signal_quit);
 }
 
