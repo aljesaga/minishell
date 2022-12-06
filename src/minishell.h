@@ -6,7 +6,7 @@
 /*   By: ioriola <ioriola@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 12:56:28 by alsanche          #+#    #+#             */
-/*   Updated: 2022/12/06 09:12:10 by ioriola          ###   ########.fr       */
+/*   Updated: 2022/12/06 09:12:46 by ioriola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,6 +195,5 @@ char		**ft_split_ignore(char const *s, char c);
 void		signal_interrupt(int sig);
 void		signal_quit(int sig);
 int			signal_initialize(void);
-
 
 #endif
