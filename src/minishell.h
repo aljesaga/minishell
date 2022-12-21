@@ -6,7 +6,7 @@
 /*   By: ioriola <ioriola@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 12:56:28 by alsanche          #+#    #+#             */
-/*   Updated: 2022/12/21 09:50:50 by ioriola          ###   ########.fr       */
+/*   Updated: 2022/12/21 10:53:54 by ioriola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,8 +192,7 @@ void		shlvlup(t_mshell *mini);
 char		**ft_split_ignore(char const *s, char c);
 
 // signal_tools.c //
-void		signal_interrupt(int sig);
-void		signal_quit(int sig);
+void		signal_handler(int sig);
 int			signal_initialize(void);
 
 #endif

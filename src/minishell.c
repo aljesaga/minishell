@@ -6,7 +6,7 @@
 /*   By: ioriola <ioriola@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 14:50:39 by alsanche          #+#    #+#             */
-/*   Updated: 2022/12/21 10:04:21 by ioriola          ###   ########.fr       */
+/*   Updated: 2022/12/21 10:48:05 by ioriola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,7 @@ int	main(int arc, char **arv, char **env)
 		while (1)
 		{
 			ft_reset_main_fd(mini);
-			if (signal_initialize())
-				printf("Signal Initialized\n");
+			signal_initialize();
 			line = readline(LPURPLE "IA_minishell\% " RESET);
 			add_history(line);
 			mini->l_exit = analyze_line(line, mini);
