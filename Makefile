@@ -6,7 +6,7 @@
 #    By: ioriola <ioriola@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/18 15:07:42 by alsanche          #+#    #+#              #
-#    Updated: 2022/12/06 09:07:36 by ioriola          ###   ########.fr        #
+#    Updated: 2022/12/21 10:30:50 by ioriola          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,9 +49,9 @@ DEBUG = -fsanitize=address -g3
 
 LIBDIR		= lib
 LIBFTDIR	= $(LIBDIR)/libft
-LIBS		= -L$(LIBFTDIR) -lft -lreadline
+LIBS		= -L$(LIBFTDIR) -lft -L /Users/$(USER)/.brew/opt/readline/lib -lreadline
 
-INCLUDE		= -I. -I$(LIBDIR) -I$(LIBFTDIR) -I$(SRCDIR)
+INCLUDE		= -I. -I$(LIBDIR) -I$(LIBFTDIR) -I$(SRCDIR) -I/Users/$(USER)/.brew/opt/readline/include
 
 $(NAME): $(OBJS)
 	$(GCC) -o $(NAME) $(OBJS) $(LIBS)

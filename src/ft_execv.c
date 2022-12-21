@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execv.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: ioriola <ioriola@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 15:25:37 by alsanche          #+#    #+#             */
-/*   Updated: 2022/10/25 18:50:59 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/12/21 09:48:46 by ioriola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,10 @@ static void	init_childs(t_mshell *mini, t_comand *com, int i)
 	pid = fork();
 	if (pid > 0)
 		mini->childs[i] = pid;
-	else if (pid <= -1)
+	else if (pid < 0)
 		send_error(2, "fork");
 	else
 	{
-		//  HIJO  (ver signals) //
 		if (com->builtin == 1)
 			exit(run_builtin(com, mini));
 		else
