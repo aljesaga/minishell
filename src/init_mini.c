@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 17:03:58 by ioriola           #+#    #+#             */
-/*   Updated: 2022/11/26 20:27:01 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/12/21 11:16:49 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ t_mshell	*init_mini(char **env)
 	if (!mini)
 		exit (127);
 	mini->fd_out = STDOUT_FILENO;
-	mini->l_exit = 0;
+	g_l_exit = 0;
 	mini->n_env = 0;
 	if (!env || env[0] == NULL)
 	{

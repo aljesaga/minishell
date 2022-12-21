@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 17:09:40 by alsanche          #+#    #+#             */
-/*   Updated: 2022/11/26 19:30:28 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/12/21 13:45:46 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,17 +66,17 @@ static void	type_plus(t_section *atl, t_mshell *mini, int check)
 static void	ft_type(t_section *atl, t_mshell *mini, int check)
 {
 	atl->builtin = 0;
-	if (!ft_strncmp(atl->str, "<<", 2))
+	if (!ft_strncmp(atl->str, "<<", 2) && atl->here_expand == 0)
 		atl->type = 2;
-	else if (!ft_strncmp(atl->str, ">>", 2))
+	else if (!ft_strncmp(atl->str, ">>", 2) && atl->here_expand == 0)
 		atl->type = 4;
-	else if (!ft_strncmp(atl->str, "<", 1))
+	else if (!ft_strncmp(atl->str, "<", 1) && atl->here_expand == 0)
 		atl->type = 1;
-	else if (!ft_strncmp(atl->str, ">", 1))
+	else if (!ft_strncmp(atl->str, ">", 1) && atl->here_expand == 0)
 		atl->type = 3;
-	else if (!ft_strncmp(atl->str, "|", 1))
+	else if (!ft_strncmp(atl->str, "|", 1) && atl->here_expand == 0)
 		atl->type = 5;
-	else if (!ft_strncmp(atl->str, ";", 1))
+	else if (!ft_strncmp(atl->str, ";", 1) && atl->here_expand == 0)
 		atl->type = 8;
 	else
 		type_plus(atl, mini, check);

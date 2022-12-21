@@ -6,13 +6,13 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 18:06:28 by alsanche          #+#    #+#             */
-/*   Updated: 2022/11/26 19:17:21 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/12/21 15:52:22 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-static void	check_put(char *temp, t_mshell *mini, int check, int *here)
+static void	check_put(char *temp, t_mshell *mini, int check, int here)
 {
 	char	*aux;
 
@@ -22,33 +22,59 @@ static void	check_put(char *temp, t_mshell *mini, int check, int *here)
 		temp = str_expand(aux, mini);
 		free(aux);
 	}
-	ft_putstr_fd(temp, here[FD_W]);
-	ft_putchar_fd('\n', here[FD_W]);
+	ft_putstr_fd(temp, here);
+	ft_putchar_fd('\n', here);
 	free(temp);
 }
 
-int	ft_here_doc(t_mshell *mini, char *arv, int check)
+static int	ft_here_doc(t_mshell *mini, char *arv, char *file, int check)
 {	
-	int		here[2];
+	int		fd;
 	size_t	len;
 	char	*temp;
 
-	pipe(here);
+	fd = open(file, O_RDWR | O_APPEND);
 	len = ft_strlen(arv);
-	while (1)
+	temp = readline("-> ");
+	if (!temp || fd < 0)
+		return (1);
+	if (!ft_strncmp(temp, arv, len))
 	{
-		temp = readline("-> ");
-		if (!temp)
-			break ;
-		if (!ft_strncmp(temp, arv, len))
-		{
-			free(temp);
-			break ;
-		}
-		check_put(temp, mini, check, here);
+		free(temp);
+		return (1);
 	}
-	close(here[FD_W]);
-	return (here[FD_R]);
+	check_put(temp, mini, check, fd);
+	close(fd);
+	return (0);
+}
+
+int	here_doc(t_mshell *mini, t_section *arv, int check)
+{
+	char	*str;
+	char	*aux;
+	int		fd;
+	pid_t	child;
+
+	aux = ft_itoa(arv->num);
+	str = ft_strjoin("/tmp/.temp", aux);
+	free(aux);
+	fd = open(str, O_CREAT | O_RDWR | O_TRUNC, 0644);
+	if (fd < 0)
+		exit(1);
+	child = fork();
+	if (child < 0)
+		exit (1);
+	if (child == 0)
+	{
+		signal_heredoc();
+		while (1)
+			if (ft_here_doc(mini, arv->next->str, str, check) == 1)
+				break ;
+		g_l_exit = 1;
+		exit (1);
+	}
+	wait(&child);
+	return (fd);
 }
 
 static void	mini_type_3_4(t_mshell *mini, t_section *now)
@@ -101,7 +127,7 @@ void	mini_check_fd(t_mshell *mini, t_section *now)
 	{
 		if (mini->fd_in != STDIN_FILENO)
 			close(mini->fd_in);
-		mini->fd_in = ft_here_doc(mini, now->next->str, now->next->here_expand);
+		mini->fd_in = here_doc(mini, now, now->next->here_expand);
 	}
 	else
 		mini_type_3_4(mini, now);

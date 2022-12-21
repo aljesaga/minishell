@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execv.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ioriola <ioriola@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 15:25:37 by alsanche          #+#    #+#             */
-/*   Updated: 2022/12/21 09:48:46 by ioriola          ###   ########.fr       */
+/*   Updated: 2022/12/21 13:09:38 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ static void	init_childs(t_mshell *mini, t_comand *com, int i)
 		send_error(2, "fork");
 	else
 	{
+		signal_child();
 		if (com->builtin == 1)
 			exit(run_builtin(com, mini));
 		else
@@ -97,7 +98,7 @@ int	ft_execv(t_mshell *mini)
 	mini->path = find_path(mini->envs);
 	status = 0;
 	if (mini->n_com == 1 && !ft_strncmp(mini->comands->comand[0], "exit\0", 5))
-		ft_exit(mini->comands, mini);
+		ft_exit(mini->comands);
 	else
 	{
 		mini->childs = ft_calloc(mini->n_com - 1, sizeof(pid_t *));

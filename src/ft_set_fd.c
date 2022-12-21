@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 12:48:26 by alsanche          #+#    #+#             */
-/*   Updated: 2022/11/26 16:42:57 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/12/21 15:49:52 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	check_fd(t_mshell *mini, t_comand *new, t_section *now)
 	{
 		if (new->fd_in != STDIN_FILENO)
 			close(new->fd_in);
-		new->fd_in = ft_here_doc(mini, now->next->str, now->next->here_expand);
+		new->fd_in = here_doc(mini, now, now->next->here_expand);
 	}
 	else
 		type_3_4(mini, new, now);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ioriola <ioriola@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 12:56:28 by alsanche          #+#    #+#             */
-/*   Updated: 2022/12/21 10:53:54 by ioriola          ###   ########.fr       */
+/*   Updated: 2022/12/21 15:48:48 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,17 @@
 # define CYAN			"\033[0;36m"
 # define WHITE			"\033[0;37m"
 # define GRAY			"\033[1;30m"
-# define LRED		"\033[1;31m"
-# define LGREEN		"\033[1;32m"
-# define LYELLOW	"\033[1;33m"
-# define LBLUE		"\033[1;34m"
-# define LPURPLE	"\033[1;35m"
-# define LCYAN		"\033[1;36m"
-# define LWHITE		"\033[1;37m"
+# define LRED			"\033[1;31m"
+# define LGREEN			"\033[1;32m"
+# define LYELLOW		"\033[1;33m"
+# define LBLUE			"\033[1;34m"
+# define LPURPLE		"\033[1;35m"
+# define LCYAN			"\033[1;36m"
+# define LWHITE			"\033[1;37m"
 # define FD_R			0
 # define FD_W			1
+
+int	g_l_exit;
 
 typedef struct s_env
 {
@@ -60,6 +62,7 @@ typedef struct s_section
 	int					type;
 	int					builtin;
 	int					here_expand;
+	int					num;
 	struct s_section	*next;
 }	t_section;
 
@@ -85,7 +88,6 @@ typedef struct s_mshell
 	int			quotes;
 	int			**pipex;
 	int			a_error;
-	int			l_exit;
 	char		**path;
 	char		**envs;
 	t_env		*env;
@@ -124,7 +126,7 @@ char		**find_path(char **enpv);
 char		**env_2_str(t_mshell *mini);
 
 // exit.c //
-void		ft_exit(t_comand *com, t_mshell *mini);
+void		ft_exit(t_comand *com);
 
 // ft_cd.c //
 int			ft_cd(char *line, t_mshell *mini);
@@ -157,7 +159,7 @@ int			ft_export_no_args(t_comand *com, t_mshell *mini);
 int			ft_export(char **comand, t_mshell *mini);
 
 // ft_here_doc.c //
-int			ft_here_doc(t_mshell *mini, char *arv, int check);
+int			here_doc(t_mshell *mini, t_section *arv, int check);
 
 // ft_puterror.c //
 void		send_error(int n, char *str);
@@ -193,6 +195,8 @@ char		**ft_split_ignore(char const *s, char c);
 
 // signal_tools.c //
 void		signal_handler(int sig);
+void		signal_child(void);
+void		signal_heredoc(void);
 int			signal_initialize(void);
 
 #endif

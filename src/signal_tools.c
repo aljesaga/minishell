@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal_tools.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ioriola <ioriola@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 09:04:01 by ioriola           #+#    #+#             */
-/*   Updated: 2022/12/21 10:58:44 by ioriola          ###   ########.fr       */
+/*   Updated: 2022/12/21 15:59:32 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,21 +20,45 @@ void	signal_handler(int sig)
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
-		//g_l_exit = 1
+		g_l_exit = 1;
 	}
 	else if (sig == SIGQUIT)
 	{
+		printf("exit");
 		rl_on_new_line();
 		rl_replace_line(rl_line_buffer, rl_end);
 		rl_redisplay();
+		exit(1);
 	}
+}
+
+void	sig_redir(int sig)
+{
+	if (sig == SIGINT)
+	{
+		printf("\n");
+		rl_replace_line("", 0);
+		rl_redisplay();
+		g_l_exit = 0;
+	}
+}
+
+void	signal_child(void)
+{
+	signal(SIGINT, sig_redir);
+	signal(SIGQUIT, SIG_DFL);
+}
+
+void	signal_heredoc(void)
+{
+	signal(SIGINT, exit);
+	signal(SIGQUIT, SIG_IGN);
 }
 
 int	signal_initialize(void)
 {
 	if (signal(SIGINT, &signal_handler) == SIG_ERR)
 	{
-		//EXIT PROGRAM??
 		return (0);
 	}
 	return (1);

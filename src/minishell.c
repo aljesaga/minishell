@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ioriola <ioriola@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 14:50:39 by alsanche          #+#    #+#             */
-/*   Updated: 2022/12/21 10:48:05 by ioriola          ###   ########.fr       */
+/*   Updated: 2022/12/21 12:14:14 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	main(int arc, char **arv, char **env)
 	char		*line;
 	t_mshell	*mini;
 
-	if (arc == 1)
+	if (arc == 1 && arv)
 	{
 		mini = init_mini(env);
 		while (1)
@@ -25,13 +25,18 @@ int	main(int arc, char **arv, char **env)
 			ft_reset_main_fd(mini);
 			signal_initialize();
 			line = readline(LPURPLE "IA_minishell\% " RESET);
-			add_history(line);
-			mini->l_exit = analyze_line(line, mini);
+			if (line && *line)
+			{
+				add_history(line);
+				g_l_exit = analyze_line(line, mini);
+			}
+			else if (line == NULL)
+			{
+				write(STDOUT_FILENO, "exit\n", 5);
+				exit(0);
+			}
 			free(line);
-			// system("leaks -list -quiet minishell");
 		}
 	}
-	else if (arv)
-		write(1, "Not Need arv", 13);
 	return (0);
 }

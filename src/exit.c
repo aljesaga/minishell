@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 16:57:22 by alsanche          #+#    #+#             */
-/*   Updated: 2022/10/25 16:02:00 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/12/21 11:23:25 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@ static int	check_exit(char *str)
 	return (0);
 }
 
-void	ft_exit(t_comand *com, t_mshell *mini)
+void	ft_exit(t_comand *com)
 {
 	int	ex;
 
-	ex = mini->l_exit;
+	ex = g_l_exit;
 	ft_putstr_fd("exit\n", com->fd_out);
 	if (com->n_arg <= 2)
 	{
