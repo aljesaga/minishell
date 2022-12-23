@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/24 12:06:51 by alsanche          #+#    #+#             */
-/*   Updated: 2022/09/18 14:21:19 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/12/23 15:05:12 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,9 @@ int	ft_export(char **comand, t_mshell *mini)
 		}
 		check = check_name(mini, &str[x]);
 		if (check == 0)
+		{
 			new_env(&str[x], 1, mini);
+		}
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 09:04:01 by ioriola           #+#    #+#             */
-/*   Updated: 2022/12/21 15:59:32 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/12/23 13:50:56 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,8 @@ void	sig_redir(int sig)
 {
 	if (sig == SIGINT)
 	{
-		printf("\n");
-		rl_replace_line("", 0);
-		rl_redisplay();
 		g_l_exit = 0;
+		exit (0);
 	}
 }
 
@@ -51,7 +49,7 @@ void	signal_child(void)
 
 void	signal_heredoc(void)
 {
-	signal(SIGINT, exit);
+	signal(SIGINT, sig_redir);
 	signal(SIGQUIT, SIG_IGN);
 }
 

@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 12:04:13 by alsanche          #+#    #+#             */
-/*   Updated: 2022/09/24 16:06:19 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/12/23 15:04:17 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,17 +46,14 @@ int	ft_cd(char *line, t_mshell *mini)
 	char	*aux;
 	int		chdir_;
 
+	chdir_ = 0;
+	aux = get_env_value("PWD", mini);
 	if (!line || line[0] == '\0' || !ft_strcmp(line, "~\0"))
 	{
 		aux = get_env_value("HOME", mini);
 		chdir_ = chdir(aux);
 	}
-	else
-	{
-		aux = get_env_value("PWD", mini);
-		chdir_ = chdir(line);
-	}
-	if (chdir_ == -1)
+	else if (chdir(line) == -1)
 	{
 		free(aux);
 		print_error(line);
