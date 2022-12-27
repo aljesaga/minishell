@@ -325,3 +325,10 @@ Iván:
 
 Iván:
 	- He añadido "signal_tools.c". Donde se detectan las señales INTERRUPT y QUIT, pero todavía no se paran los procesos, tan solo se imprime por la consola que se ha detectado a señal.
+	
+┌────────────┐
+│ 21/12/2022 │
+└────────────┘
+
+Alessandro & Iván:
+	- "Signal manager" hecho, aunque con algunas segmentation fault, posiblemente propias de readline.
