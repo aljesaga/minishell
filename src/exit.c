@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 16:57:22 by alsanche          #+#    #+#             */
-/*   Updated: 2022/12/21 11:23:25 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/12/28 13:44:54 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	ft_exit(t_comand *com)
 {
 	int	ex;
 
-	ex = g_l_exit;
+	ex = g_mini->l_exit;
 	ft_putstr_fd("exit\n", com->fd_out);
 	if (com->n_arg <= 2)
 	{

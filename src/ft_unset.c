@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 16:34:11 by ioriola           #+#    #+#             */
-/*   Updated: 2022/10/19 18:52:39 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/12/28 13:58:28 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@ unset
 		- With no options
 */
 
-void	unset_mini(t_mshell *mini)
+void	unset_mini(void)
 {
 	t_env	*aux;
 	t_env	*temp;
 
-	aux = mini->env;
+	aux = g_mini->env;
 	while (aux && aux->next)
 	{
 		if (aux->next->value[0] == '_' && aux->next->value[1] == '=')
@@ -35,20 +35,20 @@ void	unset_mini(t_mshell *mini)
 				aux->next = temp->next;
 			free(temp->value);
 			free(temp);
-			mini->n_env--;
+			g_mini->n_env--;
 			break ;
 		}
 		aux = aux->next;
 	}
 }
 
-int	ft_unset(char *str, t_mshell *mini)
+int	ft_unset(char *str)
 {
 	t_env	*aux;
 	t_env	*temp;
 	char	*id;
 
-	aux = mini->env;
+	aux = g_mini->env;
 	id = ft_strjoin(str, "=");
 	while (aux && aux->next)
 	{
@@ -61,7 +61,7 @@ int	ft_unset(char *str, t_mshell *mini)
 				aux->next = temp->next;
 			free(temp->value);
 			free(temp);
-			mini->n_env--;
+			g_mini->n_env--;
 			free(id);
 			return (0);
 		}

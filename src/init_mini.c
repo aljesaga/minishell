@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 17:03:58 by ioriola           #+#    #+#             */
-/*   Updated: 2022/12/21 11:16:49 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/12/28 13:32:35 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,26 +25,21 @@ void	print_name(void)
 	printf(CYAN "███████████████████████████████████████████████████████\n");
 }
 
-t_mshell	*init_mini(char **env)
+void	init_mini(char **env)
 {
-	t_mshell	*mini;
-
-	mini = malloc(sizeof(t_mshell));
-	if (!mini)
-		exit (127);
-	mini->fd_out = STDOUT_FILENO;
-	g_l_exit = 0;
-	mini->n_env = 0;
+	g_mini->fd_out = STDOUT_FILENO;
+	g_mini->l_exit = 0;
+	g_mini->state = 0;
+	g_mini->n_env = 0;
 	if (!env || env[0] == NULL)
 	{
 		env = ft_split("PWD=/Users/alsanche/minishell:SHLVL=1:OLDPWD", ':');
-		env_collec(env, mini);
+		env_collec(env);
 		free(env);
 	}
 	else
-		env_collec(env, mini);
-	unset_mini(mini);
-	shlvlup(mini);
+		env_collec(env);
+	unset_mini();
+	shlvlup();
 	print_name();
-	return (mini);
 }

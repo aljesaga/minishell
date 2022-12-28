@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/24 12:06:51 by alsanche          #+#    #+#             */
-/*   Updated: 2022/12/23 15:05:12 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/12/28 13:52:11 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@
 		- With no options
 */
 
-int	check_name(t_mshell *mini, char *str)
+int	check_name(char *str)
 {
 	t_env	*aux;
 	char	**id;
 
 	id = ft_split(str, '=');
-	aux = mini->env;
+	aux = g_mini->env;
 	while (aux)
 	{
 		if (!ft_strncmp(id[0], aux->value, ft_strlen(id[0])))
@@ -40,7 +40,7 @@ int	check_name(t_mshell *mini, char *str)
 	return (0);
 }
 
-int	ft_export(char **comand, t_mshell *mini)
+int	ft_export(char **comand)
 {
 	int		check;
 	char	*str;
@@ -59,10 +59,10 @@ int	ft_export(char **comand, t_mshell *mini)
 			ft_puterror("export", &str[x]);
 			return (1);
 		}
-		check = check_name(mini, &str[x]);
+		check = check_name(&str[x]);
 		if (check == 0)
 		{
-			new_env(&str[x], 1, mini);
+			new_env(&str[x], 1);
 		}
 	}
 	return (0);

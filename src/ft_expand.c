@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/03 17:47:51 by alsanche          #+#    #+#             */
-/*   Updated: 2022/12/21 11:14:07 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/12/28 13:50:57 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,16 +55,16 @@ static char	*ft_strjoinchr(char const *s1, char s2)
 	return (new);
 }
 
-static char	*expand_chr(char *str, char *end, int s, t_mshell *mini)
+static char	*expand_chr(char *str, char *end, int s)
 {
 	char	*aux;
 	char	*temp;
 
 	aux = ft_substr(str, 0, s);
 	if (str[0] == '?' && str[1] == '\0')
-		temp = ft_itoa(g_l_exit);
+		temp = ft_itoa(g_mini->l_exit);
 	else
-		temp = get_env_value(aux, mini);
+		temp = get_env_value(aux);
 	free(aux);
 	if (temp != NULL)
 	{
@@ -76,7 +76,7 @@ static char	*expand_chr(char *str, char *end, int s, t_mshell *mini)
 	return (end);
 }
 
-char	*str_expand(char *str, t_mshell *mini)
+char	*str_expand(char *str)
 {
 	char	*end;
 	char	*aux;
@@ -90,7 +90,7 @@ char	*str_expand(char *str, t_mshell *mini)
 		if (str[i] == '$' && (ft_isalpha(str[i + 1]) == 1 || str[i + 1] == '?'))
 		{
 			s = expand_name(&str[++i]);
-			end = expand_chr(&str[i], end, s, mini);
+			end = expand_chr(&str[i], end, s);
 			i += s;
 			if (str[i] == '\0')
 				break ;

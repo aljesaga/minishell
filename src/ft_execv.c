@@ -6,21 +6,21 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 15:25:37 by alsanche          #+#    #+#             */
-/*   Updated: 2022/12/23 15:02:03 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/12/28 14:04:46 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-static void	ft_exe(char *gps, t_comand *com, t_mshell *mini)
+static void	ft_exe(char *gps, t_comand *com)
 {
 	if (com->fd_out != STDOUT_FILENO)
 		dup2(com->fd_out, STDOUT_FILENO);
-	ft_close_fd(com->fd_in, mini);
-	execve(gps, com->comand, mini->envs);
+	ft_close_fd(com->fd_in);
+	execve(gps, com->comand, g_mini->envs);
 }
 
-void	ft_run(t_comand *com, t_mshell *mini)
+void	ft_run(t_comand *com)
 {
 	char	*gps;
 	int		i;
@@ -28,88 +28,88 @@ void	ft_run(t_comand *com, t_mshell *mini)
 	if (com->fd_in != STDIN_FILENO)
 		dup2(com->fd_in, STDIN_FILENO);
 	if (!access(com->comand[0], X_OK))
-		ft_exe(com->comand[0], com, mini);
+		ft_exe(com->comand[0], com);
 	i = -1;
-	while (mini->path != NULL && mini->path[++i])
+	while (g_mini->path != NULL && g_mini->path[++i])
 	{
-		gps = ft_strjoin(mini->path[i], com->comand[0]);
+		gps = ft_strjoin(g_mini->path[i], com->comand[0]);
 		if (!access(gps, X_OK))
-			ft_exe(gps, com, mini);
+			ft_exe(gps, com);
 		free(gps);
 	}
 	send_error(1, com->comand[0]);
-	ft_close_fd(com->fd_in, mini);
+	ft_close_fd(com->fd_in);
 	exit (127);
 }
 
-static void	init_childs(t_mshell *mini, t_comand *com, int i)
+static void	init_childs(t_comand *com, int i)
 {	
 	pid_t	pid;
 
 	pid = fork();
 	if (pid > 0)
-		mini->childs[i] = pid;
+		g_mini->childs[i] = pid;
 	else if (pid < 0)
 		send_error(2, "fork");
 	else
 	{
 		signal_child();
 		if (com->builtin == 1)
-			exit(run_builtin(com, mini));
+			exit(run_builtin(com));
 		else
-			ft_run(com, mini);
+			ft_run(com);
 	}
 	if (com->wait == 1)
-		waitpid(mini->childs[i], NULL, 0);
+		waitpid(g_mini->childs[i], NULL, 0);
 	if (com->fd_in != 0)
 		close(com->fd_in);
 	if (com->fd_out != 1)
 		close(com->fd_out);
 }
 
-static int	built_or_exec(t_mshell *mini)
+static int	built_or_exec(void)
 {
 	int			i;
 	int			status;
 	t_comand	*aux;
 
-	aux = mini->comands;
+	aux = g_mini->comands;
 	i = -1;
-	while (++i < mini->n_com)
+	while (++i < g_mini->n_com)
 	{
-		init_childs(mini, aux, i);
+		init_childs(aux, i);
 		aux = aux->next;
 	}
-	ft_reset_main_fd(mini);
-	ft_free_fd(mini);
+	ft_reset_main_fd();
+	ft_free_fd();
 	i = -1;
-	while (++i < mini->n_com)
-		waitpid(mini->childs[i], &status, 0);
+	while (++i < g_mini->n_com)
+		waitpid(g_mini->childs[i], &status, 0);
 	if (WIFEXITED(status))
 		return (WEXITSTATUS(status));
 	return (0);
 }
 
-int	ft_execv(t_mshell *mini)
+int	ft_execv(void)
 {
 	int	status;
 
-	mini->envs = env_2_str(mini);
-	mini->path = find_path(mini->envs);
+	g_mini->envs = env_2_str();
+	g_mini->path = find_path(g_mini->envs);
 	status = 0;
-	if (mini->n_com == 1 && mini->comands->builtin == 1)
-		run_builtin(mini->comands, mini);
+	if (g_mini->n_com == 1 && g_mini->comands->builtin == 1)
+		run_builtin(g_mini->comands);
 	else
 	{
-		mini->childs = ft_calloc(mini->n_com - 1, sizeof(pid_t *));
-		if (!mini->childs)
+		g_mini->childs = ft_calloc(g_mini->n_com - 1, sizeof(pid_t *));
+		if (!g_mini->childs)
 			printf("children not found");
-		status = built_or_exec(mini);
-		free(mini->childs);
+		status = built_or_exec();
+		free(g_mini->childs);
 	}
-	if (mini->envs != NULL)
-		free_split(mini->envs);
-	if (mini->path != NULL)
-		free_split(mini->path);
+	if (g_mini->envs != NULL)
+		free_split(g_mini->envs);
+	if (g_mini->path != NULL)
+		free_split(g_mini->path);
 	return (status);
 }

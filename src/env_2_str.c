@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/24 11:18:06 by alsanche          #+#    #+#             */
-/*   Updated: 2022/09/18 13:33:37 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/12/28 13:44:29 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,15 +50,15 @@ char	**find_path(char **enpv)
 	return (gps);
 }
 
-char	**env_2_str(t_mshell *mini)
+char	**env_2_str(void)
 {
 	int		i;
 	t_env	*aux;
 	char	**str;
 
 	i = -1;
-	aux = mini->env;
-	str = malloc(sizeof(char *) * mini->n_env + 1);
+	aux = g_mini->env;
+	str = malloc(sizeof(char *) * g_mini->n_env + 1);
 	if (!str)
 		return (NULL);
 	while (aux)

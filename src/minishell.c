@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 14:50:39 by alsanche          #+#    #+#             */
-/*   Updated: 2022/12/21 12:14:14 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/12/28 13:32:56 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,20 @@
 int	main(int arc, char **arv, char **env)
 {
 	char		*line;
-	t_mshell	*mini;
 
-	if (arc == 1 && arv)
+	g_mini = malloc(sizeof(t_mshell));
+	if (arc == 1 && arv && g_mini)
 	{
-		mini = init_mini(env);
+		init_mini(env);
 		while (1)
 		{
-			ft_reset_main_fd(mini);
 			signal_initialize();
+			ft_reset_main_fd();
 			line = readline(LPURPLE "IA_minishell\% " RESET);
 			if (line && *line)
 			{
 				add_history(line);
-				g_l_exit = analyze_line(line, mini);
+				g_mini->l_exit = analyze_line(line);
 			}
 			else if (line == NULL)
 			{

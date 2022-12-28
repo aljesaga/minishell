@@ -6,45 +6,45 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 11:49:49 by alsanche          #+#    #+#             */
-/*   Updated: 2022/10/26 18:56:51 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/12/28 13:43:20 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void	ft_reset_main_fd(t_mshell *mini)
+void	ft_reset_main_fd(void)
 {
-	if (mini->fd_in != STDIN_FILENO)
-		close(mini->fd_in);
-	mini->fd_in = STDIN_FILENO;
-	if (mini->fd_out != STDOUT_FILENO)
-		close(mini->fd_out);
-	mini->fd_out = STDOUT_FILENO;
+	if (g_mini->fd_in != STDIN_FILENO)
+		close(g_mini->fd_in);
+	g_mini->fd_in = STDIN_FILENO;
+	if (g_mini->fd_out != STDOUT_FILENO)
+		close(g_mini->fd_out);
+	g_mini->fd_out = STDOUT_FILENO;
 }
 
-void	ft_close_fd(int fd_in, t_mshell *mini)
+void	ft_close_fd(int fd_in)
 {
 	int	i;
 
 	i = -1;
-	while (++i < mini->n_com - 1)
+	while (++i < g_mini->n_com - 1)
 	{
-		if (mini->pipex[i][0] != 0 && mini->pipex[i][0] != fd_in)
-			close(mini->pipex[i][0]);
-		if (mini->pipex[i][1] != 1)
-			close(mini->pipex[i][1]);
+		if (g_mini->pipex[i][0] != 0 && g_mini->pipex[i][0] != fd_in)
+			close(g_mini->pipex[i][0]);
+		if (g_mini->pipex[i][1] != 1)
+			close(g_mini->pipex[i][1]);
 	}
 }
 
-void	ft_free_fd(t_mshell *mini)
+void	ft_free_fd(void)
 {
 	int	i;
 
 	i = -1;
-	while (++i < mini->n_com - 1)
+	while (++i < g_mini->n_com - 1)
 	{
-		if (mini->pipex[i])
-			free(mini->pipex[i]);
+		if (g_mini->pipex[i])
+			free(g_mini->pipex[i]);
 	}
-	free(mini->pipex);
+	free(g_mini->pipex);
 }

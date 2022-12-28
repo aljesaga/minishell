@@ -6,37 +6,37 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 12:48:26 by alsanche          #+#    #+#             */
-/*   Updated: 2022/12/21 15:49:52 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/12/28 13:56:23 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-int	*build_tunnel(t_comand *com, t_mshell *mini)
+int	*build_tunnel(t_comand *com)
 {
 	int	*fd;
 
 	fd = malloc(sizeof(int) * 2);
 	pipe(fd);
-	ft_reset_main_fd(mini);
-	mini->fd_in = fd[FD_R];
+	ft_reset_main_fd();
+	g_mini->fd_in = fd[FD_R];
 	if (com->fd_out == STDOUT_FILENO)
 		com->fd_out = fd[FD_W];
 	return (fd);
 }
 
-static void	type_5_8(t_mshell *mini, t_comand *new, t_section *now)
+static void	type_5_8(t_comand *new, t_section *now)
 {	
 	if (now->type == 5)
-		mini->pipex[new->n_comand] = build_tunnel(new, mini);
+		g_mini->pipex[new->n_comand] = build_tunnel(new);
 	else if (now->type == 8)
 	{
-		ft_reset_main_fd(mini);
+		ft_reset_main_fd();
 		new->wait = 1;
 	}
 }
 
-static void	type_3_4(t_mshell *mini, t_comand *new, t_section *now)
+static void	type_3_4(t_comand *new, t_section *now)
 {
 	char	*temp;
 
@@ -59,10 +59,10 @@ static void	type_3_4(t_mshell *mini, t_comand *new, t_section *now)
 		}
 	}
 	else
-		type_5_8(mini, new, now);
+		type_5_8(new, now);
 }
 
-void	check_fd(t_mshell *mini, t_comand *new, t_section *now)
+void	check_fd(t_comand *new, t_section *now)
 {
 	char	*temp;
 
@@ -85,8 +85,8 @@ void	check_fd(t_mshell *mini, t_comand *new, t_section *now)
 	{
 		if (new->fd_in != STDIN_FILENO)
 			close(new->fd_in);
-		new->fd_in = here_doc(mini, now, now->next->here_expand);
+		new->fd_in = here_doc(now, now->next->here_expand);
 	}
 	else
-		type_3_4(mini, new, now);
+		type_3_4(new, now);
 }

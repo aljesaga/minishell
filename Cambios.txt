@@ -332,3 +332,13 @@ Iván:
 
 Alessandro & Iván:
 	- "Signal manager" hecho, aunque con algunas segmentation fault, posiblemente propias de readline.
+
+┌────────────┐
+│ 21/12/2022 │
+└────────────┘
+
+Alessandro & Iván:
+	- señal ^C en hijos va mal
+	- restructuracion de global para usar la estructra de la minishell
+	
+	si puedes revisa lo de la señal 

@@ -6,19 +6,19 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 11:13:31 by alsanche          #+#    #+#             */
-/*   Updated: 2022/10/26 16:55:26 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/12/28 14:02:48 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-static int	count_com(t_mshell *mini)
+static int	count_com(void)
 {
 	int			count;
 	t_section	*aux;
 
 	count = 0;
-	aux = mini->sections;
+	aux = g_mini->sections;
 	while (aux)
 	{
 		if (aux->type == 6)
@@ -28,7 +28,7 @@ static int	count_com(t_mshell *mini)
 	return (count);
 }
 
-t_section	*add_part(t_comand *new, t_mshell *mini, t_section *now)
+t_section	*add_part(t_comand *new, t_section *now)
 {
 	t_section	*aux;
 	int			i;
@@ -37,8 +37,8 @@ t_section	*add_part(t_comand *new, t_mshell *mini, t_section *now)
 	new->comand = ft_calloc(new->n_arg + 1, sizeof(char *));
 	new->builtin = now->builtin;
 	new->wait = 0;
-	new->fd_in = mini->fd_in;
-	new->fd_out = mini->fd_out;
+	new->fd_in = g_mini->fd_in;
+	new->fd_out = g_mini->fd_out;
 	i = -1;
 	while (aux && aux->str != NULL && ++i < new->n_arg)
 	{
@@ -49,7 +49,7 @@ t_section	*add_part(t_comand *new, t_mshell *mini, t_section *now)
 	{
 		if (aux->type == 1 || aux->type == 2 || aux->type == 8
 			|| aux->type == 3 || aux->type == 4 || aux->type == 5)
-			check_fd(mini, new, aux);
+			check_fd(new, aux);
 		if (aux->type == 5 || aux->type == 8)
 			break ;
 		aux = aux->next;
@@ -57,7 +57,7 @@ t_section	*add_part(t_comand *new, t_mshell *mini, t_section *now)
 	return (aux);
 }
 
-t_section	*add_comand(t_mshell *mini, t_section *aux, t_comand *new)
+t_section	*add_comand(t_section *aux, t_comand *new)
 {
 	t_section	*temp;
 	int			args;
@@ -73,11 +73,11 @@ t_section	*add_comand(t_mshell *mini, t_section *aux, t_comand *new)
 		temp = temp->next;
 	}
 	new->n_arg = args + 1;
-	temp = add_part(new, mini, aux);
+	temp = add_part(new, aux);
 	return (temp);
 }
 
-static t_comand	*create_add(t_mshell *mini, int coms)
+static t_comand	*create_add(int coms)
 {
 	t_comand	*new;
 	t_comand	*aux;
@@ -85,10 +85,10 @@ static t_comand	*create_add(t_mshell *mini, int coms)
 	new = ft_calloc(1, sizeof(t_comand));
 	new->n_comand = coms;
 	if (coms == 0)
-		mini->comands = new;
+		g_mini->comands = new;
 	else
 	{
-		aux = mini->comands;
+		aux = g_mini->comands;
 		while (aux->next != NULL)
 			aux = aux->next;
 		aux->next = new;
@@ -96,28 +96,28 @@ static t_comand	*create_add(t_mshell *mini, int coms)
 	return (new);
 }
 
-void	set_up_comand(t_mshell *mini)
+void	set_up_comand(void)
 {
 	t_section	*aux;
 	t_comand	*new;
 	int			coms;
 
-	aux = mini->sections;
-	mini->n_com = count_com(mini);
-	mini->pipex = ft_calloc(mini->n_com, sizeof(int *));
+	aux = g_mini->sections;
+	g_mini->n_com = count_com();
+	g_mini->pipex = ft_calloc(g_mini->n_com, sizeof(int *));
 	coms = -1;
-	while (aux && coms < mini->n_com)
+	while (aux && coms < g_mini->n_com)
 	{
 		if (aux->type != 6)
 		{
-			mini_check_fd(mini, aux);
+			mini_check_fd(aux);
 			aux = aux->next;
 		}
-		else if (aux->type == 6 && coms < mini->n_com)
+		else if (aux->type == 6 && coms < g_mini->n_com)
 		{
-			new = create_add(mini, ++coms);
-			aux = add_comand(mini, aux, new);
+			new = create_add(++coms);
+			aux = add_comand(aux, new);
 		}
 	}
-	mini->fd_in = STDIN_FILENO;
+	g_mini->fd_in = STDIN_FILENO;
 }

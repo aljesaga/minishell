@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 16:52:50 by ioriola           #+#    #+#             */
-/*   Updated: 2022/10/19 18:22:24 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/12/28 13:51:25 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,14 @@ static void	export_print(t_comand *com, char **export)
 	}
 }
 
-int	ft_export_no_args(t_comand *com, t_mshell *mini)
+int	ft_export_no_args(t_comand *com)
 {
 	char	**export;
 	char	*aux;
 	int		y;
 	int		x;
 
-	export = env_2_str(mini);
+	export = env_2_str();
 	if (!export)
 		return (1);
 	y = -1;

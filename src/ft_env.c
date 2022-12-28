@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 13:04:38 by alsanche          #+#    #+#             */
-/*   Updated: 2022/10/19 18:33:45 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/12/28 13:47:56 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@
 		- With no options or arguments
 */
 
-static void	add_env(t_env *newenv, t_mshell *mini)
+static void	add_env(t_env *newenv)
 {
 	t_env	*temp;
 
-	temp = mini->env;
+	temp = g_mini->env;
 	if (temp->next == NULL)
 		temp->next = newenv;
 	else
@@ -33,7 +33,7 @@ static void	add_env(t_env *newenv, t_mshell *mini)
 	}
 }
 
-void	new_env(char *str, int num, t_mshell *mini)
+void	new_env(char *str, int num)
 {
 	t_env	*newenv;
 
@@ -42,32 +42,32 @@ void	new_env(char *str, int num, t_mshell *mini)
 		exit (1);
 	newenv->value = ft_strdup(str);
 	newenv->next = NULL;
-	mini->n_env++;
+	g_mini->n_env++;
 	if (num == 0)
-		mini->env = newenv;
+		g_mini->env = newenv;
 	else
-		add_env(newenv, mini);
+		add_env(newenv);
 }
 
-int	env_collec(char **env, t_mshell *mini)
+int	env_collec(char **env)
 {
 	int		i;
 
 	if (env == NULL)
 		return (1);
-	mini->n_env = 0;
+	g_mini->n_env = 0;
 	i = -1;
 	while (env[++i] != NULL)
-		new_env(env[i], i, mini);
+		new_env(env[i], i);
 	return (0);
 }
 
-int	ft_env(t_comand *com, t_mshell *mini)
+int	ft_env(t_comand *com)
 {
 	t_env	*temp;
 	char	*aux;
 
-	temp = mini->env;
+	temp = g_mini->env;
 	if (!temp)
 		return (1);
 	while (temp != NULL)

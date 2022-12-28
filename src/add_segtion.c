@@ -6,13 +6,13 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/03 15:35:08 by alsanche          #+#    #+#             */
-/*   Updated: 2022/12/21 14:30:23 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/12/28 13:40:37 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-static char	*clean(char *str, t_mshell *mini)
+static char	*clean(char *str)
 {
 	char	*aux;
 	int		j;
@@ -23,14 +23,14 @@ static char	*clean(char *str, t_mshell *mini)
 	j = -1;
 	while (str[++i] != '\0')
 	{
-		if (str[i] == 39 && mini->quotes == 0)
-			mini->quotes = 1;
-		else if (str[i] == 39 && mini->quotes == 1)
-			mini->quotes = 0;
-		else if (str[i] == 34 && mini->quotes == 0)
-			mini->quotes = 2;
-		else if (str[i] == 34 && mini->quotes == 2)
-			mini->quotes = 0;
+		if (str[i] == 39 && g_mini->quotes == 0)
+			g_mini->quotes = 1;
+		else if (str[i] == 39 && g_mini->quotes == 1)
+			g_mini->quotes = 0;
+		else if (str[i] == 34 && g_mini->quotes == 0)
+			g_mini->quotes = 2;
+		else if (str[i] == 34 && g_mini->quotes == 2)
+			g_mini->quotes = 0;
 		else
 			aux[++j] = str[i];
 	}
@@ -55,7 +55,7 @@ static int	shr_quotes(char *str)
 	return (quotes);
 }
 
-static char	*clean_expand(char *str, t_mshell *mini, t_section *new)
+static char	*clean_expand(char *str, t_section *new)
 {
 	char	*aux;
 	char	*end;
@@ -63,25 +63,25 @@ static char	*clean_expand(char *str, t_mshell *mini, t_section *new)
 	new->here_expand = shr_quotes(str);
 	if (new->here_expand == 0 || new->here_expand == 2)
 	{
-		aux = str_expand(str, mini);
+		aux = str_expand(str);
 		if (new->here_expand == 0)
 			return (aux);
 		else
 		{
-			end = clean(aux, mini);
+			end = clean(aux);
 			free(aux);
 			return (end);
 		}
 	}
 	else if (new->here_expand != 0)
 	{
-		end = clean(str, mini);
+		end = clean(str);
 		return (end);
 	}
 	return (str);
 }
 
-void	add_segtion(char *str, t_mshell *mini, int check)
+void	add_segtion(char *str, int check)
 {
 	t_section	*new;
 	t_section	*aux;
@@ -90,17 +90,17 @@ void	add_segtion(char *str, t_mshell *mini, int check)
 	new = malloc(sizeof(t_section));
 	if (!new)
 		printf("Memory Error");
-	new->str = clean_expand(str, mini, new);
+	new->str = clean_expand(str, new);
 	new->next = NULL;
 	i = 0;
 	if (check == 0)
 	{
-		mini->sections = new;
-		mini->sections->num = i;
+		g_mini->sections = new;
+		g_mini->sections->num = i;
 	}
 	else
 	{
-		aux = mini->sections;
+		aux = g_mini->sections;
 		while (aux->next != NULL)
 		{
 			aux = aux->next;

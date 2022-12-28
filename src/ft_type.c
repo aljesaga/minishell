@@ -6,13 +6,13 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 17:09:40 by alsanche          #+#    #+#             */
-/*   Updated: 2022/12/21 13:45:46 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/12/28 13:57:45 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-static int	its_comand(t_mshell *mini, int check)
+static int	its_comand(int check)
 {
 	t_section	*aux;
 	int			prev;
@@ -20,7 +20,7 @@ static int	its_comand(t_mshell *mini, int check)
 
 	prev = 0;
 	i = -1;
-	aux = mini->sections;
+	aux = g_mini->sections;
 	while (++i < check - 2)
 	{
 		if (aux->type == 6)
@@ -36,7 +36,7 @@ static int	its_comand(t_mshell *mini, int check)
 	return (0);
 }
 
-static void	type_plus(t_section *atl, t_mshell *mini, int check)
+static void	type_plus(t_section *atl, int check)
 {
 	t_section	*aux;
 	int			i;
@@ -49,21 +49,21 @@ static void	type_plus(t_section *atl, t_mshell *mini, int check)
 	else
 	{
 		i = check;
-		aux = mini->sections;
+		aux = g_mini->sections;
 		while (--check > 0)
 			aux = aux->next;
-		if (aux->type == 5 || aux->type == 8 || its_comand(mini, i) == 1)
+		if (aux->type == 5 || aux->type == 8 || its_comand(i) == 1)
 		{
 			atl->type = 6;
 			atl->builtin = is_builtin(atl->str);
-			mini->builts += atl->builtin;
+			g_mini->builts += atl->builtin;
 		}
 		else
 			atl->type = 7;
 	}
 }
 
-static void	ft_type(t_section *atl, t_mshell *mini, int check)
+static void	ft_type(t_section *atl, int check)
 {
 	atl->builtin = 0;
 	if (!ft_strncmp(atl->str, "<<", 2) && atl->here_expand == 0)
@@ -79,31 +79,31 @@ static void	ft_type(t_section *atl, t_mshell *mini, int check)
 	else if (!ft_strncmp(atl->str, ";", 1) && atl->here_expand == 0)
 		atl->type = 8;
 	else
-		type_plus(atl, mini, check);
+		type_plus(atl, check);
 }
 
-void	assign_type(t_mshell *mini)
+void	assign_type(void)
 {
 	int			i;
 	t_section	*aux;
 
 	i = 0;
-	aux = mini->sections;
+	aux = g_mini->sections;
 	while (aux)
 	{
-		ft_type(aux, mini, i);
+		ft_type(aux, i);
 		i++;
 		if ((aux->type == 1 || aux->type == 2 || aux->type == 3
 				|| aux->type == 4) && (aux->next == NULL))
 		{
 			printf("minishell: syntax error near unexpected token `newline'\n");
-			mini->a_error = 258;
+			g_mini->a_error = 258;
 		}
 		if ((aux->type == 5 || aux->type == 8)
 			&& (aux->next->str[0] == ';' || aux->next->str[0] == '|'))
 		{
 			printf("syntax error near unexpected token `%s'\n", aux->next->str);
-			mini->a_error = 258;
+			g_mini->a_error = 258;
 			break ;
 		}
 		aux = aux->next;

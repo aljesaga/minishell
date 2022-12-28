@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 11:33:43 by ioriola           #+#    #+#             */
-/*   Updated: 2022/12/21 12:42:32 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/12/28 13:39:10 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,23 +25,27 @@ int	is_builtin(char *str)
 	return (0);
 }
 
-int	run_builtin(t_comand *com, t_mshell *mini)
+int	run_builtin(t_comand *com)
 {
+	int	out;
+
+	out = 0;
 	if (!ft_strncmp(com->comand[0], "export\0", 7) && com->comand[1])
-		g_l_exit = ft_export(com->comand, mini);
+		out = ft_export(com->comand);
 	else if (!ft_strncmp(com->comand[0], "export\0", 7))
-		g_l_exit = ft_export_no_args(com, mini);
+		out = ft_export_no_args(com);
 	else if (!ft_strncmp(com->comand[0], "unset\0", 6) && com->comand[1])
-		g_l_exit = ft_unset(com->comand[1], mini);
+		out = ft_unset(com->comand[1]);
 	else if (!ft_strncmp(com->comand[0], "echo\0", 5))
-		g_l_exit = ft_echo(com);
+		out = ft_echo(com);
 	else if (!ft_strncmp(com->comand[0], "exit\0", 5))
 		ft_exit(com);
 	else if (!ft_strncmp(com->comand[0], "env\0", 4))
-		g_l_exit = ft_env(com, mini);
+		out = ft_env(com);
 	else if (!ft_strncmp(com->comand[0], "cd\0", 3))
-		g_l_exit = ft_cd(com->comand[1], mini);
+		out = ft_cd(com->comand[1]);
 	else if (!ft_strncmp(com->comand[0], "pwd\0", 4))
-		g_l_exit = ft_pwd(com);
-	return (g_l_exit);
+		out = ft_pwd(com);
+	g_mini->l_exit = out;
+	return (out);
 }

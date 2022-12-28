@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 12:04:13 by alsanche          #+#    #+#             */
-/*   Updated: 2022/12/23 15:04:17 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/12/28 13:45:25 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	print_error(char *line)
 	ft_putchar_fd('\n', 2);
 }
 
-static void	change_pwd(char *aux, t_mshell *mini)
+static void	change_pwd(char *aux)
 {
 	char	**temp_pwd;
 
@@ -37,20 +37,20 @@ static void	change_pwd(char *aux, t_mshell *mini)
 	aux = getcwd(NULL, 0);
 	temp_pwd[1] = ft_strjoin("PWD=", aux);
 	free(aux);
-	ft_export(temp_pwd, mini);
+	ft_export(temp_pwd);
 	free_split(temp_pwd);
 }
 
-int	ft_cd(char *line, t_mshell *mini)
+int	ft_cd(char *line)
 {
 	char	*aux;
 	int		chdir_;
 
 	chdir_ = 0;
-	aux = get_env_value("PWD", mini);
+	aux = get_env_value("PWD");
 	if (!line || line[0] == '\0' || !ft_strcmp(line, "~\0"))
 	{
-		aux = get_env_value("HOME", mini);
+		aux = get_env_value("HOME");
 		chdir_ = chdir(aux);
 	}
 	else if (chdir(line) == -1)
@@ -59,6 +59,6 @@ int	ft_cd(char *line, t_mshell *mini)
 		print_error(line);
 		return (1);
 	}
-	change_pwd(aux, mini);
+	change_pwd(aux);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 12:56:28 by alsanche          #+#    #+#             */
-/*   Updated: 2022/12/21 15:48:48 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/12/28 14:02:23 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,6 @@
 # define FD_R			0
 # define FD_W			1
 
-int	g_l_exit;
-
 typedef struct s_env
 {
 	char			*value;
@@ -88,6 +86,8 @@ typedef struct s_mshell
 	int			quotes;
 	int			**pipex;
 	int			a_error;
+	int			state;
+	int			l_exit;
 	char		**path;
 	char		**envs;
 	t_env		*env;
@@ -96,70 +96,72 @@ typedef struct s_mshell
 	t_section	*sections;
 }	t_mshell;
 
+t_mshell	*g_mini;
+
 // add_segtion.c //
-void		add_segtion(char *str, t_mshell *mini, int check);
+void		add_segtion(char *str, int check);
 
 // analyze_line.c //
-void		free_comand(t_mshell *mini);
-void		free_sections(t_mshell *mini);
-int			analyze_line(char *line, t_mshell *mini);
+void		free_comand(void);
+void		free_sections(void);
+int			analyze_line(char *line);
 
 // builtin.c //
 int			is_builtin(char *str);
-int			run_builtin(t_comand *com, t_mshell *mini);
+int			run_builtin(t_comand *com);
 
 // close_fd.c //
-void		ft_reset_main_fd(t_mshell *mini);
-void		ft_close_fd(int fd_in, t_mshell *mini);
-void		ft_free_fd(t_mshell *mini);
+void		ft_reset_main_fd(void);
+void		ft_close_fd(int fd_in);
+void		ft_free_fd(void);
 
 // ft_set_fd.c //
-int			*build_tunnel(t_comand *com, t_mshell *mini);
-void		check_fd(t_mshell *mini, t_comand *new, t_section *now);
-void		not_comand(t_mshell *mini, t_section *now);
+int			*build_tunnel(t_comand *com);
+void		check_fd(t_comand *new, t_section *now);
+void		not_comand(t_section *now);
 
 // ft_set_mini_fd.c //
-void		mini_check_fd(t_mshell *mini, t_section *now);
+void		mini_check_fd(t_section *now);
 
 // env_2_str.c //
 char		**find_path(char **enpv);
-char		**env_2_str(t_mshell *mini);
+char		**env_2_str(void);
 
 // exit.c //
 void		ft_exit(t_comand *com);
 
 // ft_cd.c //
-int			ft_cd(char *line, t_mshell *mini);
+int			ft_cd(char *line);
 
 //ft_count_exe.c //
-t_section	*add_part(t_comand *new, t_mshell *mini, t_section *now);
-t_section	*add_comand(t_mshell *mini, t_section *aux, t_comand *new);
-void		set_up_comand(t_mshell *mini);
+t_section	*add_part(t_comand *new, t_section *now);
+t_section	*add_comand(t_section *aux, t_comand *new);
+void		set_up_comand(void);
 
 // ft_echo.c //
 int			ft_echo(t_comand *com);
 
 // ft_env.c //
-int			env_collec(char **env, t_mshell *mini);
-void		new_env(char *str, int num, t_mshell *mini);
-int			ft_env(t_comand *com, t_mshell *mini);
+int			env_collec(char **env);
+void		new_env(char *str, int num);
+int			ft_env(t_comand *com);
 
 // ft_execv.c //
-void		ft_run(t_comand *com, t_mshell *mini);
-int			ft_execv(t_mshell *mini);
+void		ft_run(t_comand *com);
+int			ft_execv(void);
 
 // ft_expand.c //
-int			check_name(t_mshell *mini, char *str);
-char		*str_expand(char *str, t_mshell *mini);
+int			check_name(char *str);
+char		*str_expand(char *str);
 
 // ft_export_no_args.c //
-int			ft_export_no_args(t_comand *com, t_mshell *mini);
+int			ft_export_no_args(t_comand *com);
 
 // ft_export.c //
-int			ft_export(char **comand, t_mshell *mini);
+int			ft_export(char **comand);
 
 // ft_here_doc.c //
-int			here_doc(t_mshell *mini, t_section *arv, int check);
+int			here_doc(t_section *arv, int check);
 
 // ft_puterror.c //
 void		send_error(int n, char *str);
@@ -169,34 +171,34 @@ void		ft_puterror(char *funtion, char *str);
 int			ft_pwd(t_comand *com);
 
 // ft_type.c //
-void		assign_type(t_mshell *mini);
+void		assign_type(void);
 
 // ft_unset.c //
-void		unset_mini(t_mshell *mini);
-int			ft_unset(char *str, t_mshell *mini);
+void		unset_mini(void);
+int			ft_unset(char *str);
 
 // get_env_value.c //
-char		*get_env_value(char *env_name, t_mshell *mini);
+char		*get_env_value(char *env_name);
 
 // init_mini.c //
-t_mshell	*init_mini(char **env);
+void		init_mini(char **env);
 
 //  line_treatment.c //
-int			word_width(char *str, t_mshell *mini);
-int			check_quotes(char *line, t_mshell *mini);
-void		ft_line_treatment(char *line, t_mshell *mini);
+int			word_width(char *str);
+int			check_quotes(char *line);
+void		ft_line_treatment(char *line);
 
 // minishell.c //
 int			main(int arc, char **arv, char **env);
 
 // shlvlup.c //
-void		shlvlup(t_mshell *mini);
+void		shlvlup(void);
 char		**ft_split_ignore(char const *s, char c);
 
 // signal_tools.c //
 void		signal_handler(int sig);
 void		signal_child(void);
-void		signal_heredoc(void);
+void		signal_heredoc(int sig);
 int			signal_initialize(void);
 
 #endif

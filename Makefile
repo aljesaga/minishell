@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ioriola <ioriola@student.42.fr>            +#+  +:+       +#+         #
+#    By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/18 15:07:42 by alsanche          #+#    #+#              #
-#    Updated: 2022/12/21 10:30:50 by ioriola          ###   ########.fr        #
+#    Updated: 2022/12/28 14:19:29 by alsanche         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,6 +43,7 @@ SRCS = 	$(SRCDIR)/analyze_line.c \
 OBJS = $(SRCS:.c=.o)
 
 GCC = gcc
+MAKE = make
 
 FLAGS = -Wall -Werror -Wextra
 DEBUG = -fsanitize=address -g3
@@ -54,6 +55,7 @@ LIBS		= -L$(LIBFTDIR) -lft -L /Users/$(USER)/.brew/opt/readline/lib -lreadline
 INCLUDE		= -I. -I$(LIBDIR) -I$(LIBFTDIR) -I$(SRCDIR) -I/Users/$(USER)/.brew/opt/readline/include
 
 $(NAME): $(OBJS)
+	$(MAKE) -C $(LIBFTDIR)
 	$(GCC) -o $(NAME) $(OBJS) $(LIBS)
 
 .PHONY: all re clean fclean
@@ -61,10 +63,12 @@ $(NAME): $(OBJS)
 all:  $(NAME)
 
 clean:
+	$(MAKE) -C $(LIBFTDIR) clean
 	rm -f $(OBJS)
 
 fclean: clean
 	rm -f $(NAME)
+	rm -f lib/libft/libft.a
 
 re: fclean all
 
