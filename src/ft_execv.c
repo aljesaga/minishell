@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 15:25:37 by alsanche          #+#    #+#             */
-/*   Updated: 2022/12/28 14:04:46 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/12/29 14:01:09 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ static void	ft_exe(char *gps, t_comand *com)
 {
 	if (com->fd_out != STDOUT_FILENO)
 		dup2(com->fd_out, STDOUT_FILENO);
-	ft_close_fd(com->fd_in);
+	if (com->close != 0)
+		close (com->close);
 	execve(gps, com->comand, g_mini->envs);
 }
 
@@ -38,14 +39,22 @@ void	ft_run(t_comand *com)
 		free(gps);
 	}
 	send_error(1, com->comand[0]);
-	ft_close_fd(com->fd_in);
+	close(com->close);
+	close(com->fd_in);
+	close(com->fd_out);
 	exit (127);
 }
 
 static void	init_childs(t_comand *com, int i)
 {	
 	pid_t	pid;
+	int		fd[2];
 
+	pipe(fd);
+	if (com->fd_in == 0)
+		com->fd_in = g_mini->fd_in;
+	if (com->pipe == 1)
+		ft_asign_pipe(fd, com);
 	pid = fork();
 	if (pid > 0)
 		g_mini->childs[i] = pid;
@@ -61,10 +70,9 @@ static void	init_childs(t_comand *com, int i)
 	}
 	if (com->wait == 1)
 		waitpid(g_mini->childs[i], NULL, 0);
-	if (com->fd_in != 0)
-		close(com->fd_in);
-	if (com->fd_out != 1)
-		close(com->fd_out);
+	if (com->pipe == 0)
+		close(fd[0]);
+	close(fd[1]);
 }
 
 static int	built_or_exec(void)
@@ -81,8 +89,8 @@ static int	built_or_exec(void)
 		aux = aux->next;
 	}
 	ft_reset_main_fd();
-	ft_free_fd();
 	i = -1;
+	aux = g_mini->comands;
 	while (++i < g_mini->n_com)
 		waitpid(g_mini->childs[i], &status, 0);
 	if (WIFEXITED(status))

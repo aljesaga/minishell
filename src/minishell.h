@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 12:56:28 by alsanche          #+#    #+#             */
-/*   Updated: 2022/12/28 14:02:23 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/12/29 14:01:06 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,12 @@ typedef struct s_comand
 {
 	char			**comand;
 	int				builtin;
+	int				pipe;
 	int				n_comand;
 	int				n_arg;
 	int				fd_in;
 	int				fd_out;
+	int				close;
 	int				wait;
 	struct s_comand	*next;
 }	t_comand;
@@ -84,7 +86,6 @@ typedef struct s_mshell
 	int			fd_out;
 	int			builts;
 	int			quotes;
-	int			**pipex;
 	int			a_error;
 	int			state;
 	int			l_exit;
@@ -96,7 +97,7 @@ typedef struct s_mshell
 	t_section	*sections;
 }	t_mshell;
 
-t_mshell	*g_mini;
+extern t_mshell	*g_mini;
 
 // add_segtion.c //
 void		add_segtion(char *str, int check);
@@ -112,9 +113,8 @@ int			run_builtin(t_comand *com);
 
 // close_fd.c //
 void		ft_reset_main_fd(void);
-void		ft_close_fd(int fd_in);
-void		ft_free_fd(void);
-
+void		ft_close_fd(int fd_in, int fd_out);
+void		ft_asign_pipe(int *fd, t_comand *com);
 // ft_set_fd.c //
 int			*build_tunnel(t_comand *com);
 void		check_fd(t_comand *new, t_section *now);

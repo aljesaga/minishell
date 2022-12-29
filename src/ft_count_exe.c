@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 11:13:31 by alsanche          #+#    #+#             */
-/*   Updated: 2022/12/28 14:02:48 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/12/29 13:57:57 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ t_section	*add_part(t_comand *new, t_section *now)
 	aux = now;
 	new->comand = ft_calloc(new->n_arg + 1, sizeof(char *));
 	new->builtin = now->builtin;
-	new->wait = 0;
 	new->fd_in = g_mini->fd_in;
 	new->fd_out = g_mini->fd_out;
 	i = -1;
@@ -104,7 +103,6 @@ void	set_up_comand(void)
 
 	aux = g_mini->sections;
 	g_mini->n_com = count_com();
-	g_mini->pipex = ft_calloc(g_mini->n_com, sizeof(int *));
 	coms = -1;
 	while (aux && coms < g_mini->n_com)
 	{

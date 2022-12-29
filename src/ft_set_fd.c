@@ -6,29 +6,16 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 12:48:26 by alsanche          #+#    #+#             */
-/*   Updated: 2022/12/28 13:56:23 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2022/12/29 13:55:20 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-int	*build_tunnel(t_comand *com)
-{
-	int	*fd;
-
-	fd = malloc(sizeof(int) * 2);
-	pipe(fd);
-	ft_reset_main_fd();
-	g_mini->fd_in = fd[FD_R];
-	if (com->fd_out == STDOUT_FILENO)
-		com->fd_out = fd[FD_W];
-	return (fd);
-}
-
 static void	type_5_8(t_comand *new, t_section *now)
 {	
 	if (now->type == 5)
-		g_mini->pipex[new->n_comand] = build_tunnel(new);
+		new->pipe = 1;
 	else if (now->type == 8)
 	{
 		ft_reset_main_fd();
