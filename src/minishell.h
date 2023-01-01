@@ -113,7 +113,7 @@ int			run_builtin(t_comand *com);
 
 // close_fd.c //
 void		ft_reset_main_fd(void);
-void		ft_close_fd(int fd_in, int fd_out);
+void		close_fd_child(t_comand *com);
 void		ft_asign_pipe(int *fd, t_comand *com);
 // ft_set_fd.c //
 int			*build_tunnel(t_comand *com);

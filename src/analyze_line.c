@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include <minishell.h>
+t_mshell *g_mini; //quitar antes de entregar //
 
 void	free_comand(void)
 {
@@ -61,6 +62,7 @@ int	analyze_line(char *line)
 			set_up_comand();
 			if (g_mini->n_com > 0)
 				g_mini->a_error = ft_execv();
+			ft_reset_main_fd();
 		}
 		free_comand();
 		free_sections();

@@ -31,3 +31,11 @@ void	ft_asign_pipe(int *fd, t_comand *com)
 		com->fd_out = fd[1];
 	g_mini->fd_in = fd[0];
 }
+
+void	close_fd_child(t_comand *com)
+{
+	if (com->fd_in != 0)
+		close(com->fd_in);
+	if (com->fd_out != 1)
+		close(com->fd_out);
+}

@@ -86,6 +86,7 @@ static int	built_or_exec(void)
 	while (++i < g_mini->n_com)
 	{
 		init_childs(aux, i);
+		close_fd_child(aux);
 		aux = aux->next;
 	}
 	ft_reset_main_fd();

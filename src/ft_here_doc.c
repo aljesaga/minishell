@@ -78,21 +78,18 @@ static void	mini_type_3_4(t_section *now)
 	{
 		if (now->next->str[0] != '/')
 			temp = ft_strjoin("./", now->next->str);
+		if (g_mini->fd_out != STDOUT_FILENO)
+			close(g_mini->fd_out);
+		if (now->type == 3)
+			g_mini->fd_out = open(now->next->str, O_RDWR | O_CREAT
+						| O_TRUNC, 0644);
+		else if (now->type == 4)
+			g_mini->fd_out = open(now->next->str, O_RDWR | O_CREAT
+						| O_APPEND, 0644);
 		if (access(temp, F_OK))
 		{
 			printf("minishell: %s: Permission denied\n", now->next->str);
 			free(temp);
-		}
-		else
-		{
-			if (g_mini->fd_out != STDOUT_FILENO)
-				close(g_mini->fd_out);
-			if (now->type == 3)
-				g_mini->fd_out = open(now->next->str, O_RDWR | O_CREAT
-						| O_TRUNC, 0644);
-			else if (now->type == 4)
-				g_mini->fd_out = open(now->next->str, O_RDWR | O_CREAT
-						| O_APPEND, 0644);
 		}
 	}
 }
@@ -114,7 +111,7 @@ void	mini_check_fd(t_section *now)
 			close(g_mini->fd_in);
 		g_mini->fd_in = open(now->next->str, O_RDONLY, 0644);
 		if (g_mini->fd_in < 0)
-			g_mini->fd_in = STDIN_FILENO;
+			g_mini->fd_in = 0;
 	}
 	else if (now->type == 2)
 	{

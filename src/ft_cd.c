@@ -53,7 +53,7 @@ int	ft_cd(char *line)
 		aux = get_env_value("HOME");
 		chdir_ = chdir(aux);
 	}
-	else if (chdir(line) == -1)
+	else if (chdir_ == -1)
 	{
 		free(aux);
 		print_error(line);
