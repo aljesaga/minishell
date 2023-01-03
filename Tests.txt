@@ -1,4 +1,4 @@
-CD cd ../../../../../..
+OK CD cd ../../../../../..
 CD cd /home/user42/
 CD cd $HOME/Bureau
 CD unset HOME; cd
@@ -22,34 +22,34 @@ EXIT STATUS file_name
 EXIT STATUS not_cmd
 EXIT STATUS export test=a ; echo $test
 EXIT STATUS ls bonjour ; echo $?
-EXPORT export var=a ; export $var=test ; echo $var $a
-EXPORT export $var=test avec var unset
-EXPORT export la même variable
-EXPORT export var puis export var=test
-EXPORT export "" test=a
-EXPORT export "" test=a puis env
-EXTRA echo ~
-EXTRA export var=te"st PUIS echo $var
-EXTRA export var=te"st ; echo $var
-EXTRA .
-INIT env -i ./minishell
-INIT $SHLVL
-INIT env -i ./minishell puis echo $SHLVL
-PARSING ""
-PARSING echo "\s" ; echo "\\s"
-  PARSING echo "12\""
-PARSING echo "bip | bip ; coyotte > < \" "
-PARSING echo \>
-PARSING echo $USER$var\$USER$USER\$USERtest$USER
-PARSING echo bonjour \; ls
-PARSING $
-PARSING $LESS$VAR
-PARSING ..
-PARSING echo '"abc"'
-PARSING echo "'abc'"
-PARSING (séparateurs) echo "" bonjour
-PARSING (séparateurs) echo[TAB]a
-PARSING (séparateurs) echo\ a
+OK EXPORT export var=a ; export $var=test ; echo $var $a
+OK EXPORT export $var=test avec var unset
+OK EXPORT export la même variable
+OK EXPORT export var puis export var=test
+OK EXPORT export "" test=a
+OK EXPORT export "" test=a puis env
+OK EXTRA echo ~
+OK EXTRA export var=te"st PUIS echo $var
+OK EXTRA export var=te"st ; echo $var
+OK EXTRA .
+OK INIT env -i ./minishell
+OK INIT $SHLVL
+OK INIT env -i ./minishell puis echo $SHLVL
+OK PARSING ""
+OK PARSING echo "\s" ; echo "\\s"
+OK   PARSING echo "12\""
+OK PARSING echo "bip | bip ; coyotte > < \" "
+OK PARSING echo \>
+OK PARSING echo $USER$var\$USER$USER\$USERtest$USER
+OK PARSING echo bonjour \; ls
+OK PARSING $
+OK PARSING $LESS$VAR
+OK PARSING ..
+OK PARSING echo '"abc"'
+OK PARSING echo "'abc'"
+OK PARSING (séparateurs) echo "" bonjour
+OK PARSING (séparateurs) echo[TAB]a
+OK PARSING (séparateurs) echo\ a
 PARSING (séparateurs) export ""  et unset ""
 PARSING (séparateurs) export "test=ici"=coucou ; echo $test
 PARSING (séparateurs) export var="cat Makefile | grep >" ; echo $var
