@@ -1,0 +1,248 @@
+CD cd ../../../../../..
+CD cd /home/user42/
+CD cd $HOME/Bureau
+CD unset HOME; cd
+CD export HOME= ; cd
+CD cd too many arguments
+CD cd ./path_not_found
+CD cd -
+CD mkdir a; mkdir a/b; cd a/b; rm -r ../../a; cd ..
+CD cd home/.. avec CDPATH set à /
+CD cd home/dir avec CDPATH set à /
+CD cd . avec CDPATH set
+CD cd .. avec CDPATH set
+ECHO echo -n -n -nnnn -nnnnm ; echo a
+ECHO echo -n -nnn hello -n ; echo a
+ENV env puis export puis env
+EXIT STATUS cd random_cmd ; echo $?
+EXIT STATUS cd random_cmd ; cd $?
+EXIT STATUS ./file_that_is_not_an_executable
+EXIT STATUS cat bla
+EXIT STATUS file_name
+EXIT STATUS not_cmd
+EXIT STATUS export test=a ; echo $test
+EXIT STATUS ls bonjour ; echo $?
+EXPORT export var=a ; export $var=test ; echo $var $a
+EXPORT export $var=test avec var unset
+EXPORT export la même variable
+EXPORT export var puis export var=test
+EXPORT export "" test=a
+EXPORT export "" test=a puis env
+EXTRA echo ~
+EXTRA export var=te"st PUIS echo $var
+EXTRA export var=te"st ; echo $var
+EXTRA .
+INIT env -i ./minishell
+INIT $SHLVL
+INIT env -i ./minishell puis echo $SHLVL
+PARSING ""
+PARSING echo "\s" ; echo "\\s"
+  PARSING echo "12\""
+PARSING echo "bip | bip ; coyotte > < \" "
+PARSING echo \>
+PARSING echo $USER$var\$USER$USER\$USERtest$USER
+PARSING echo bonjour \; ls
+PARSING $
+PARSING $LESS$VAR
+PARSING ..
+PARSING echo '"abc"'
+PARSING echo "'abc'"
+PARSING (séparateurs) echo "" bonjour
+PARSING (séparateurs) echo[TAB]a
+PARSING (séparateurs) echo\ a
+PARSING (séparateurs) export ""  et unset ""
+PARSING (séparateurs) export "test=ici"=coucou ; echo $test
+PARSING (séparateurs) export var="cat Makefile | grep >" ; echo $var
+PIPE cat | cat | cat | ls
+PIPE cat Makefile | grep pr | head -n 5 | cd file_not_exit
+PIPE cat Makefile | grep pr | head -n 5 | hello
+PIPE ls | exit
+PIPE sleep 5 | exit
+REDIR <a cat <b <c
+REDIR <a cat <b <c      avec b n'existe pas (ou pas les droits)
+REDIR > test | echo blabla; rm test
+REDIR >a cat <b >>c 
+REDIR >a ls >b >>c >d
+REDIR >a ls <machin >>c >d     avec machin n'exite pas
+REDIR >file
+REDIR cat -e > test1 < test2
+REDIR cat < test
+REDIR echo 2 > out1 >> out2
+REDIR echo 2 >> out1 > out2
+REDIR echo bonjour > test\ 1
+REDIR echo test > file test1
+REDIR not_cmd bonjour > salut
+SIGNAUX ctrl-\
+SIGNAUX ctrl-C
+SUBST export var="  truc"; echo $var
+SUBST export var="truc  "; echo $var | cat -e
+SUBST echo "$tests""Makefile"
+SUBST echo "$tests"Makefile
+SUBST echo "$tests" "Makefile"
+SUBST $bla (non-export)
+SUBST echo $var bonjour ($var non export)
+SUBST export $var (var non export)
+SUBST export test=123\" ; echo $test
+  SUBST export test=123\\ ; echo $test
+SUBST export test=123\' ; echo $test ; echo $test
+SUBST export test="  foo    bar  " ; echo $test
+SUBST export test="  foo    bar  " ; echo ab$test
+SUBST export test="  foo    bar  " ; echo "ab"$test
+SUBST export test=" foo   bar " ; echo ab"$test" | cat -e
+SUBST export test=" foo   bar " ; echo "$test"
+SUBST export test=" foo   bar " ; echo ""$test""
+SUBST export test=" foo   bar " ; echo """$test"""
+SUBST export var= s\ -la ; l$var
+SUBST export var=at ; c$var Makefile
+SUBST export loop='bonjour$loop' ; echo $loop
+SUBST & REDIR export test="file1 file2" ; >$test
+SUBST & REDIR export test="file1 file2" ; >"$test"
+SUBST & REDIR export test="file1 file2" ; >$test >hey
+SUBST & REDIR export test="file1 file2" ; >hey >$test
+SYNTHAX |
+SYNTHAX echo bonjour ; |
+SYNTHAX echo bonjour > > out
+SYNTHAX echo bonjour > $test
+SYNTHAX echo bonjour > $test w/ test="o1 o2"
+SYNTHAX echo bonjour >>> test
+SYNTHAX echo bonjour | |
+SYNTHAX echo bonjour |;
+  UNSET unset PATH ; echo $PATH
+UNSET unset PATH ; ls
+UNSET unset "" test
+UNSET unset =
+UNSET unset PWD
+UNSET unset var
+export $var=s\ -la ; l$var
+/bin/echo bonjour
+RESULTAT ATTENDURESULTAT OBSERVEOK ou KO ?
+pwd : /
+chemin absolu
+accède au dossier Bureau
+HOME not set, exit 1
+Ne se passe rien, exit 0
+error message, exit 1
+error message, exit 1
+Retour à OLD_PWD, écrit le CWD
+message d'erreur mais change quand meme de directory, PWD et OLDPWD sont update, $? à zéro
+va a / et affiche /
+va a /home/dir
+va a ./. (pas de recherche dans CDPATH)
+va a ./.. (pas de recherche dans CDPATH)
+-nnnnma
+hello -na
+les variables ne doivent pas etre triées
+Doit afficher le code erreur de cd : 1
+exit 1 (deux erreurs affichées)
+permission denied -> exit status = 126
+1
+cmd not found (pbm avec stat() pour les binaires) - exit 127
+cmd not found -> exit status = 127
+affiche le contenu de test
+2
+a test
+message d'erreur
+modifie la variable (si new value
+verifier pas de doublon
+export test=a et set $? à 1
+/home/user42
+Multiligne
+Multiligne
+exit 2
+ouvre minishell dans un environement vierge
+doit être incrémenté a chaque lancement de minishell
+1
+command not found - $?=127
+should have the exact same output
+12"
+[bip | bip ; coyotte >< " ]
+>
+user42$USERuser42$USERtestuser42
+bonjour ; ls
+command not found
+-R: command not found
+cmd not found, exit 127
+"abc"
+['abc']
+[ bonjour]
+résultat attendu: [a]
+echo a': cmd not found
+erreur
+test="ici=coucou"
+cat Makefile | grep >
+ligne ls et 3 retour a la ligne via Entrer
+file_not_exist: no such file... exit status: 1
+hello: cmd not found... exit status: 127
+n'affiche rien
+n'affiche rien (attend 5 sec)
+seul le contenu de c est affiché
+rien n'est affiché. message d'erreur concernant b
+blabla
+a est créé vide. c recoit le contenu de b
+a, b, c et d sont créés. seul d recoit la redirection de ls
+a est créé, il ne recoit pas la redirection (fichier vide). c et d non créés
+créé file (vide)
+meme si test2 n'existe pas test1 doit être créé
+aucun fichier ou dossier de ce type
+efface out1
+n'efface pas out1
+creation du fichier "test 1"
+= echo test test1 > file
+create file but error msg on standard entry
+exit 131 sur bin(ex : sleep 10)&line vide
+exit 130 sur bin(ex : sleep 10)&line vide
+[truc]
+[truc]
+[Makefile]
+[Makefile]
+[ Makefile]
+retour a la ligne, exit 0
+[bonjour]
+affiche export
+123"
+123\
+123' 123'
+[foo bar]
+[ab foo bar]
+[ab foo bar]
+[ ab foo   bar ]
+[ foo   bar ]
+[ foo bar ]
+[ foo   bar ]
+equivalent à ls -al
+equivalent a cat Makefile
+bonjour$loop
+$test: ambiguous redir
+[file1 file2] created
+$test: ambiguous redir, hey n'est pas créé
+$test: ambiguous redir, hey est créé
+"synthax error" & exit 2
+"synthax error" & exit 2
+"synthax error" & exit 2
+"redirection ambigue" & exit 1
+"redirection ambigue" & exit 1
+"synthax error" & exit 2
+"synthax error" & exit 2
+"synthax error" & exit 2
+\n
+bash: ls: No such file or directory. Exit 127
+unset test et set $? à 1
+erreur et set $? à 1
+var1 ne doit pas etre unset
+affiche bonjour
+Commentaire
+facultatif
+Pas à gérer
+Pas à gérer
+"." est un built in (alias for source) --> pas à gerer
+quand pas de commande, doit quand meme faire le redir
+word spliting
+word spliting
+word spliting
+pas de word splitng
+pas de word splitng
+word splitng
+pas de word splitng
+word spliting (meme si l'espace est escaped, on split)
+Si le word spliting du redir "expands to more than one word", error ambiguous redir
+Si guillemets ("$test"), pas de word spliting

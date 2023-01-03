@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: ioriola <ioriola@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 12:04:13 by alsanche          #+#    #+#             */
-/*   Updated: 2022/12/28 13:45:25 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2023/01/03 17:55:59 by ioriola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,18 +47,17 @@ int	ft_cd(char *line)
 	int		chdir_;
 
 	chdir_ = 0;
-	aux = get_env_value("PWD");
 	if (!line || line[0] == '\0' || !ft_strcmp(line, "~\0"))
-	{
 		aux = get_env_value("HOME");
-		chdir_ = chdir(aux);
-	}
-	else if (chdir_ == -1)
+	else
+		aux = line;
+	chdir_ = chdir(aux);
+	if (chdir_ == -1)
 	{
 		free(aux);
 		print_error(line);
 		return (1);
 	}
-	change_pwd(aux);
+	change_pwd(getcwd(NULL, 0));
 	return (0);
 }
