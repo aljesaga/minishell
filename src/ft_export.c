@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/24 12:06:51 by alsanche          #+#    #+#             */
-/*   Updated: 2022/12/28 13:52:11 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2023/01/03 15:30:50 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,30 +40,40 @@ int	check_name(char *str)
 	return (0);
 }
 
+static int	parce(char	*str)
+{
+	if (str[0] == '\0' || str[0] == '$' || str[0] == '*'
+		|| ft_isdigit(str[0]) == 1)
+	{
+		ft_puterror("export", &str[0]);
+		g_mini->l_exit = 1;
+		return (1);
+	}
+	return (0);
+}
+
 int	ft_export(char **comand)
 {
 	int		check;
 	char	*str;
 	int		i;
+	int		r;
 	int		x;
 
 	i = 0;
+	x = 0;
 	while (comand[++i])
 	{
 		str = comand[i];
-		x = 0;
 		if (str[0] == 92)
 			x++;
-		if (str[x] == '$' || str[x] == '*' || ft_isdigit(str[x]) == 1)
+		r = parce(&str[x]);
+		if (r == 0)
 		{
-			ft_puterror("export", &str[x]);
-			return (1);
-		}
-		check = check_name(&str[x]);
-		if (check == 0)
-		{
-			new_env(&str[x], 1);
+			check = check_name(&str[x]);
+			if (check == 0)
+				new_env(&str[x], 1);
 		}
 	}
-	return (0);
+	return (g_mini->l_exit);
 }

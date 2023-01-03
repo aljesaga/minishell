@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 09:04:01 by ioriola           #+#    #+#             */
-/*   Updated: 2022/12/28 13:36:17 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2023/01/03 14:35:34 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	signal_handler(int sig)
 {
-	if (sig == SIGINT)
+	if (sig == SIGINT && g_mini->state == 0)
 	{
 		printf("\n");
 		rl_on_new_line();
@@ -22,7 +22,7 @@ void	signal_handler(int sig)
 		rl_redisplay();
 		g_mini->l_exit = 1;
 	}
-	else if (sig == SIGQUIT)
+	else if (sig == SIGQUIT && g_mini->state == 0)
 	{
 		printf("exit");
 		rl_on_new_line();
@@ -30,6 +30,8 @@ void	signal_handler(int sig)
 		rl_redisplay();
 		exit(1);
 	}
+	else if (sig == SIGINT && g_mini->state == 2)
+		signal_heredoc();
 }
 
 void	sig_redir(int sig)
@@ -43,30 +45,34 @@ void	sig_redir(int sig)
 
 void	signal_child(void)
 {
-	signal(SIGINT, sig_redir);
-	signal(SIGQUIT, SIG_DFL);
+	if (g_mini->state == 3)
+	{
+		signal(SIGINT, sig_redir);
+		signal(SIGQUIT, SIG_DFL);
+	}
 }
 
-void	signal_heredoc(int sig)
+void	signal_heredoc(void)
 {
-	g_mini->state = 0;
-	(void)sig;
-	printf("estoy aqui %d\n", g_mini->state);
-	rl_on_new_line();
+	rl_redisplay();
 	rl_line_buffer[0] = '\0';
+	write (1, "\n", 1);
 	rl_point = 0;
 	rl_end = 0;
-	rl_redisplay();
+	rl_on_new_line();
+	g_mini->state = 0;
 	g_mini->l_exit = 1;
 }
 
 int	signal_initialize(void)
 {
-	if (g_mini->state == 2)
-		signal(SIGINT, &signal_heredoc);
-	else if (signal(SIGINT, &signal_handler) == SIG_ERR)
-		return (0);
-	signal(SIGTERM, SIG_IGN);
-	signal(SIGQUIT, SIG_IGN);
+	if (g_mini->state == 0)
+	{
+		if (signal(SIGINT, &signal_handler) == SIG_ERR)
+			return (0);
+		signal(SIGTERM, SIG_IGN);
+		signal(SIGQUIT, SIG_IGN);
+		return (1);
+	}
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 11:29:09 by alsanche          #+#    #+#             */
-/*   Updated: 2022/12/28 13:42:05 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2023/01/03 15:50:27 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,17 @@ void	free_sections(void)
 	}
 }
 
+static void	set_and_exec(void)
+{
+	if (g_mini->a_error != 258)
+	{
+		set_up_comand();
+		if (g_mini->n_com > 0)
+			g_mini->a_error = ft_execv();
+		ft_reset_main_fd();
+	}
+}
+
 int	analyze_line(char *line)
 {
 	char		*str;
@@ -50,20 +61,14 @@ int	analyze_line(char *line)
 	g_mini->a_error = 0;
 	if (check_quotes(line) == 1)
 	{
-		printf("final quotes not found");
+		ft_putstr_fd("final quotes not found\n", 2);
 		g_mini->a_error = 258;
 	}
 	if (g_mini->a_error != 258)
 	{
 		str = ft_strtrim(line, " ");
 		ft_line_treatment(str);
-		if (g_mini->a_error != 258)
-		{
-			set_up_comand();
-			if (g_mini->n_com > 0)
-				g_mini->a_error = ft_execv();
-			ft_reset_main_fd();
-		}
+		set_and_exec();
 		free_comand();
 		free_sections();
 		free(str);

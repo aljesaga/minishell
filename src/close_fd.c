@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 11:49:49 by alsanche          #+#    #+#             */
-/*   Updated: 2022/12/29 13:58:13 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2023/01/03 11:27:56 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,14 @@ void	ft_asign_pipe(int *fd, t_comand *com)
 	if (com->fd_out == 1)
 		com->fd_out = fd[1];
 	g_mini->fd_in = fd[0];
+}
+
+void	manage_pipe(int *fd, t_comand *com)
+{
+	if (com->fd_in == 0)
+		com->fd_in = g_mini->fd_in;
+	if (com->pipe == 1)
+		ft_asign_pipe(fd, com);
 }
 
 void	close_fd_child(t_comand *com)

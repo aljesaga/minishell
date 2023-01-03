@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 15:25:37 by alsanche          #+#    #+#             */
-/*   Updated: 2022/12/29 14:01:09 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2023/01/03 12:47:10 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,7 @@ static void	init_childs(t_comand *com, int i)
 	int		fd[2];
 
 	pipe(fd);
-	if (com->fd_in == 0)
-		com->fd_in = g_mini->fd_in;
-	if (com->pipe == 1)
-		ft_asign_pipe(fd, com);
+	manage_pipe(fd, com);
 	pid = fork();
 	if (pid > 0)
 		g_mini->childs[i] = pid;
@@ -62,6 +59,7 @@ static void	init_childs(t_comand *com, int i)
 		send_error(2, "fork");
 	else
 	{
+		g_mini->state = 3;
 		signal_child();
 		if (com->builtin == 1)
 			exit(run_builtin(com));
@@ -91,9 +89,9 @@ static int	built_or_exec(void)
 	}
 	ft_reset_main_fd();
 	i = -1;
-	aux = g_mini->comands;
 	while (++i < g_mini->n_com)
 		waitpid(g_mini->childs[i], &status, 0);
+	g_mini->state = 0;
 	if (WIFEXITED(status))
 		return (WEXITSTATUS(status));
 	return (0);

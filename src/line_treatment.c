@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 13:23:09 by alsanche          #+#    #+#             */
-/*   Updated: 2022/12/28 14:00:27 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2023/01/03 16:06:33 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,9 @@ int	check_quotes(char *line)
 
 	i = -1;
 	g_mini->quotes = 0;
-	while (line[++i] != '\0')
+	if (line[0] == 34 && line[1] == 34)
+		return (0);
+	while (line[++i])
 	{
 		if (line[i] == 39 && g_mini->quotes == 0)
 			g_mini->quotes = 1;

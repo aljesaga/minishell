@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 12:56:28 by alsanche          #+#    #+#             */
-/*   Updated: 2022/12/29 14:01:06 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2023/01/03 13:02:01 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,8 +113,10 @@ int			run_builtin(t_comand *com);
 
 // close_fd.c //
 void		ft_reset_main_fd(void);
+void		manage_pipe(int *fd, t_comand *com);
 void		close_fd_child(t_comand *com);
 void		ft_asign_pipe(int *fd, t_comand *com);
+
 // ft_set_fd.c //
 int			*build_tunnel(t_comand *com);
 void		check_fd(t_comand *new, t_section *now);
@@ -198,7 +200,7 @@ char		**ft_split_ignore(char const *s, char c);
 // signal_tools.c //
 void		signal_handler(int sig);
 void		signal_child(void);
-void		signal_heredoc(int sig);
+void		signal_heredoc(void);
 int			signal_initialize(void);
 
 #endif

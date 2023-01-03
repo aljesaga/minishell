@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 18:06:28 by alsanche          #+#    #+#             */
-/*   Updated: 2022/12/29 12:24:12 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2023/01/03 14:34:30 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ static int	ft_here_doc(char *arv, char *file, int check)
 	temp = readline("-> ");
 	if (!temp || fd < 0 || g_mini->state == 0)
 		return (1);
+	signal_initialize();
 	if (!ft_strncmp(temp, arv, len))
 	{
 		free(temp);
@@ -54,13 +55,13 @@ int	here_doc(t_section *arv, int check)
 	char	*aux;
 	int		fd;
 
-	g_mini->state = 2;
 	aux = ft_itoa(arv->num);
 	str = ft_strjoin("/tmp/.temp", aux);
 	free(aux);
 	fd = open(str, O_CREAT | O_RDWR | O_TRUNC, 0644);
 	if (fd < 0)
 		exit (1);
+	g_mini->state = 2;
 	while (g_mini->state == 2)
 		if (ft_here_doc(arv->next->str, str, check) == 1)
 			break ;
@@ -82,10 +83,10 @@ static void	mini_type_3_4(t_section *now)
 			close(g_mini->fd_out);
 		if (now->type == 3)
 			g_mini->fd_out = open(now->next->str, O_RDWR | O_CREAT
-						| O_TRUNC, 0644);
+					| O_TRUNC, 0644);
 		else if (now->type == 4)
 			g_mini->fd_out = open(now->next->str, O_RDWR | O_CREAT
-						| O_APPEND, 0644);
+					| O_APPEND, 0644);
 		if (access(temp, F_OK))
 		{
 			printf("minishell: %s: Permission denied\n", now->next->str);

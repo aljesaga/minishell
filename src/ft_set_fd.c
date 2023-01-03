@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 12:48:26 by alsanche          #+#    #+#             */
-/*   Updated: 2022/12/29 13:55:20 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2023/01/03 11:16:33 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,15 @@
 static void	type_5_8(t_comand *new, t_section *now)
 {	
 	if (now->type == 5)
+	{
+		g_mini->fd_in = STDIN_FILENO;
+		g_mini->fd_out = STDOUT_FILENO;
 		new->pipe = 1;
+	}
 	else if (now->type == 8)
 	{
-		ft_reset_main_fd();
+		g_mini->fd_in = STDIN_FILENO;
+		g_mini->fd_out = STDOUT_FILENO;
 		new->wait = 1;
 	}
 }
