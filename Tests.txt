@@ -83,7 +83,7 @@ SUBST $bla (non-export)
 SUBST echo $var bonjour ($var non export)
 SUBST export $var (var non export)
 SUBST export test=123\" ; echo $test
-  SUBST export test=123\\ ; echo $test
+SUBST export test=123\\ ; echo $test
 SUBST export test=123\' ; echo $test ; echo $test
 SUBST export test="  foo    bar  " ; echo $test
 SUBST export test="  foo    bar  " ; echo ab$test
@@ -107,7 +107,7 @@ SYNTHAX echo bonjour > $test w/ test="o1 o2"
 SYNTHAX echo bonjour >>> test
 SYNTHAX echo bonjour | |
 SYNTHAX echo bonjour |;
-  UNSET unset PATH ; echo $PATH
+UNSET unset PATH ; echo $PATH
 UNSET unset PATH ; ls
 UNSET unset "" test
 UNSET unset =
@@ -115,134 +115,3 @@ UNSET unset PWD
 UNSET unset var
 export $var=s\ -la ; l$var
 /bin/echo bonjour
-RESULTAT ATTENDURESULTAT OBSERVEOK ou KO ?
-pwd : /
-chemin absolu
-accède au dossier Bureau
-HOME not set, exit 1
-Ne se passe rien, exit 0
-error message, exit 1
-error message, exit 1
-Retour à OLD_PWD, écrit le CWD
-message d'erreur mais change quand meme de directory, PWD et OLDPWD sont update, $? à zéro
-va a / et affiche /
-va a /home/dir
-va a ./. (pas de recherche dans CDPATH)
-va a ./.. (pas de recherche dans CDPATH)
--nnnnma
-hello -na
-les variables ne doivent pas etre triées
-Doit afficher le code erreur de cd : 1
-exit 1 (deux erreurs affichées)
-permission denied -> exit status = 126
-1
-cmd not found (pbm avec stat() pour les binaires) - exit 127
-cmd not found -> exit status = 127
-affiche le contenu de test
-2
-a test
-message d'erreur
-modifie la variable (si new value
-verifier pas de doublon
-export test=a et set $? à 1
-/home/user42
-Multiligne
-Multiligne
-exit 2
-ouvre minishell dans un environement vierge
-doit être incrémenté a chaque lancement de minishell
-1
-command not found - $?=127
-should have the exact same output
-12"
-[bip | bip ; coyotte >< " ]
->
-user42$USERuser42$USERtestuser42
-bonjour ; ls
-command not found
--R: command not found
-cmd not found, exit 127
-"abc"
-['abc']
-[ bonjour]
-résultat attendu: [a]
-echo a': cmd not found
-erreur
-test="ici=coucou"
-cat Makefile | grep >
-ligne ls et 3 retour a la ligne via Entrer
-file_not_exist: no such file... exit status: 1
-hello: cmd not found... exit status: 127
-n'affiche rien
-n'affiche rien (attend 5 sec)
-seul le contenu de c est affiché
-rien n'est affiché. message d'erreur concernant b
-blabla
-a est créé vide. c recoit le contenu de b
-a, b, c et d sont créés. seul d recoit la redirection de ls
-a est créé, il ne recoit pas la redirection (fichier vide). c et d non créés
-créé file (vide)
-meme si test2 n'existe pas test1 doit être créé
-aucun fichier ou dossier de ce type
-efface out1
-n'efface pas out1
-creation du fichier "test 1"
-= echo test test1 > file
-create file but error msg on standard entry
-exit 131 sur bin(ex : sleep 10)&line vide
-exit 130 sur bin(ex : sleep 10)&line vide
-[truc]
-[truc]
-[Makefile]
-[Makefile]
-[ Makefile]
-retour a la ligne, exit 0
-[bonjour]
-affiche export
-123"
-123\
-123' 123'
-[foo bar]
-[ab foo bar]
-[ab foo bar]
-[ ab foo   bar ]
-[ foo   bar ]
-[ foo bar ]
-[ foo   bar ]
-equivalent à ls -al
-equivalent a cat Makefile
-bonjour$loop
-$test: ambiguous redir
-[file1 file2] created
-$test: ambiguous redir, hey n'est pas créé
-$test: ambiguous redir, hey est créé
-"synthax error" & exit 2
-"synthax error" & exit 2
-"synthax error" & exit 2
-"redirection ambigue" & exit 1
-"redirection ambigue" & exit 1
-"synthax error" & exit 2
-"synthax error" & exit 2
-"synthax error" & exit 2
-\n
-bash: ls: No such file or directory. Exit 127
-unset test et set $? à 1
-erreur et set $? à 1
-var1 ne doit pas etre unset
-affiche bonjour
-Commentaire
-facultatif
-Pas à gérer
-Pas à gérer
-"." est un built in (alias for source) --> pas à gerer
-quand pas de commande, doit quand meme faire le redir
-word spliting
-word spliting
-word spliting
-pas de word splitng
-pas de word splitng
-word splitng
-pas de word splitng
-word spliting (meme si l'espace est escaped, on split)
-Si le word spliting du redir "expands to more than one word", error ambiguous redir
-Si guillemets ("$test"), pas de word spliting
