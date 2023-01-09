@@ -6,7 +6,7 @@
 #    By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/18 15:07:42 by alsanche          #+#    #+#              #
-#    Updated: 2022/12/28 14:19:29 by alsanche         ###   ########lyon.fr    #
+#    Updated: 2023/01/09 18:21:40 by alsanche         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,6 +57,7 @@ INCLUDE		= -I. -I$(LIBDIR) -I$(LIBFTDIR) -I$(SRCDIR) -I/Users/$(USER)/.brew/opt/
 $(NAME): $(OBJS)
 	$(MAKE) -C $(LIBFTDIR)
 	$(GCC) -o $(NAME) $(OBJS) $(LIBS)
+	@bash -c "stty -ctlecho"
 
 .PHONY: all re clean fclean
 

@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 12:56:28 by alsanche          #+#    #+#             */
-/*   Updated: 2023/01/03 13:02:01 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2023/01/09 18:15:58 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,8 +199,7 @@ char		**ft_split_ignore(char const *s, char c);
 
 // signal_tools.c //
 void		signal_handler(int sig);
-void		signal_child(void);
-void		signal_heredoc(void);
+void		sig_redir(int sig);
 int			signal_initialize(void);
 
 #endif

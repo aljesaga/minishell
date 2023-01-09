@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 14:50:39 by alsanche          #+#    #+#             */
-/*   Updated: 2022/12/28 13:32:56 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2023/01/09 18:16:18 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ int	main(int arc, char **arv, char **env)
 	if (arc == 1 && arv && g_mini)
 	{
 		init_mini(env);
+		signal_initialize();
 		while (1)
 		{
-			signal_initialize();
 			ft_reset_main_fd();
 			line = readline(LPURPLE "IA_minishell\% " RESET);
 			if (line && *line)

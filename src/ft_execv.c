@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 15:25:37 by alsanche          #+#    #+#             */
-/*   Updated: 2023/01/03 12:47:10 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2023/01/09 18:18:57 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,14 @@ static void	init_childs(t_comand *com, int i)
 	pipe(fd);
 	manage_pipe(fd, com);
 	pid = fork();
+	g_mini->state = pid;
 	if (pid > 0)
 		g_mini->childs[i] = pid;
 	else if (pid < 0)
 		send_error(2, "fork");
 	else
 	{
-		g_mini->state = 3;
-		signal_child();
+		signal(SIGINT, sig_redir);
 		if (com->builtin == 1)
 			exit(run_builtin(com));
 		else

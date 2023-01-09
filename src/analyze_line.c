@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 11:29:09 by alsanche          #+#    #+#             */
-/*   Updated: 2023/01/03 15:50:27 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2023/01/09 17:10:24 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	analyze_line(char *line)
 	if (!line || line[0] == '\0')
 		return (0);
 	g_mini->a_error = 0;
-	if (check_quotes(line) == 1)
+	if (check_quotes(line) == -1)
 	{
 		ft_putstr_fd("final quotes not found\n", 2);
 		g_mini->a_error = 258;
