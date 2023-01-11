@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/03 15:35:08 by alsanche          #+#    #+#             */
-/*   Updated: 2022/12/28 13:40:37 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2023/01/03 16:53:45 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	add_segtion(char *str, int check)
 
 	new = malloc(sizeof(t_section));
 	if (!new)
-		printf("Memory Error");
+		printf("Memory Error\n");
 	new->str = clean_expand(str, new);
 	new->next = NULL;
 	i = 0;

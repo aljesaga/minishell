@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 13:04:38 by alsanche          #+#    #+#             */
-/*   Updated: 2023/01/09 18:24:48 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2023/01/03 17:57:11 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,11 @@ int	ft_env(t_comand *com)
 	temp = g_mini->env;
 	if (!temp || !com)
 		return (1);
+	if (com->comand[1])
+	{
+		dprintf(2, "env: %s: no such file or directory\n", com->comand[1]);
+		return (1);
+	}
 	while (temp != NULL)
 	{
 		aux = ft_strchr(temp->value, '=');

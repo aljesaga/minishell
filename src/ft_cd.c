@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ioriola <ioriola@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 12:04:13 by alsanche          #+#    #+#             */
-/*   Updated: 2023/01/03 17:55:59 by ioriola          ###   ########.fr       */
+/*   Updated: 2023/01/11 19:32:59 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@
 
 void	print_error(char *line)
 {
-	ft_putstr_fd("cd: ", 2);
-	ft_putstr_fd(strerror(errno), 2);
-	ft_putstr_fd(": ", 2);
+	ft_putstr_fd("minishell: cd: ", 2);
 	ft_putstr_fd(line, 2);
+	ft_putstr_fd(": ", 2);
+	ft_putstr_fd(strerror(errno), 2);
 	ft_putchar_fd('\n', 2);
 }
 
@@ -54,7 +54,6 @@ int	ft_cd(char *line)
 	chdir_ = chdir(aux);
 	if (chdir_ == -1)
 	{
-		free(aux);
 		print_error(line);
 		return (1);
 	}

@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 19:03:35 by alsanche          #+#    #+#             */
-/*   Updated: 2022/09/18 17:51:30 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2023/01/03 16:21:53 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,22 +20,22 @@ void	send_error(int n, char *str)
 	if (n == 0)
 	{	
 		temp = ft_strjoin(str, ": permission denied\n");
-		ft_putstr_fd(temp, 1);
+		ft_putstr_fd(temp, 2);
 	}
 	else if (n == 1)
 	{
 		temp = ft_strjoin(str, ": command not found\n");
-		ft_putstr_fd(temp, 1);
+		ft_putstr_fd(temp, 2);
 	}
 	else if (n == 2)
 	{
 		temp = ft_strjoin(str, ": it doesn't work\n");
-		ft_putstr_fd(temp, 1);
+		ft_putstr_fd(temp, 2);
 	}
 	else
 	{
 		temp = ft_strjoin(str, ": no such file or directory\n");
-		ft_putstr_fd(temp, 1);
+		ft_putstr_fd(temp, 2);
 	}
 	free(temp);
 }

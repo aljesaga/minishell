@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/03 17:47:51 by alsanche          #+#    #+#             */
-/*   Updated: 2022/12/28 13:50:57 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2023/01/11 19:29:37 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,18 @@ static int	expand_name(char *str)
 {
 	int	count;
 
-	count = 0;
-	while (str[++count] != '\0')
+	count = -1;
+	while (str[++count])
 	{
 		if (str[count + 1] == '?')
 		{
 			count++;
 			break ;
 		}
-		else if (str[count + 1] == 34 || str[count + 1] == 39
-			|| str[count + 1] == '$' || str[count + 1] == '\n')
-			break ;
-		else if (str[count + 1] == ' ' || str[count + 1] == '|'
-			|| str[count + 1] == '<' || str[count + 1] == '>')
+		if ((str[count + 1] >= 32 && str[count + 1] <= 47)
+			|| (str[count + 1] >= 58 && str[count + 1] <= 64)
+			|| (str[count + 1] >= 91 && str[count + 1] <= 94)
+			|| (str[count + 1] >= 123))
 			break ;
 	}
 	return (count);
@@ -80,25 +79,25 @@ char	*str_expand(char *str)
 {
 	char	*end;
 	char	*aux;
-	int		s;
-	int		i;
+	int		i[2];
 
-	i = -1;
+	i[0] = -1;
 	end = ft_strdup("");
-	while (str[++i])
+	while (str[++i[0]])
 	{
-		if (str[i] == '$' && (ft_isalpha(str[i + 1]) == 1 || str[i + 1] == '?'))
+		if (str[i[0]] == '$' && str[i[0] - 1] != 92
+			&& (ft_isalpha(str[i[0] + 1]) == 1 || str[i[0] + 1] == '?'))
 		{
-			s = expand_name(&str[++i]);
-			end = expand_chr(&str[i], end, s);
-			i += s;
-			if (str[i] == '\0')
+			i[1] = expand_name(&str[++i[0]]);
+			end = expand_chr(&str[i[0]], end, i[1]);
+			i[0] += i[1];
+			if (str[i[0]] == '\0')
 				break ;
 		}
 		else
 		{
 			aux = end;
-			end = ft_strjoinchr(aux, str[i]);
+			end = ft_strjoinchr(aux, str[i[0]]);
 			free(aux);
 		}
 	}
