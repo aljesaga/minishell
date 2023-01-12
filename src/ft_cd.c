@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 12:04:13 by alsanche          #+#    #+#             */
-/*   Updated: 2023/01/11 19:32:59 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2023/01/12 14:48:19 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,22 +41,39 @@ static void	change_pwd(char *aux)
 	free_split(temp_pwd);
 }
 
+static char	*set_path(char *line)
+{
+	char	*aux;
+
+	if (!line || line[0] == '\0' || !ft_strcmp(line, "~\0"))
+		aux = get_env_value("HOME");
+	else if (!ft_strncmp("-", line, 1))
+		aux = get_env_value("OLDPWD");
+	else
+		aux = ft_strdup(line);
+	return (aux);
+}
+
 int	ft_cd(char *line)
 {
 	char	*aux;
 	int		chdir_;
 
 	chdir_ = 0;
-	if (!line || line[0] == '\0' || !ft_strcmp(line, "~\0"))
-		aux = get_env_value("HOME");
-	else
-		aux = line;
+	aux = set_path(line);
 	chdir_ = chdir(aux);
 	if (chdir_ == -1)
 	{
-		print_error(line);
+		if (!aux && line[0] == '-')
+			ft_putstr_fd("IA_minishell: cd: OLDPWD not set\n", 2);
+		else if (!aux)
+			ft_putstr_fd("IA_minishell: cd: HOME not set\n", 2);
+		else if (aux[0] != '\0')
+			print_error(aux);
+		free(aux);
 		return (1);
 	}
 	change_pwd(getcwd(NULL, 0));
+	free(aux);
 	return (0);
 }

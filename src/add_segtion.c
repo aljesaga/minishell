@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/03 15:35:08 by alsanche          #+#    #+#             */
-/*   Updated: 2023/01/03 16:53:45 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2023/01/12 15:46:14 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ static char	*clean(char *str)
 	int		j;
 	int		i;
 
+	if (str[0] == 34 && str[1] == 34 && str[2] == '\0')
+		return (ft_strdup(""));
 	aux = malloc(sizeof(char) * ((ft_strlen(str) - 2) + 1));
 	i = -1;
 	j = -1;

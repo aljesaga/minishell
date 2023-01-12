@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/03 17:47:51 by alsanche          #+#    #+#             */
-/*   Updated: 2023/01/11 19:29:37 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2023/01/12 15:46:26 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	expand_name(char *str)
 		}
 		if ((str[count + 1] >= 32 && str[count + 1] <= 47)
 			|| (str[count + 1] >= 58 && str[count + 1] <= 64)
-			|| (str[count + 1] >= 91 && str[count + 1] <= 94)
+			|| (str[count + 1] >= 91 && str[count + 1] <= 96)
 			|| (str[count + 1] >= 123))
 			break ;
 	}

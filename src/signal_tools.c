@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 09:04:01 by ioriola           #+#    #+#             */
-/*   Updated: 2023/01/09 18:20:09 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2023/01/12 16:21:24 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void	signal_handler(int sig)
 
 void	sig_redir(int sig)
 {
-	dprintf(2, "AQUI\n");
 	if (sig == SIGINT)
 		exit (0);
 }

@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 11:49:49 by alsanche          #+#    #+#             */
-/*   Updated: 2023/01/03 11:27:56 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2023/01/12 16:31:18 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	ft_reset_main_fd(void)
 	if (g_mini->fd_out != 1)
 		close(g_mini->fd_out);
 	g_mini->fd_out = 1;
+	g_mini->state = 0;
 }
 
 void	ft_asign_pipe(int *fd, t_comand *com)

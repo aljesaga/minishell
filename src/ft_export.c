@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/24 12:06:51 by alsanche          #+#    #+#             */
-/*   Updated: 2023/01/03 15:30:50 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2023/01/12 15:12:34 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	check_name(char *str)
 
 static int	parce(char	*str)
 {
-	if (str[0] == '\0' || str[0] == '$' || str[0] == '*'
+	if (str == NULL || str[0] == '\0' || str[0] == '$' || str[0] == '*'
 		|| ft_isdigit(str[0]) == 1)
 	{
 		ft_puterror("export", &str[0]);
@@ -61,9 +61,9 @@ int	ft_export(char **comand)
 	int		x;
 
 	i = 0;
-	x = 0;
 	while (comand[++i])
 	{
+		x = 0;
 		str = comand[i];
 		if (str[0] == 92)
 			x++;

@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 18:06:28 by alsanche          #+#    #+#             */
-/*   Updated: 2023/01/03 14:34:30 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2023/01/12 17:20:24 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,13 @@ static void	check_put(char *temp, int check, int here)
 static int	ft_here_doc(char *arv, char *file, int check)
 {	
 	int		fd;
-	size_t	len;
 	char	*temp;
 
 	fd = open(file, O_RDWR | O_APPEND);
-	len = ft_strlen(arv);
 	temp = readline("-> ");
-	if (!temp || fd < 0 || g_mini->state == 0)
+	if (!temp || fd < 0)
 		return (1);
-	signal_initialize();
-	if (!ft_strncmp(temp, arv, len))
+	if (!ft_strncmp(temp, arv, ft_strlen(temp)))
 	{
 		free(temp);
 		return (1);
@@ -49,23 +46,40 @@ static int	ft_here_doc(char *arv, char *file, int check)
 	return (0);
 }
 
+void	exec_h_doc(t_section *arv, char *str, int check)
+{
+	signal(SIGINT, sig_redir);
+	while (1)
+	{
+		if (ft_here_doc(arv->next->str, str, check) == 1)
+			break ;
+	}
+	exit (0);
+}
+
 int	here_doc(t_section *arv, int check)
 {
 	char	*str;
 	char	*aux;
+	pid_t	h_doc;
 	int		fd;
 
 	aux = ft_itoa(arv->num);
 	str = ft_strjoin("/tmp/.temp", aux);
 	free(aux);
+	h_doc = fork();
 	fd = open(str, O_CREAT | O_RDWR | O_TRUNC, 0644);
 	if (fd < 0)
-		exit (1);
-	g_mini->state = 2;
-	while (g_mini->state == 2)
-		if (ft_here_doc(arv->next->str, str, check) == 1)
-			break ;
-	g_mini->l_exit = 0;
+		return (-1);
+	if (h_doc > 0)
+		g_mini->state = h_doc;
+	else if (h_doc < 0)
+		send_error(2, "fork");
+	else
+		exec_h_doc(arv, str, check);
+	waitpid(h_doc, &g_mini->a_error, 0);
+	if (WIFEXITED(g_mini->a_error))
+		g_mini->l_exit = WEXITSTATUS(g_mini->a_error);
 	unlink(str);
 	free(str);
 	return (fd);
