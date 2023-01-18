@@ -6,12 +6,11 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 11:29:09 by alsanche          #+#    #+#             */
-/*   Updated: 2023/01/09 17:10:24 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2023/01/18 16:43:16 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-t_mshell *g_mini; //quitar antes de entregar //
 
 void	free_comand(void)
 {

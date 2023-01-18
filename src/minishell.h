@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 12:56:28 by alsanche          #+#    #+#             */
-/*   Updated: 2023/01/09 18:15:58 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2023/01/18 15:11:51 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ typedef struct s_mshell
 	t_section	*sections;
 }	t_mshell;
 
-extern t_mshell	*g_mini;
+t_mshell	*g_mini;
 
 // add_segtion.c //
 void		add_segtion(char *str, int check);
@@ -164,6 +164,7 @@ int			ft_export(char **comand);
 
 // ft_here_doc.c //
 int			here_doc(t_section *arv, int check);
+void		mini_type_3_4(t_section *now);
 
 // ft_puterror.c //
 void		send_error(int n, char *str);

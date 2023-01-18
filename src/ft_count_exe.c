@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 11:13:31 by alsanche          #+#    #+#             */
-/*   Updated: 2022/12/29 13:57:57 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2023/01/18 17:01:10 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,5 +117,4 @@ void	set_up_comand(void)
 			aux = add_comand(aux, new);
 		}
 	}
-	g_mini->fd_in = STDIN_FILENO;
 }

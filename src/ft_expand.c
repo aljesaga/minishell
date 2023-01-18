@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/03 17:47:51 by alsanche          #+#    #+#             */
-/*   Updated: 2023/01/12 15:46:26 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2023/01/18 16:59:03 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,4 +102,31 @@ char	*str_expand(char *str)
 		}
 	}
 	return (end);
+}
+
+void	mini_check_fd(t_section *now)
+{
+	char	*temp;
+
+	if (now->type == 1)
+	{
+		if (now->next->str[0] != '/')
+			temp = ft_strjoin("./", now->next->str);
+		if (access(temp, F_OK))
+		{
+			printf("%s: No such file or directory\n", now->next->str);
+			free(temp);
+		}
+		if (g_mini->fd_in != STDIN_FILENO)
+			close(g_mini->fd_in);
+		g_mini->fd_in = open(now->next->str, O_RDONLY, 0644);
+	}
+	else if (now->type == 2)
+	{
+		if (g_mini->fd_in != STDIN_FILENO)
+			close(g_mini->fd_in);
+		g_mini->fd_in = here_doc(now, now->next->here_expand);
+	}
+	else
+		mini_type_3_4(now);
 }

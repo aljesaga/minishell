@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 18:06:28 by alsanche          #+#    #+#             */
-/*   Updated: 2023/01/12 17:20:24 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2023/01/18 17:36:54 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ static int	ft_here_doc(char *arv, char *file, int check)
 	char	*temp;
 
 	fd = open(file, O_RDWR | O_APPEND);
+	if (fd < 0)
+		return (-1);
 	temp = readline("-> ");
 	if (!temp || fd < 0)
 		return (1);
@@ -65,12 +67,12 @@ int	here_doc(t_section *arv, int check)
 	int		fd;
 
 	aux = ft_itoa(arv->num);
-	str = ft_strjoin("/tmp/.temp", aux);
+	str = ft_strjoin("./.temp", aux);
 	free(aux);
-	h_doc = fork();
-	fd = open(str, O_CREAT | O_RDWR | O_TRUNC, 0644);
+	fd = open(str, O_CREAT | O_RDONLY | O_TRUNC, 0644);
 	if (fd < 0)
 		return (-1);
+	h_doc = fork();
 	if (h_doc > 0)
 		g_mini->state = h_doc;
 	else if (h_doc < 0)
@@ -85,7 +87,7 @@ int	here_doc(t_section *arv, int check)
 	return (fd);
 }
 
-static void	mini_type_3_4(t_section *now)
+void	mini_type_3_4(t_section *now)
 {
 	char	*temp;
 
@@ -107,33 +109,4 @@ static void	mini_type_3_4(t_section *now)
 			free(temp);
 		}
 	}
-}
-
-void	mini_check_fd(t_section *now)
-{
-	char	*temp;
-
-	if (now->type == 1)
-	{
-		if (now->next->str[0] != '/')
-			temp = ft_strjoin("./", now->next->str);
-		if (access(temp, F_OK))
-		{
-			printf("%s: No such file or directory\n", now->next->str);
-			free(temp);
-		}
-		if (g_mini->fd_in != STDIN_FILENO)
-			close(g_mini->fd_in);
-		g_mini->fd_in = open(now->next->str, O_RDONLY, 0644);
-		if (g_mini->fd_in < 0)
-			g_mini->fd_in = 0;
-	}
-	else if (now->type == 2)
-	{
-		if (g_mini->fd_in != STDIN_FILENO)
-			close(g_mini->fd_in);
-		g_mini->fd_in = here_doc(now, now->next->here_expand);
-	}
-	else
-		mini_type_3_4(now);
 }

@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 15:25:37 by alsanche          #+#    #+#             */
-/*   Updated: 2023/01/12 16:22:11 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2023/01/18 17:07:41 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ static void	init_childs(t_comand *com, int i)
 		send_error(2, "fork");
 	else
 	{
+		dprintf(2, "comand :: %s\n FD_IN :: %d\n  FD_OUT :: %d\n", com->comand[0], com->fd_in, com->fd_out);
 		signal(SIGINT, sig_redir);
 		if (com->builtin == 1)
 			exit(run_builtin(com));
@@ -90,7 +91,10 @@ static int	built_or_exec(void)
 	ft_reset_main_fd();
 	i = -1;
 	while (++i < g_mini->n_com)
+	{
+		g_mini->state = g_mini->childs[i];
 		waitpid(g_mini->childs[i], &status, 0);
+	}
 	g_mini->state = 0;
 	if (WIFEXITED(status))
 		return (WEXITSTATUS(status));
