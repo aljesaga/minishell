@@ -6,29 +6,34 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 16:52:50 by ioriola           #+#    #+#             */
-/*   Updated: 2022/12/28 13:51:25 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2023/01/19 17:01:07 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-static void	export_print(t_comand *com, char **export)
+static void	export_print(t_comand *com, char **env)
 {
 	int		y;
 	int		x;
+	int		ck;
 
 	y = -1;
-	while (export[++y])
+	while (env[++y])
 	{
-		if (export[y][0] != '\0')
+		ck = 0;
+		if (env[y][0] != '\0')
 		{
 			dprintf(com->fd_out, "declare -x ");
 			x = -1;
-			while (export[y][++x] != '\0')
+			while (env[y][++x] != '\0')
 			{
-				ft_putchar_fd(export[y][x], com->fd_out);
-				if (export[y][x] == '=' || export[y][x + 1] == '\0')
+				ft_putchar_fd(env[y][x], com->fd_out);
+				if (env[y][x] == '=' || (env[y][x + 1] == '\0' && ck == 1))
+				{
+					ck = 1;
 					ft_putchar_fd('"', com->fd_out);
+				}
 			}
 			ft_putchar_fd('\n', com->fd_out);
 		}

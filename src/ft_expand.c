@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/03 17:47:51 by alsanche          #+#    #+#             */
-/*   Updated: 2023/01/18 16:59:03 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2023/01/19 17:13:21 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ char	*str_expand(char *str)
 			&& (ft_isalpha(str[i[0] + 1]) == 1 || str[i[0] + 1] == '?'))
 		{
 			i[1] = expand_name(&str[++i[0]]);
-			end = expand_chr(&str[i[0]], end, i[1]);
+			end = expand_chr(&str[i[0]], end, i[1] + 1);
 			i[0] += i[1];
 			if (str[i[0]] == '\0')
 				break ;

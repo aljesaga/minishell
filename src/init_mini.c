@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 17:03:58 by ioriola           #+#    #+#             */
-/*   Updated: 2022/12/28 13:32:35 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2023/01/19 17:15:27 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	init_mini(char **env)
 	{
 		env = ft_split("PWD=/Users/alsanche/minishell:SHLVL=1:OLDPWD", ':');
 		env_collec(env);
-		free(env);
+		free_split(env);
 	}
 	else
 		env_collec(env);
