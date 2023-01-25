@@ -6,7 +6,7 @@
 /*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 16:34:11 by ioriola           #+#    #+#             */
-/*   Updated: 2022/12/28 13:58:28 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2023/01/25 12:49:04 by alsanche         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,17 +42,13 @@ void	unset_mini(void)
 	}
 }
 
-int	ft_unset(char *str)
+int	check_unset(t_env *aux, char *id)
 {
-	t_env	*aux;
 	t_env	*temp;
-	char	*id;
 
-	aux = g_mini->env;
-	id = ft_strjoin(str, "=");
 	while (aux && aux->next)
 	{
-		if (!ft_strncmp(aux->next->value, id, ft_strlen(id)))
+		if (!ft_strncmp(aux->next->value, id, ft_strlen(id) + 1))
 		{
 			temp = aux->next;
 			if (temp->next == NULL)
@@ -62,11 +58,28 @@ int	ft_unset(char *str)
 			free(temp->value);
 			free(temp);
 			g_mini->n_env--;
-			free(id);
 			return (0);
 		}
 		aux = aux->next;
 	}
-	free(id);
 	return (1);
+}	
+
+int	ft_unset(char *str)
+{
+	t_env	*aux;
+	char	*id;
+	int		out;
+
+	aux = g_mini->env;
+	id = ft_strjoin(str, "=");
+	out = check_unset(aux, id);
+	if (out == 1)
+	{
+		free(id);
+		id = ft_strjoin(str, "\0");
+		out = check_unset(aux, id);
+	}
+	free(id);
+	return (out);
 }
