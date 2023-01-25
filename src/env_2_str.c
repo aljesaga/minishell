@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_2_str.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsanche <alsanche@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: ioriola <ioriola@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/24 11:18:06 by alsanche          #+#    #+#             */
-/*   Updated: 2022/12/28 13:44:29 by alsanche         ###   ########lyon.fr   */
+/*   Updated: 2023/01/25 10:33:24 by ioriola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ static char	*str_path(char **enpv)
 	while (enpv[i])
 	{
 		if (enpv[i][0] == 'P' && enpv[i][1] == 'A'
-			&& enpv[i][2] == 'T' && enpv[i][3] == 'H')
-			return (enpv[i]);
+			&& enpv[i][2] == 'T' && enpv[i][3] == 'H' && enpv[i][4] == '=')
+			return (&enpv[i][5]);
 		i++;
 	}
 	return (NULL);
