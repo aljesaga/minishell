@@ -18,7 +18,7 @@ static char	*clean(char *str)
 	int		j;
 	int		i;
 
-	if (str[0] == 34 && str[1] == 34 && str[2] == '\0')
+	if (str && str[0] == 34 && str[1] == 34 && str[2] == '\0')
 		return (ft_strdup(""));
 	aux = malloc(sizeof(char) * ((ft_strlen(str) - 2) + 1));
 	i = -1;

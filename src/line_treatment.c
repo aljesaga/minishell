@@ -74,7 +74,7 @@ int	check_quotes(char *line)
 
 	i = -1;
 	g_mini->quotes = 0;
-	if (line[0] == 34 && line[1] == 34)
+	if (line && line[0] == 34 && line[1] == 34)
 		return (0);
 	while (line[++i])
 	{
@@ -100,7 +100,7 @@ void	ft_line_treatment(char *line)
 
 	j = 0;
 	limit = 0;
-	while (line[j] != '\0')
+	while (line && line[j] != '\0')
 	{
 		while (line[j] == ' ')
 			j++;

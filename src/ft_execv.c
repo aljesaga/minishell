@@ -89,7 +89,7 @@ static int	built_or_exec(void)
 	}
 	ft_reset_main_fd();
 	i = -1;
-	while (++i < g_mini->n_com)
+	while (++i < g_mini->n_com && g_mini->childs[i])
 	{
 		g_mini->state = g_mini->childs[i];
 		waitpid(g_mini->childs[i], &status, 0);
